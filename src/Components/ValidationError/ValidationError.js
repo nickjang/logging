@@ -1,0 +1,21 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+class ValidationError extends Component {
+  render() {
+    if (!this.props.message) return null;
+    return <label htmlFor={this.props.errorFor} className='validation-error'></label>;
+  }
+}
+
+ValidationError.defaultProps = {
+  errorFor: '',
+  message: ''
+}
+
+ValidationError.propTypes = {
+  errorFor: PropTypes.string.isRequired,
+  message: PropTypes.string
+}
+
+export default ValidationError;

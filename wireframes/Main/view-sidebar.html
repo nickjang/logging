@@ -1,0 +1,48 @@
+<body>
+  <header>
+    <nav>
+      <h1><Link to='/'>Logo</Link></h1>
+      <Link to='/view'>View</Link>
+      <hr>
+    </nav>
+    <Link to='/settings'>
+      <img src='' alt='The user\' s profile picture.' />
+    </Link>
+  </header>
+  <main>
+    <aside class='sidebar'>
+      <output form='sidebar-form' className='form-status'>{this.state.fetchError} || (this.state.loading && 'Loading...')}</output>
+      <!--Message on initial get request-->
+      <!--get request for log data from api for everytime select new items or keep all data in state from initial get request?-->
+      <p class='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
+      <button type='submit' form='sidebar-form'>View Selected</button>
+      <p class='note'>Overlapping logs will be counted once</p>
+      <form action='' id='sidebar-form'>
+        <!--scroll so view button stays in view-->
+        <ul>
+          <li>
+            <h3>Project 1</h3>
+            <fieldset class='group-row'>
+              <input type='button' value='select-all' aria-label='Select the entire project'>+ Select All</input>
+              <input type='button' value='years' aria-label='Make a selection for a year or year range'>+ Year(s)</input>
+              <input type='button' value='months' aria-label='Make a selection for a month or month range'>+ Month(s)</input>
+              <input type='button' value='days' aria-label='Make a selection for a day or date range'>+ Day(s)</input>
+            </fieldset>
+            <ul class='selected' role='presentation'>
+              <!--on view, combine times and get logs without overlap-->
+              <li class='group-row'>
+                <DatePicker />
+                <span>to</span>
+                <input type='button'
+                  aria-label='Make the selection a range by adding an ending {year, month, day}' />+</input>
+                <input type='button' id='id' value='09/20/20 - 09/21/2020'
+                  aria-label='Delete this selection' />x</input>
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+      </form>
+    </aside>
+  </main>
+</body>

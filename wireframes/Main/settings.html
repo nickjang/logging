@@ -1,0 +1,27 @@
+<body>
+  <header>
+    <nav>
+      <h1><Link to='/'>Logo</Link></h1>
+      <Link to='/view'>View</Link>
+      <hr>
+    </nav>
+    <Link to='/settings'>
+      <img src='' alt='The user\' s profile picture.' />
+    </Link>
+  </header>
+  <main>
+    <h2>Settings</h2>
+    <section>
+      <h3>Account Settings</h3>
+      <output form='account-settings-form'>Current Email: email@email.com</output>
+      <form id='account-settings-form'>
+        <label for='new-email'>New email:</label>
+        <input type='email' id='new-email' name='new-email' />
+        <label for='new-password'>New password:</label>
+        <input type='password' id='new-password' name='new-password' />
+        <button type='submit' form='account-settings-form'>Save</button>
+        <button type='reset' form='account-settings-form'>Delete Account</button>
+      </form>
+    </section>
+  </main>
+</body>

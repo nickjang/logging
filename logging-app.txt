@@ -2,6 +2,14 @@ ln
 
 Logging App
 
+https://react-day-picker.js.org/examples/selected-multiple, 
+store logs in utc format, 
+put format settings(by day and list of log id's with their format setting, 
+patch only the day (better than patch each id?) in context so when user logs in response from api puts in context, 
+add select month range, and add multiple, or add date range and close or add as list, or add select day, 
+put to repo, 
+moment npm
+
 --------------------------------------------------------------------------------
 
 An application for logging start and stop times. Customize exports and notifications, organize related logs into records, leave notes, and view past logs.
@@ -27,7 +35,8 @@ An application for logging start and stop times. Customize exports and notificat
 				  adjusted, or formated in a combined view of the logs. 
 			- Main content:
 				- Display the sources of the logs in the header: 
-				- Display a combined view of the logs from the sources selected in the side bar
+					- Display a combined view of the logs from the sources selected in the side bar
+					- Rename the project. Name also changes in side bar while renaming.
 				- Adjust and Format times :
 					- Can be done by highlighting (selecting) or clicking any part of the page when viewing logs on the main page or the page for a particular folder/year/month/day
 						- Selects the bookmark on the line
@@ -39,6 +48,8 @@ An application for logging start and stop times. Customize exports and notificat
 					- Adjust to the nearest 1, 2, 3, 5, 10, 15, 30 minute mark
 					- Format to the day, hour, minute, second, or millisecond
 					- (Account permission feature?) -> Change start and stop times
+					- Combine projects
+						- Logs occuring at the same time will be combined as one.
 				- Export:
 					- Format times
 					- Settings
