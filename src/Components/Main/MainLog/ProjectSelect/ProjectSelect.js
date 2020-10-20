@@ -17,10 +17,14 @@ class ProjectSelect extends Component {
   }
 
   projectRef = React.createRef();
+  newProjectRef = React.createRef();
 
   handleNewButtonClick = (e) => {
     e.preventDefault();
-    this.setState({ newProject: { new: true, value: '', touched: false } });
+    this.setState(
+      { newProject: { new: true, value: '', touched: false } },
+      () => { if (this.newProjectRef) this.newProjectRef.current.focus() }
+    );
   }
 
   handleSubmitNew = (e) => {
@@ -77,6 +81,7 @@ class ProjectSelect extends Component {
           type='text'
           id='new-project'
           name='new-project'
+          ref={this.newProjectRef}
           placeholder='Enter a new project title.'
           aria-label='Enter a new project title:'
           onChange={(e) => this.updateNewProject(e.target.value)} />

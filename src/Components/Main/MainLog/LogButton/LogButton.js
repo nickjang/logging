@@ -14,11 +14,14 @@ class LogButton extends Component {
     }
   }
 
-  //component did mount: fetch whether logging still.
+  componentDidMount() {
+    //fetch, logging project still?
+  }
 
   startStopLog = () => {
     //if start, fetcherror/logging, fetch, setstate start // if never stop
     //if stop, fetcherror/logging, fetch, setstate stop, add log to MainLog state for main log list 
+
   }
 
   render() {

@@ -2,13 +2,35 @@ ln
 
 Logging App
 
-https://react-day-picker.js.org/examples/selected-multiple, 
 store logs in utc format, 
 put format settings(by day and list of log id's with their format setting, 
 patch only the day (better than patch each id?) in context so when user logs in response from api puts in context, 
 add select month range, and add multiple, or add date range and close or add as list, or add select day, 
 put to repo, 
 moment npm
+error boundary
+
+fetch:
+-login/sign up
+//loading/error
+// api validate and get projects only. get format and logs on view page click
+// set context with account
+-log button
+//component did mount: fetch, logging project still? 
+startStopLog = () => {
+//if start, fetcherror/logging, fetch, setstate start // if never stop
+//if stop, fetcherror/logging, fetch, setstate stop, add log to MainLog state for main log list 
+-new project 
+//fetch(put)
+// add to state/context
+-format log
+//formatting/error
+//context get project
+//get selected logs from state
+//fetch(put)
+// apply format to selected logs, or get from api and setState in main log or loglist with updated logs
+//save format as last format in state
+--
 
 --------------------------------------------------------------------------------
 
