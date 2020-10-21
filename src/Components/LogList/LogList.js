@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formatLog } from '../FormatLog/FormatLog';
+import { formatLog } from '../Formatter/formatLog';
 
 import 'LogList.css';
 

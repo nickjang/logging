@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FormatLog extends Component {
+class Formatter extends Component {
   state = {
     min: null,
     sec: null,
@@ -72,12 +72,6 @@ class FormatLog extends Component {
   }
 }
 
-const formatLog = (log, format) => {
-  //apply format to log
-  return log;
-}
-
 export default {
-  FormatLog,
-  formatLog
+  Formatter
 };
