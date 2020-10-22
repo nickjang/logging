@@ -57,7 +57,7 @@ class LogList extends Component {
     let selected = [...this.state.selected];
 
     if (this.state.shiftPressing) {
-      // If firstInteracted exists, select based on firstInteracted
+      // if firstInteracted exists, select based on firstInteracted
       if (this.state.firstInteracted.id) {
         if (this.state.firstInteracted.isSelected) {
           if (isSelected) return;
@@ -67,7 +67,7 @@ class LogList extends Component {
           selected = selected.filter(log => log !== id);
           this.setState({ selected });
         }
-      // If firstInteracted doesn't exist, select/unselect option Sand set it as firstInteracted
+      // if firstInteracted doesn't exist, select/unselect option and set it as firstInteracted
       } else {
         if (isSelected) selected = selected.filter(log => log !== id);
         else selected.push(id);

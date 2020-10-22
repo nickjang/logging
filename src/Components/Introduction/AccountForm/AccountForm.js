@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AccountInput from '../../AccountInput/AccountInput';
-import './Login.css';
+import './AccountForm.css';
 
-class Login extends Component {
+class AccountForm extends Component {
   state = {
     email: {
       value: '',
@@ -95,12 +95,12 @@ class Login extends Component {
   }
 }
 
-Login.defaultProps = {
+AccountForm.defaultProps = {
   type: 'login'
 }
 
-Login.propTypes = {
+AccountForm.propTypes = {
   type: PropTypes.oneOf(['login', 'sign-up'])
 }
 
-export default withRouter(Login);
+export default withRouter(AccountForm);

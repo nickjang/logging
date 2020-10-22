@@ -1,115 +1,62 @@
 import React, { Component } from 'react';
-import ExportOption from '../ExportOption/ExportOption';
+import ProjectPicker from '../ProjectPicker/ProjectPicker';
 
-class Exporter extends Component {
+class SideBar extends Component {
   state = {
-    orientation: '',
-    selectedOptions: [],
-    exporting: false,
+    loading: false,
     fetchError: {
       code: '',
       message: ''
     }
   }
 
-  orientationRef = React.createRef();
+  // fetchProjectsORAllProjectsAndLogs() {}
+  // if user enters site from viewpage, 
+  // fetch project or all projects and logs to load sidebar
 
-  updateOrientation = (orientation) => {
-    this.setState({ orientation });
-  }
+  // fetchLogs() {}
+  // if all logs not loaded in App already, see handlesubmit below
 
-  updateSelectedOptions = (option) => {
-    this.setState({ 
-      selectedOptions: [...this.state.selectedOptions, option] 
-    });
-  }
-
+  /* if not loading all logs, fetch logs on submit*/
   handleSubmit = (e) => {
     e.preventDefault();
-    //exporting/error
-    //this.props.exportLogs(orientation, selectedOptions)
-  }
+    //loading/error
+    //use picked context to store picked, and fetch logs of picked;
 
-  /**
-   * Render radio button for row and column
-   * options.
-   */
-  renderOrientationOptions = () => {
-    return ['As columns', 'As rows']
-      .map(option => {
-        return (
-          <ExportOption
-            key={option}
-            type='radio'
-            ref={this.orientationRef}
-            option={option}
-            name='orientation'
-            form='export-form'
-            selected={this.state.orientation}
-            update={this.updateOrientation}
-            role='presentation' />
-        );
-      });
-  }
+    //otherwise, remove handlesubmit and view selected button,
+    //and put picked context in viewmain page and store picked there
+    //and update main page on picked update.
+    //--------------------------------------------------
+    //if store all projects and logs in app, add newly created logs to inital fetch of all logs
+    //and pass all projects and logs to view main page,
+    //but also passes and stores all projects and logs to log main page
 
-  /**
-   * Render checkbox for each export format.
-   */
-  renderExportOptions = () => {
-    const exportOptions = [
-      'Excel', 'SQL', 'Dataframe',
-      'TXT', 'Array', 'Formatted String',
-      'Object', 'CSV', 'JSON'
-    ].map(option => {
-      return (
-        <ExportOption
-          key={option}
-          type='checkbox'
-          option={option}
-          name='export-options'
-          form='export-form'
-          selected={this.state.selectedOptions}
-          update={this.updateSelectedOptions}
-          role='gridcell' />
-      );
-    });
-
-    // Position checkboxes into rows
-    let rows = [];
-    let perRow = 3;
-    for (let i = 0; i < exportOptions.length; i += perRow) {
-      rows.push(
-        <div class='group-row' role='row'>
-          exportOptions.slice(i, i + perRow)
-        </div>
-      );
-    }
-    return rows;
+    //if store just projects in app, fetch newly created logs when clicking logmain page,
+    //and include viewselectedbutton and fetch logs when clicking view button in sidebar,
+    //but need to fetch logs each time click view and can't deactivate days there's no logs
   }
 
   render() {
+    const projects = this.props.projects.map(project => 
+      <ProjectPicker key={project.id} />
+    );
     return (
-      <section class='export-logs'>
-        <output form='export-form' className='form-status'>{this.state.fetchError.message || (this.state.exporting && 'Exporting...')}</output>
-        <div class='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
-          <h3 id='export-heading'>Export Logs</h3>
-          <fieldset class='group-column'>
-            {this.renderOrientationOptions()}
-          </fieldset>
-        </div>
-        <form action='' id='export-form' class='group-column' role='grid' aria-labelledby='export-heading'>
-          {this.renderExportOptions()}
-          <button
-            type='submit'
-            form='export-form'
-            onClick={(e) => { this.handleSubmit(e) }}
-            disabled={this.state.orientation || this.state.selectedOptions.length}
-          > Export
-          </button>
-        </form>
-      </section>
+      <aside class='sidebar'>
+        <output form='sidebar-form' className='form-status'>{this.state.fetchError || (this.state.loading && 'Loading projects...')}</output>
+        {/* fetch projects if not already fetch on log in -- but will log in be saved on refresh?*/}
+        {/* also for getting logs if all logs not stored in state*/}
+        <p class='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
+        <button type='submit' form='sidebar-form' onClick={(e) => { this.handleSubmit(e) }}>View Selected</button>
+        <p class='note'>Overlapping logs will be counted once</p>
+        <form action='' id='sidebar-form'>
+          {/*<!--add scroll so view button stays in view-->*/}
+          <ul>
+            {projects}
+          </ul>
+        </form >
+      </aside >
     );
   }
 }
 
-export default Exporter;
+export default SideBar;

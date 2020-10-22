@@ -50,7 +50,7 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.oneOf(['welcome, main, login']).isRequired
 }
 
 export default Header;
