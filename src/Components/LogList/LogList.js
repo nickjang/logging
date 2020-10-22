@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatLog } from '../Formatter/formatLog';
-
-import 'LogList.css';
+import './LogList.css';
 
 class LogList extends Component {
   state = {

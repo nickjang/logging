@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
-import 'ProjectSelect.css';
+import './ProjectSelect.css';
 
 class ProjectSelect extends Component {
   handleSignUpClick = (e) => {

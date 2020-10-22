@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ValidationError from '../../ValidationError/ValidationError';
+import './AccountInput.css';
 
 class AccountInput extends Component {
   render() {

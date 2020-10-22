@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ValidationError from '../../../ValidationError/ValidationError';
+import ValidationError from '../../ValidationError/ValidationError';
+import './ProjectSelect.css';
 
 class ProjectSelect extends Component {
   state = {

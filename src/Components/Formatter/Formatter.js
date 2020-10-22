@@ -72,6 +72,4 @@ class Formatter extends Component {
   }
 }
 
-export default {
-  Formatter
-};
+export default Formatter;

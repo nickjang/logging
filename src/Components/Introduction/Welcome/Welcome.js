@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
-import 'Welcome.css';
+import './Welcome.css';
 
 class Welcome extends Component {
   handleNext = (e) => {

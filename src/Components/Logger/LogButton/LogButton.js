@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './LogButton.css';
 
 class LogButton extends Component {
   state = {

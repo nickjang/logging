@@ -9,6 +9,7 @@ add select month range, and add multiple, or add date range and close or add as 
 put to repo, 
 moment npm
 error boundary
+Link/log/view with project select/picked
 
 fetch:
 -login/sign up

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import 'Header.css';
+import './Header.css';
 
 class Header extends Component {
   renderMainHeader = () => {

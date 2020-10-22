@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import MainHeader from '../Components/MainHeader/MainHeader';
-import Overview from '../Pages/Overview';
+import MainHeader from '../Components/Header/Header';
+import Overview from '../Pages/Overview/Overview';
+import './App.css';
 // no context or complex functionality because API
 // reuasability
 // add checkpoints

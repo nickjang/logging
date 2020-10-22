@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AccountInput from '../AccountInput/AccountInput';
-import 'Settings.css';
+import './Settings.css';
 
 class Settings extends Component {
   state = {
@@ -89,13 +89,13 @@ class Settings extends Component {
               form='account-settings-form'
               onClick={(e) => { this.handleSubmit(e) }}
               disabled={this.validateEmail() || this.validatePassword()}
-            >Submit
+            > Submit
             </button>
             <button
               type='reset'
               form='account-settings-form'
               onClick={(e) => { this.handleDeleteAccount(e) }}
-            >Delete Account
+            > Delete Account
             </button>
           </form>
         </section>

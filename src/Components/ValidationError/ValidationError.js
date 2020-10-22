@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './ValidationError.css';
 
 class ValidationError extends Component {
   render() {
