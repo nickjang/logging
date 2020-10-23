@@ -7,7 +7,7 @@ class Overview extends Component {
   render() {
     return (
       <>
-        <Header />
+        <Header type='welcome'/>
         <Welcome />
       </>
     );

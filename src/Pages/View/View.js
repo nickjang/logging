@@ -8,16 +8,42 @@ import SideBar from '../../Components/Viewer/SideBar/SideBar';
 import './View.css';
 
 class View extends Component {
+  state = {
+    currentProjects: [{ id: '', name: '', logIds: [] }],
+    logs: [{ id: '', value: '' }],
+    picked: [
+      {
+        projectId: '',
+        picks: [
+          {
+            id: '',
+            type: 'day',
+            calendar: { value: '00-00-0000', open: false },
+            endRange: { value: '', open: false }
+          }
+        ]
+      }
+    ]
+  };
+
+  mergePicked = () => {
+
+  }
+
+  updateFormat = () => {
+
+  }
+
   render() {
     return (
       <>
-        <Header />
+        <Header type='main' />
         <SideBar />
         <main>
-          <ProjectTitles />
-          <Formatter />
+          <ProjectTitles picked={this.state.picked} projects={this.state.currentProjects} />
+          <Formatter updateFormat={this.updateFormat} />
           <Exporter />
-          <LogList />
+          <LogList logs={this.state.logs} status='' />
         </main>
       </>
     );

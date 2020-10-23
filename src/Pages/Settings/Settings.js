@@ -7,7 +7,7 @@ class Settings extends Component {
   render() {
     return (
       <>
-        <Header />
+        <Header type='main'/>
         <SettingsForm />
       </>
     );

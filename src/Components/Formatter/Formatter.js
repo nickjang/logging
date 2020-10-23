@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Formatter extends Component {
   state = {
@@ -71,5 +72,13 @@ class Formatter extends Component {
     );
   }
 }
+
+Formatter.defaultProps = {
+  updateFormat: ()=>{}
+};
+
+Formatter.propTypes = {
+  updateFormat: PropTypes.func.isRequired
+};
 
 export default Formatter;

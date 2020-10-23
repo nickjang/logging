@@ -14,6 +14,9 @@ class LogList extends Component {
     mouseDown: false
   }
 
+  //flatten picked before getting logs
+  //do that before here so loglist doesn't flatten every rerender
+
   /**
    * Allow dragging over item to select or 
    * unselect it. 

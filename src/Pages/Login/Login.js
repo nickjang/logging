@@ -7,8 +7,8 @@ class Login extends Component {
   render() {
     return (
       <>
-        <Header />
-        <AccountForm />
+        <Header type='login'/>
+        <AccountForm type='login'/>
       </>
     );
   }

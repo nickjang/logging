@@ -7,7 +7,7 @@ class GettingStarted extends Component {
   render() {
     return (
       <>
-        <Header />
+        <Header type='welcome'/>
         <Start />
       </>
     );

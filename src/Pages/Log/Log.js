@@ -4,6 +4,17 @@
 //state: logs with their formats
 //state: selected log id
 
+/*
+keep state in a single object or obbject in a single context, 
+not seprate log and project in different
+
+arrayofproject and array of logs-->and is only of current project, 
+context will only hold logs for whetever logs of project is currently selected. 
+and can filter for selected logs if needed.
+
+setProject(projectid) fetches logs
+*/
+
 import React, { Component } from 'react';
 import Header from '../../Components/Header/Header';
 import LoggerForm from '../../Components/Logger/LoggerForm/LoggerForm';

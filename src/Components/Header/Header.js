@@ -23,6 +23,9 @@ class Header extends Component {
     return (
         <header>
           <Link to='/welcome'><h1>Logo</h1></Link>
+          <nav>
+            <Link to='/sign-up'>Sign Up</Link>
+          </nav>
         </header>
     );
   }
