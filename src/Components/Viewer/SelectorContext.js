@@ -2,9 +2,9 @@ import React from 'react'
 
 export default React.createContext({
   addProject: ()=>{},
-  addPicked: ()=>{},
-  deletePicked: () => {},
+  addSelector: ()=>{},
   addEndRange: () => {},
-  updatePicked: () => {},
+  deleteSelector: () => {},
+  updateSelector: () => {},
   updateEndRange: () => {}
 });

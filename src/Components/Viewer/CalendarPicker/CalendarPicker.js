@@ -16,19 +16,19 @@ class CalendarPicker extends Component {
 }
 
 CalendarPicker.defaultProps = {
-  pickedId: '',
+  selectorId: '',
   type: '',
   value: '',
   open: false,
-  updatePicked: () => {}
+  updateSelector: () => {}
 }
 
 CalendarPicker.propTypes = {
-  pickedId: PropTypes.string.isRequired,
+  selectorId: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['project', 'year', 'month', 'day']).isRequired,
   value: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
-  updatePicked: PropTypes.func.isRequired
+  updateSelector: PropTypes.func.isRequired
 }
 
 export default CalendarPicker;

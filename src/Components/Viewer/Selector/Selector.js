@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CalendarPicker from '../CalendarPicker/CalendarPicker'
-import PickedContext from '../PickedContext';
-import './Picked.css';
+import SelectorContext from '../SelectorContext';
+import './Selector.css';
 
-class Picked extends Component {
-  static contextType = PickedContext;
+class Selector extends Component {
+  static contextType = SelectorContext;
 
   handleDelete = (e) => {
     e.preventDefault();
-    this.context.deletePicked(this.props.id);
+    this.context.deleteSelector(this.props.id);
   }
 
   handleAddRange = (e) => {
@@ -25,11 +25,11 @@ class Picked extends Component {
     return (
       <>
         <CalendarPicker 
-          pickedId={this.props.id}
+          selectorId={this.props.id}
           type={this.props.type} 
           value={this.props.calendar.value} 
           open={this.props.calendar.open}
-          updatePicked={this.context.updatePicked} />
+          updateSelector={this.context.updateSelector} />
         <span>to</span>
         {
           !this.props.endRange.value && !this.props.endRange.open  ?
@@ -39,11 +39,11 @@ class Picked extends Component {
               onClick={(e) => this.handleAddRange}
             >+</input> :
             <CalendarPicker 
-              pickedId={this.props.id}
+              selectorId={this.props.id}
               type={this.props.type} 
               value={this.props.endRange.value} 
               open={this.props.endRange.open}
-              updatePicked={this.context.updateEndRange} />
+              updateSelector={this.context.updateEndRange} />
         }
       </>
     );
@@ -64,7 +64,7 @@ class Picked extends Component {
   };
 }
 
-Picked.defaultProps = {
+Selector.defaultProps = {
   id: '',
   type: '',
   calendar: {
@@ -77,7 +77,7 @@ Picked.defaultProps = {
   }
 }
 
-Picked.propTypes = {
+Selector.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['project', 'year', 'month', 'day']).isRequired,
   calendar: PropTypes.shape({
@@ -90,4 +90,4 @@ Picked.propTypes = {
   })
 }
 
-export default Picked;
+export default Selector;

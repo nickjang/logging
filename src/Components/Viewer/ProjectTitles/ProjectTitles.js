@@ -17,15 +17,15 @@ class ProjectTitles extends Component {
   /**
    * Generate titles for each selected project 
    * and it's filters, if it has any.
-   * @param {array} picked - Filters to search logs by, grouped by project.
+   * @param {array} selectors - Selectors grouped by project.
    * @param {array} projectNames - Map of project ids to project names.
    */
-  generateProjectTitles = (picked, projectNames) => {
-    return picked.map(project => {
-      const titles = project.picks.map(pick =>
-        <span class='pick-title'>
-          {pick.calendar.value + 
-          (pick.endRange.value ? `- ${pick.endRange.value}` : '')}
+  generateProjectTitles = (selectors, projectNames) => {
+    return selectors.map(project => {
+      const titles = project.selectors.map(selector =>
+        <span class='selector-title'>
+          {selector.calendar.value + 
+          (selector.endRange.value ? `- ${selector.endRange.value}` : '')}
         </span>
       );
 
@@ -40,8 +40,8 @@ class ProjectTitles extends Component {
 
   render() {
     const projectNames = this.mapProjectIdsToNames(this.props.projects);
-    // generate titles for each picked project and it's picks
-    const titles = this.generateProjectTitles(this.props.picked, projectNames);
+    // generate titles for each project and it's selectors
+    const titles = this.generateProjectTitles(this.props.selectors, projectNames);
 
     return (
       <h2>
@@ -52,12 +52,12 @@ class ProjectTitles extends Component {
 }
 
 ProjectTitles.defaultProps = {
-  picked: [],
+  selectors: [],
   projects: []
 }
 
 ProjectTitles.propTypes = {
-  picked: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectors: PropTypes.arrayOf(PropTypes.object).isRequired,
   projects: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 

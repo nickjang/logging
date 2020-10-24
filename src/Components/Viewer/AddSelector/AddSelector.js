@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PickedContext from '../PickedContext';
-import './TypePicker.css';
+import SelectorContext from '../SelectorContext';
+import './Selector.css';
 
-class TypePicker extends Component {
-  static contextType = PickedContext;
+class Selector extends Component {
+  static contextType = SelectorContext;
 
   handleClick = (e) => {
     e.preventDefault();
-    this.context.addPicked(this.props.type);
+    this.context.addSelector(this.props.type);
   }
 
   render() {
@@ -24,16 +24,16 @@ class TypePicker extends Component {
   };
 }
 
-TypePicker.defaultProps = {
+Selector.defaultProps = {
   type: '',
   label: '',
   button: ''
 }
 
-TypePicker.propTypes = {
+Selector.propTypes = {
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   button: PropTypes.string.isRequired
 }
 
-export default TypePicker;
+export default Selector;

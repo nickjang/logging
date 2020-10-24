@@ -16,6 +16,8 @@ class LogList extends Component {
 
   //flatten picked before getting logs
   //do that before here so loglist doesn't flatten every rerender
+  //logs should be chronological, even from different projects
+  //select logs based on log's start time
 
   /**
    * Allow dragging over item to select or 
