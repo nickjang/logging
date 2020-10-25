@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formatLog } from '../Formatter/formatLog';
+import formatLog from '../Formatter/formatLog';
 import './LogList.css';
 
 class LogList extends Component {
@@ -72,7 +72,7 @@ class LogList extends Component {
           selected = selected.filter(log => log !== id);
           this.setState({ selected });
         }
-      // if firstInteracted doesn't exist, select/unselect option and set it as firstInteracted
+        // if firstInteracted doesn't exist, select/unselect option and set it as firstInteracted
       } else {
         if (isSelected) selected = selected.filter(log => log !== id);
         else selected.push(id);
@@ -93,6 +93,9 @@ class LogList extends Component {
     if (e.keyCode === 16) this.setState({ shiftPressing: false, firstInteracted: '' });
   }
 
+  updateSelectedLogs = (logs) => {
+  }
+
   componentDidMount = () => {
     document.addEventListener('keydown', (e) => this.handleShiftKeyDown(e));
     document.addEventListener('keyup', (e) => this.handleShiftKeyUp(e));
@@ -111,9 +114,9 @@ class LogList extends Component {
     );
 
     return (
-      <section class='logs'>
+      <section className='logs'>
         <h3>Logs</h3>
-        <span className='form-status'>{this.props.status}</span>
+        <span className='form-status'>{this.props.status || 'Please select logs to view from the side bar.'}</span>
         <form action='' id='logs-select-form'>
           {/* only accepts option or optgroup */}
           <select
@@ -123,10 +126,11 @@ class LogList extends Component {
             value={this.state.selected}
             aria-label='Select logs you would like to format. Selected logs can be formatted in any format logs box on the page.'
             aria-required='true'
+            onChange={(e) => this.updateSelectedLogs(e.target.value)}
           >
             {options}
           </select>
-          <div class='curly-brace'>
+          <div className='curly-brace'>
             <img src=''
               alt='The top of a curly brace that show which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
             <img src=''
@@ -135,7 +139,7 @@ class LogList extends Component {
               alt='The bottom of a curly brace that shows which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
           </div>
         </form>
-        <aside class='note'>Logs are automatically updated to their project.</aside>
+        <aside className='note'>Logs are automatically updated to their project.</aside>
       </section>
     );
   }

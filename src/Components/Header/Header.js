@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import LoggingContext from '../../Context/LoggingContext';
 import './Header.css';
 
 class Header extends Component {
+  static contextType = LoggingContext;
+
   renderMainHeader = () => {
     return (
       <header>
@@ -19,17 +21,6 @@ class Header extends Component {
     );
   }
 
-  renderLoginHeader = () => {
-    return (
-        <header>
-          <Link to='/welcome'><h1>Logo</h1></Link>
-          <nav>
-            <Link to='/sign-up'>Sign Up</Link>
-          </nav>
-        </header>
-    );
-  }
-
   renderWelcomeHeader = () => {
     return (
         <header>
@@ -42,18 +33,9 @@ class Header extends Component {
   }
 
   render() {
-    if (this.props.type === 'main') return this.renderMainHeader();
-    if (this.props.type === 'login') return this.renderLoginHeader();
+    if (this.context.account.email) return this.renderMainHeader();
     return this.renderWelcomeHeader();
   }
-}
-
-Header.defaultProps = {
-  type: 'welcome'
-}
-
-Header.propTypes = {
-  type: PropTypes.oneOf(['welcome, main, login']).isRequired
 }
 
 export default Header;

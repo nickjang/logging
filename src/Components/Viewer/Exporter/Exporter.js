@@ -19,9 +19,11 @@ class Exporter extends Component {
   }
 
   updateSelectedOptions = (option) => {
-    this.setState({ 
-      selectedOptions: [...this.state.selectedOptions, option] 
-    });
+    let selectedOptions = this.state.selectedOptions;
+    if (selectedOptions.includes(option))
+      selectedOptions = selectedOptions.filter(selected => selected !== option);
+    else selectedOptions.push(option);
+    this.setState({ selectedOptions });
   }
 
   handleSubmit = (e) => {
@@ -41,11 +43,11 @@ class Exporter extends Component {
           <ExportOption
             key={option}
             type='radio'
-            ref={this.orientationRef}
+            ref={el => this.orientationRef = el}
             option={option}
             name='orientation'
             form='export-form'
-            selected={this.state.orientation}
+            selected={[this.state.orientation]}
             update={this.updateOrientation}
             role='presentation' />
         );
@@ -68,7 +70,6 @@ class Exporter extends Component {
           option={option}
           name='export-options'
           form='export-form'
-          selected={this.state.selectedOptions}
           update={this.updateSelectedOptions}
           role='gridcell' />
       );
@@ -79,8 +80,8 @@ class Exporter extends Component {
     let perRow = 3;
     for (let i = 0; i < exportOptions.length; i += perRow) {
       rows.push(
-        <div class='group-row' role='row'>
-          exportOptions.slice(i, i + perRow)
+        <div key={`export-options-row=${i}`} className='group-row' role='row'>
+          {exportOptions.slice(i, i + perRow)}
         </div>
       );
     }
@@ -89,21 +90,21 @@ class Exporter extends Component {
 
   render() {
     return (
-      <section class='export-logs'>
+      <section className='export-logs'>
         <output form='export-form' className='form-status'>{this.state.fetchError.message || (this.state.exporting && 'Exporting...')}</output>
-        <div class='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
+        <div className='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
           <h3 id='export-heading'>Export Logs</h3>
-          <fieldset class='group-column'>
+          <fieldset className='group-column'>
             {this.renderOrientationOptions()}
           </fieldset>
         </div>
-        <form action='' id='export-form' class='group-column' role='grid' aria-labelledby='export-heading'>
+        <form action='' id='export-form' className='group-column' role='grid' aria-labelledby='export-heading'>
           {this.renderExportOptions()}
           <button
             type='submit'
             form='export-form'
             onClick={(e) => { this.handleSubmit(e) }}
-            disabled={this.state.orientation || this.state.selectedOptions.length}
+            disabled={!this.state.orientation || !this.state.selectedOptions.length}
           > Export
           </button>
         </form>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CalendarPicker from '../CalendarPicker/CalendarPicker'
-import SelectorContext from '../SelectorContext';
+import SelectorContext from '../../../Context/SelectorContext';
 import './Selector.css';
 
 class Selector extends Component {
@@ -24,24 +24,24 @@ class Selector extends Component {
   renderDate = () => {
     return (
       <>
-        <CalendarPicker 
+        <CalendarPicker
           selectorId={this.props.id}
-          type={this.props.type} 
-          value={this.props.calendar.value} 
+          type={this.props.type}
+          value={this.props.calendar.value}
           open={this.props.calendar.open}
           updateSelector={this.context.updateSelector} />
         <span>to</span>
         {
-          !this.props.endRange.value && !this.props.endRange.open  ?
+          !this.props.endRange.value && !this.props.endRange.open ?
             <input
               type='button'
+              value='+'
               aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
-              onClick={(e) => this.handleAddRange}
-            >+</input> :
-            <CalendarPicker 
+              onClick={(e) => this.handleAddRange(e)} /> :
+            <CalendarPicker
               selectorId={this.props.id}
-              type={this.props.type} 
-              value={this.props.endRange.value} 
+              type={this.props.type}
+              value={this.props.endRange.value}
               open={this.props.endRange.open}
               updateSelector={this.context.updateEndRange} />
         }
@@ -55,10 +55,9 @@ class Selector extends Component {
         {this.props.type === 'project' ? this.renderEntireProject() : this.renderDate()}
         <input
           type='button'
-          value={this.props.id}
+          value='x'
           aria-label='Delete this selection'
-          onClick={(e) => this.handleDelete(e)}
-        >x</input>
+          onClick={(e) => this.handleDelete(e)} />
       </li>
     );
   };
@@ -71,7 +70,7 @@ Selector.defaultProps = {
     value: '',
     open: false
   },
-  endRange:  {
+  endRange: {
     value: '',
     open: false
   }

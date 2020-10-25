@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import AccountInput from '../AccountInput/AccountInput';
-import './Settings.css';
+import './AccountForm.css';
 
-class Settings extends Component {
+class AccountForm extends Component {
   state = {
     email: {
       value: '',
@@ -49,53 +51,47 @@ class Settings extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     //loading/error
-    // api 
-    this.context.updateAccount(this.state.email.value, this.state.password.value);
-  }
-
-  handleDeleteAccount = (e) => {
-    e.preventDefault();
-    //loading/error
-    // api
-    this.context.deleteAccount();
-    // Link to welcome/overview
+    // api validate and get projects only. get format and logs on view page click
+    // set context with account
+    // if validation error then don't push, but if validation passes go to '/'
+    this.props.history.push('/');
   }
 
   componentDidMount() {
-    if (this.emailRef) this.emailRef.current.focus();
+    if (this.emailRef.current) this.emailRef.current.focus();
   }
 
   render() {
+    if (this.context.account.email) this.props.history.push('/');
+
+    const title = this.props.type === 'login' ? 'Login' : 'Sign up';
+    const form = this.props.type + '-form';
     return (
       <main>
-        <h2>Settings</h2>
         <section>
-          <h3>Account Settings</h3>
-          <output form='account-settings-form'>{`Current Email: ${this.context.account.email}`}</output>
-          <form id='account-settings-form'>
-            <AccountInput 
-              form='account-settings-form' 
-              type='new-email' 
-              ref={this.emailRef} 
-              validate={this.validateEmail} 
+          <h2>Welcome to the logging app!</h2>
+          <h3>{title}</h3>
+          <output form={form} className='form-status'>{this.state.fetchError.message || (this.state.loading && 'Loading...')}</output>
+          <form action='' id={form}>
+            <AccountInput
+              form='account-settings-form'
+              type='email'
+              inputRef={el => this.emailRef = el}
+              touched={this.state.email.touched}
+              validate={this.validateEmail}
               update={this.updateEmail} />
-            <AccountInput 
-              form='account-settings-form' 
-              type='new-password' 
-              validate={this.validatePassword} 
+            <AccountInput
+              form={form}
+              type='password'
+              touched={this.state.password.touched}
+              validate={this.validatePassword}
               update={this.updatePassword} />
             <button
               type='submit'
-              form='account-settings-form'
+              form={form}
               onClick={(e) => { this.handleSubmit(e) }}
               disabled={this.validateEmail() || this.validatePassword()}
-            > Submit
-            </button>
-            <button
-              type='reset'
-              form='account-settings-form'
-              onClick={(e) => { this.handleDeleteAccount(e) }}
-            > Delete Account
+            > {title}
             </button>
           </form>
         </section>
@@ -104,4 +100,12 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+AccountForm.defaultProps = {
+  type: 'login'
+}
+
+AccountForm.propTypes = {
+  type: PropTypes.oneOf(['login', 'sign-up'])
+}
+
+export default withRouter(AccountForm);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ValidationError from '../../ValidationError/ValidationError';
+import LoggingContext from '../../../Context/LoggingContext';
 import './ProjectSelect.css';
 
 class ProjectSelect extends Component {
@@ -16,6 +17,8 @@ class ProjectSelect extends Component {
       message: ''
     }
   }
+
+  static contextType = LoggingContext;
 
   projectRef = React.createRef();
   newProjectRef = React.createRef();
@@ -56,6 +59,9 @@ class ProjectSelect extends Component {
   }
 
   renderSelect = () => {
+    const options = this.context.projects.map(project =>
+      <option key={project.id} value={project.id}>{project.name}</option>);
+
     return (
       <h2>
         <select
@@ -66,8 +72,7 @@ class ProjectSelect extends Component {
           aria-required='true'
           onChange={(e) => this.props.updateProject(e.target.value)}>
           {/*Automatically selects last logged project in context, or newly created project.*/}
-          <option value='project1'>Project</option>
-          <option value='project2'>Project</option>
+          {options}
         </select>
         <button type='button' onClick={(e) => this.handleNewButtonClick(e)}>New</button>
       </h2>
@@ -110,11 +115,13 @@ class ProjectSelect extends Component {
 }
 
 ProjectSelect.defaultProps = {
-  updateProject: () => { }
+  updateProject: () => { },
+  addNewProject: () => { }
 }
 
 ProjectSelect.propTypes = {
-  updateProject: PropTypes.func.isRequired
+  updateProject: PropTypes.func.isRequired,
+  addNewProject: PropTypes.func.isRequired
 }
 
 export default ProjectSelect;

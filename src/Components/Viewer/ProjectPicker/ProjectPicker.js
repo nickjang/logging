@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Selector from '../Selector/Selector';
 import AddSelector from '../AddSelector/AddSelector';
-import './ProjectPicked.css';
+import './ProjectPicker.css';
 
 class ProjectPicker extends Component {
   render() {

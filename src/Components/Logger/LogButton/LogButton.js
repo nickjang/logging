@@ -7,7 +7,7 @@ class LogButton extends Component {
     log: {
       logging: false,
       start: null,
-      stop: null
+      end: null
     },
     fetchError: {
       code: '',
@@ -19,7 +19,7 @@ class LogButton extends Component {
     //fetch, logging project still?
   }
 
-  startStopLog = () => {
+  startEndLog = () => {
     //if start, fetcherror/logging, fetch, setstate start // if never stop
     //if stop, fetcherror/logging, fetch, setstate stop, add log to MainLog state for main log list 
 
@@ -28,21 +28,19 @@ class LogButton extends Component {
   render() {
     return (
       <>
-        <output className='form-status'>{this.state.fetchError || (this.state.log.logging && 'Logging...')}</output>
-        <input 
-          type='button' 
-          value='start' 
-          aria-label='Start a log.'
-          onClick={(e) => this.startStopLog(e)}
-        >Start/Stop
-        </input>
+        <output className='form-status'>{this.state.fetchError.message || (this.state.log.logging && 'Logging...')}</output>
+        <input
+          type='button'
+          value={this.state.log.logging ? 'End' : 'Start'}
+          aria-label='Start or end a log.'
+          onClick={(e) => this.startEndLog(e)}/>
       </>
     );
   }
 }
 
 LogButton.defaultProps = {
-  addLog: () => {}
+  addLog: () => { }
 }
 
 LogButton.propTypes = {

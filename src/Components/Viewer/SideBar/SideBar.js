@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProjectPicker from '../ProjectPicker/ProjectPicker';
+import LoggingContext from '../../../Context/LoggingContext';
 
 class SideBar extends Component {
   state = {
@@ -9,6 +10,8 @@ class SideBar extends Component {
       message: ''
     }
   }
+
+  static contextType = LoggingContext;
 
   // fetchProjectsORAllProjectsAndLogs() {}
   // if user enters site from viewpage, 
@@ -37,17 +40,17 @@ class SideBar extends Component {
   }
 
   render() {
-    const projects = this.props.projects.map(project => 
+    const projects = this.context.projects.map(project => 
       <ProjectPicker key={project.id} />
     );
     return (
-      <aside class='sidebar'>
-        <output form='sidebar-form' className='form-status'>{this.state.fetchError || (this.state.loading && 'Loading projects...')}</output>
+      <aside className='sidebar'>
+        <output form='sidebar-form' className='form-status'>{this.state.fetchError.message || (this.state.loading && 'Loading projects...')}</output>
         {/* fetch projects if not already fetch on log in -- but will log in be saved on refresh?*/}
         {/* also for getting logs if all logs not stored in state*/}
-        <p class='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
+        <p className='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
         <button type='submit' form='sidebar-form' onClick={(e) => { this.handleSubmit(e) }}>View Selected</button>
-        <p class='note'>Overlapping logs will be counted once</p>
+        <p className='note'>Overlapping logs will be counted once</p>
         <form action='' id='sidebar-form'>
           {/*<!--add scroll so view button stays in view-->*/}
           <ul>

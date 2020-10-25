@@ -4,44 +4,29 @@ import './ProjectTitles.css';
 
 class ProjectTitles extends Component {
   /**
-   * Map project ids to project names.
-   */
-  mapProjectIdsToNames = (projects) => {
-    const projectNames = {};
-
-    projects.forEach(project =>
-      projectNames[project.id] = project.name
-    );
-  }
-
-  /**
    * Generate titles for each selected project 
-   * and it's filters, if it has any.
-   * @param {array} selectors - Selectors grouped by project.
-   * @param {array} projectNames - Map of project ids to project names.
+   * and it's selectors, if it has any.
    */
-  generateProjectTitles = (selectors, projectNames) => {
+  generateProjectTitles = (selectors, projects) => {
     return selectors.map(project => {
       const titles = project.selectors.map(selector =>
-        <span class='selector-title'>
+        <span key={`selector-${selector.id}`} className='selector-title'>
           {selector.calendar.value + 
           (selector.endRange.value ? `- ${selector.endRange.value}` : '')}
         </span>
       );
 
       return (
-        <>
-          <span class='project-title'>{`+ ${projectNames[project.projectId]}`}</span>
+        <React.Fragment key={project.projectId}>
+          <span className='project-title'>{`+ ${projects[project.projectId].name}`}</span>
           {titles}
-        </>
+        </React.Fragment>
       );
     });
   }
 
   render() {
-    const projectNames = this.mapProjectIdsToNames(this.props.projects);
-    // generate titles for each project and it's selectors
-    const titles = this.generateProjectTitles(this.props.selectors, projectNames);
+    const titles = this.generateProjectTitles(this.props.selectors, this.props.projects);
 
     return (
       <h2>
@@ -53,12 +38,12 @@ class ProjectTitles extends Component {
 
 ProjectTitles.defaultProps = {
   selectors: [],
-  projects: []
+  projects: {}
 }
 
 ProjectTitles.propTypes = {
   selectors: PropTypes.arrayOf(PropTypes.object).isRequired,
-  projects: PropTypes.arrayOf(PropTypes.object).isRequired
+  projects: PropTypes.object.isRequired
 }
 
 export default ProjectTitles;

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import './ProjectSelect.css';
+import LoggingContext from '../../Context/LoggingContext';
+import './Start.css';
 
-class ProjectSelect extends Component {
+class Start extends Component {
+  static contextType = LoggingContext;
+
   handleSignUpClick = (e) => {
     e.preventDefault();
     this.props.history.push('/sign-up');
@@ -11,10 +14,12 @@ class ProjectSelect extends Component {
   handleDemoClick = (e) => {
     // Log into demo account
     e.preventDefault();
-    this.props.history.push('/');
+    this.props.history.push('/overview');
   }
 
   render() {
+    if (this.context.account.email) this.props.history.push('/');
+    
     return (
       <main>
         <section>
@@ -28,4 +33,4 @@ class ProjectSelect extends Component {
   }
 }
 
-export default withRouter(ProjectSelect);
+export default withRouter(Start);

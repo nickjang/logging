@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SelectorContext from '../SelectorContext';
-import './Selector.css';
+import SelectorContext from '../../../Context/SelectorContext';
+import './AddSelector.css';
 
 class Selector extends Component {
   static contextType = SelectorContext;
@@ -15,11 +15,9 @@ class Selector extends Component {
     return (
       <input
         type='button'
-        value={this.props.type}
+        value={this.props.button}
         aria-label={this.props.label}
-        onClick={(e) => { this.handleClick(e) }}
-      > {this.props.button}
-      </input>
+        onClick={(e) => { this.handleClick(e) }} />
     );
   };
 }

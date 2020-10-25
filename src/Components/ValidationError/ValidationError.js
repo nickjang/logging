@@ -5,7 +5,7 @@ import './ValidationError.css';
 class ValidationError extends Component {
   render() {
     if (!this.props.message) return null;
-    return <label htmlFor={this.props.errorFor} className='validation-error'></label>;
+    return <label htmlFor={this.props.errorFor} className='validation-error'>{this.props.message}</label>;
   }
 }
 

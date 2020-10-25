@@ -16,27 +16,52 @@ setProject(projectid) fetches logs
 */
 
 import React, { Component } from 'react';
-import Header from '../../Components/Header/Header';
+import { withRouter } from 'react-router-dom';
 import LoggerForm from '../../Components/Logger/LoggerForm/LoggerForm';
 import Formatter from '../../Components/Formatter/Formatter';
 import LogList from '../../Components/LogList/LogList';
-import './View.css';
+import LoggingContext from '../../Context/LoggingContext';
+import formatLog from '../../Components/Formatter/formatLog';
+import './Log.css';
 
 class View extends Component {
-  updateProject = () => {}
+  state = {
+    currentProject: 'example-project-id',
+    logs: [], // logs of the project for the day
+    format: {
+      min: 0,
+      sec: 0,
+      touched: false
+    }
+  }
+  static contextType = LoggingContext;
+
+  updateProject = () => { }
+
+  updateFormat = (type, num) => {
+    let { min, sec } = this.state.format;
+    
+    num = parseInt(num);
+    if (type === 'min') min = num;
+    else if (type === 'sec') sec = num;
+    this.setState({ format: { min, sec, touched: true } });
+  }
+
+  formatLogList = () => {
+    formatLog({}, {}); //formatlogs not log?
+  }
 
   render() {
+    if (!this.context.account.email) this.props.history.push('/overview');
+
     return (
-      <>
-        <Header type='main' />
-        <main>
-          <LoggerForm updateProject={this.updateProject} />
-          <Formatter /> {/* format logs somehow*/}
-          <LogList logs={[]} status=''/>
-        </main>
-      </>
+      <main>
+        <LoggerForm projects={this.context.projects} updateProject={this.updateProject} />
+        <Formatter format={this.state.format} updateFormat={this.updateFormat} formatLogList={this.formatLogList} /> {/* format logs somehow*/}
+        <LogList logs={this.state.logs} status='' />
+      </main>
     );
   }
 }
 
-export default View;
+export default withRouter(View);
