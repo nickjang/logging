@@ -21,14 +21,14 @@ class Start extends Component {
     if (this.context.account.email) this.props.history.push('/');
     
     return (
-      <main>
+      <div>
         <section>
           <p>Create an account, or use the demo account.</p>
           <p>With the demo account, you’ll be able to use the app’s features; however, logs made with the demo account won’t be saved to the server. You’ll also see demo logs already in your view page.</p>
           <button onClick={(e) => { this.handleSignUpClick(e) }}>Sign Up</button>
           <button onClick={(e) => { this.handleDemoClick(e) }}>Demo</button>
         </section>
-      </main>
+      </div>
     );
   }
 }

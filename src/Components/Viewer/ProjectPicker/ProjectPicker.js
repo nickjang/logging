@@ -24,6 +24,7 @@ class ProjectPicker extends Component {
         .map(selectorType => {
           return (
             <AddSelector
+              key={`${this.props.projectId}-add-selector-${selectorType.type}`}
               type='button'
               value={selectorType.type}
               aria-label={selectorType.label}
@@ -33,11 +34,11 @@ class ProjectPicker extends Component {
 
     return (
       <li>
-        <h3>this.props.project</h3>
-        <fieldset class='group-row'>
+        <h3>{this.props.project}</h3>
+        <fieldset className='group-row'>
           {selectorTypes}
         </fieldset>
-        <ul class='selected' role='presentation'>
+        <ul className='selected' role='presentation'>
           {/*on view, combine times and get logs without overlap*/}
           {selectorList}
         </ul >
@@ -47,11 +48,13 @@ class ProjectPicker extends Component {
 }
 
 ProjectPicker.defaultProps = {
+  projectId: '',
   project: '',
-  selectorList: []
+  selectorList: [] // wrong, or something in this file need correct inputs
 }
 
 ProjectPicker.propTypes = {
+  projectId: PropTypes.string.isRequired,
   project: PropTypes.string.isRequired,
   selectorList: PropTypes.arrayOf(PropTypes.object)
 }

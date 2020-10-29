@@ -12,7 +12,7 @@ class ProjectTitles extends Component {
       const titles = project.selectors.map(selector =>
         <span key={`selector-${selector.id}`} className='selector-title'>
           {selector.calendar.value + 
-          (selector.endRange.value ? `- ${selector.endRange.value}` : '')}
+          (selector.endRange.value ? `${selector.endRange.value}` : '')}
         </span>
       );
 
@@ -29,7 +29,7 @@ class ProjectTitles extends Component {
     const titles = this.generateProjectTitles(this.props.selectors, this.props.projects);
 
     return (
-      <h2>
+      <h2 className='project-titles group-col'>
         {titles}
       </h2>
     );

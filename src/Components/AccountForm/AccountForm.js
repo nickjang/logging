@@ -67,7 +67,7 @@ class AccountForm extends Component {
     const title = this.props.type === 'login' ? 'Login' : 'Sign up';
     const form = this.props.type + '-form';
     return (
-      <main>
+      <div>
         <section>
           <h2>Welcome to the logging app!</h2>
           <h3>{title}</h3>
@@ -95,7 +95,7 @@ class AccountForm extends Component {
             </button>
           </form>
         </section>
-      </main>
+      </div>
     );
   }
 }

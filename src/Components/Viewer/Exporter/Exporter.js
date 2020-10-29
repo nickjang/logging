@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ExportOption from '../ExportOption/ExportOption';
+import './Exporter.css';
 
 class Exporter extends Component {
   state = {
@@ -80,7 +81,7 @@ class Exporter extends Component {
     let perRow = 3;
     for (let i = 0; i < exportOptions.length; i += perRow) {
       rows.push(
-        <div key={`export-options-row=${i}`} className='group-row' role='row'>
+        <div key={`export-options-col-${i}`} role='row'>
           {exportOptions.slice(i, i + perRow)}
         </div>
       );
@@ -90,7 +91,7 @@ class Exporter extends Component {
 
   render() {
     return (
-      <section className='export-logs'>
+      <section className='exporter'>
         <output form='export-form' className='form-status'>{this.state.fetchError.message || (this.state.exporting && 'Exporting...')}</output>
         <div className='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
           <h3 id='export-heading'>Export Logs</h3>
@@ -99,7 +100,9 @@ class Exporter extends Component {
           </fieldset>
         </div>
         <form action='' id='export-form' className='group-column' role='grid' aria-labelledby='export-heading'>
-          {this.renderExportOptions()}
+          <fieldset form='export-form' className='group-row'>
+            {this.renderExportOptions()}
+          </fieldset>
           <button
             type='submit'
             form='export-form'

@@ -14,8 +14,12 @@ import './View.css';
 
 class View extends Component {
   state = {
-    currentProjects: { 'example-project-id': { name: '', logIds: [] } },
-    logs: [{ id: '', start: null, end: null }], //sorted by start time //add logs on addSelector, deactivate days there are no logs
+    currentProjects: { 'example-project-id': { name: 'example', logIds: [] } },
+    logs: [
+      { id: 'example-log-id1', start: '10-27-2020 12:00:00', end: '10-27-2020 14:00:00' },
+      { id: 'example-log-id2', start: '10-27-2020 12:00:00', end: '10-27-2020 14:00:00' },
+      { id: 'example-log-id3', start: '10-27-2020 12:00:00', end: '10-27-2020 14:00:00' }
+    ], //sorted by start time //add logs on addSelector, deactivate days there are no logs
     selectors: [
       {
         projectId: 'example-project-id',
@@ -59,7 +63,7 @@ class View extends Component {
    */
   updateLogListFormat = (type, num) => {
     let { min, sec } = this.state.format;
-    
+
     num = parseInt(num);
     if (type === 'min') min = num;
     else if (type === 'sec') sec = num;
@@ -67,10 +71,10 @@ class View extends Component {
   }
 
   /**
-   * Update format for logs
+   * Apply format to logs
    */
-  formatLogList = () => {
-    formatLog({}, {}); //put this function in Formatter/formatLog?
+  formatLogList = (logs) => {
+    return logs; //put this function in Formatter/formatLog?
   }
 
   /**
@@ -81,50 +85,140 @@ class View extends Component {
   }
 
   /**
-   * Format selectors to have a start and end 
-   * range in MM-DD-YYYY format, or format to 
-   * select the entire project. Given an array 
-   * of projects and their selectors.
+   * Sort selectors of project by their start 
+   * days in ascending order
    */
-  formatSelectors = (selectors) => {
+  sortSelectors = (selectors) => {
+    selectors.sort((selector1, selector2) => {
+      if (selector1[0] > selector2[0]) return 1;
+      else if (selector1[0] === selector2[0]) return 0;
+      return -1;
+    });
+  }
+
+  /**
+   * Format a selector to have start and end
+   * range in MM-DD-YYYY format. 
+   */
+  formatSelector = (selector) => {
     const monthDays = {
       '01': '31', '02': '29', '03': '31', '04': '30',
       '05': '31', '06': '30', '07': '31', '08': '31',
       '09': '30', '10': '31', '11': '30', '12': '31'
     }
+    let start = selector.calendar.value;
+    let end = selector.endRange.value || selector.calendar.value;
 
+    if (selector.type === 'year') {
+      start = `$01-01-${start}`;
+      end = `12-31-${end}`;
+    } else if (selector.type === 'month') {
+      start = start.split('-');
+      end = end.split('-');
+      start = `${start[0]}-01-${start[1]}`;
+      end = `${end[0]}-${monthDays.end[0]}-${end[1]}`;
+    }
+    return { start, end };
+  }
+
+  /**
+   * Format selectors to have a start and end 
+   * range in MM-DD-YYYY format, or format to 
+   * select the entire project. Given an array 
+   * of projects and their selectors.
+   */
+  formatSelectors = (selectorsByProject) => {
     let formattedSelectors = {};
-    selectors.forEach(project => {
-      formattedSelectors[project.projectId] = [];
-      for (let i = 0; i < project.selectors.length; i++) {
-        const selector = project.selectors[i];
-        let start = selector.calendar.value;
-        let end = selector.endRange.value || selector.calendar.value;
+
+    for (const projectId in selectorsByProject) {
+      const selectors = selectorsByProject[projectId];
+      // add a new project to the formatted selectors
+      formattedSelectors[projectId] = [];
+      // add the selectors for the project back into the formatted selectors, after formatting
+      for (let i = 0; i < selectors.length; i++) {
+        const selector = selectors[i];
 
         if (this.validateSelector(selector))
           throw new Error('Given invalid filter.');
 
         if (selector.type === 'project') {
-          formattedSelectors[project.projetId] = ['project'];
+          // don't need the other selectors if selecting the entire project
+          formattedSelectors[projectId] = ['project'];
           break;
-        } else if (selector.type === 'year') {
-          start = `$01-01-${start}`;
-          end = `12-31-${end}`;
-        } else if (selector.type === 'month') {
-          start = start.split('-');
-          end = end.split('-');
-          start = `${start[0]}-01-${start[1]}`;
-          end = `${end[0]}-${monthDays.end[0]}-${end[1]}`;
         }
-        formattedSelectors[project.projectId].push([start, end]);
+        const { start, end } = this.formatSelectors(selector);
+        formattedSelectors[projectId].push([start, end]);
       };
-    });
+
+      // sort selectors of project by their start days in ascending order
+      this.sortSelectors(formattedSelectors[projectId]);
+    }
     return formattedSelectors;
   }
 
   /**
-   * Map a log's id to it's project's id.
+   * Get the most recent day of two days.
    */
+  mostRecentDay = (day1, day2) => {
+    if (day1 >= day2) return day1;
+    return day2;
+  }
+
+  mergeSelectors = (selectorsByProject) => {
+    let newSelectorsByProject = {};
+    for (const projectId in selectorsByProject) {
+      newSelectorsByProject[projectId] = [];
+      let selectors = [...selectorsByProject[projectId]];
+      let idx1 = 0, idx2 = 0;
+
+      // if 'project' selector exists, it is the only selector
+      if (selectors[idx1] === 'project') {
+        newSelectorsByProject[projectId] = selectors;
+        break;
+      }
+
+      while (idx2 < selectors.length) {
+        // compare end of first selector to start of second
+        if (selectors[idx1][1] < selectors[idx2][0]) {
+          newSelectorsByProject[projectId].push(selectors[idx1]);
+          idx1++;
+          idx2++;
+        } else {
+          selectors[idx1][1] = this.mostRecentDay(selectors[idx1][1], selectors[idx2][1]);
+          idx2++;
+        }
+      }
+    };
+    return newSelectorsByProject;
+  }
+
+  /**
+   * Get ids of logs filtered by selectors.
+   * Logs and selectors are grouped by project.
+   */
+  getSelectedIds = (selectorsByProject, logsByProject) => {
+    let selectedLogIds = [];
+    for (const projectId in selectorsByProject) {
+      const currLogs = logsByProject[projectId];
+      const currSelectors = selectorsByProject[projectId];
+      let idx1 = 0, idx2 = 0;
+      let start = new Date(currSelectors[idx1].start);
+      let end = new Date(currSelectors[idx1].end);
+      while (idx2 < currLogs.length) {
+        if (currLogs[idx2] >= start && currLogs[idx2] <= end) {
+          selectedLogIds.push(currLogs[idx2].id);
+        } else {
+          idx1++;
+          idx2++;
+        }
+      }
+    };
+    this.setState({ selectedLogIds });
+  }
+
+  /**
+     * Map a log's id to it's project's id.
+     */
   mapIds = (currentProjects) => {
     let idMap = {};
     for (const project in currentProjects) {
@@ -147,67 +241,51 @@ class View extends Component {
 
   /**
    * Get ids of logs filtered by selectors.
-   * Logs and selectors are grouped by project.
    */
-  getSelectedIds = (selectorsByProject, logsByProject) => {
-    let selectedLogIds = [];
-    for (const projectId in selectorsByProject) {
-      const currLogs = logsByProject[projectId];
-      const currSelectors = selectorsByProject[projectId];
-      let idx1 = 0, idx2 = 0;
-      let start = new Date(currSelectors[idx1].start);
-      let end = new Date(currSelectors[idx1].end);
-      while (idx2 < currLogs.length) {
-        if (currLogs[idx2] >= start && currLogs[idx2] <= end) {
-          selectedLogIds.push(currLogs[idx2].id);
-        }
-      }
-    };
-    this.setState({ selectedLogIds });
-  }
+  updateSelectedLogIds = () => {
+    const selectorsByProject = this.formatSelectors(this.state.selectors);
+    const mergedSelectorsByProject = this.mergeSelectors(selectorsByProject);
+    return this.setState({ selectedLogIds: (this.state.logs.map(log => { return log.id })) });
+    // ^ temporarily set selected log ids to all log ids. replace with fetch
+    let logsByProject = this.getLogsByProject(this.state.currentProjects, this.state.logs);
 
-  /**
-   * Get ids of logs filtered by selectors.
-   */
-  updateSelectedLogIds = (selectors, currentProjects, logs) => {
-    let selectedLogIds = {};
-    const formattedSelectors = this.formatSelectors(selectors);
-    let logsByProject = this.getLogsByProject(currentProjects, logs);
-
-    selectedLogIds = this.getSelectedIds(formattedSelectors, logsByProject);
+    const selectedLogIds = this.getSelectedIds(mergedSelectorsByProject, logsByProject);
     this.setState({ selectedLogIds });
   }
 
   /**
    * Get logs given their ids and a list of logs.
    */
-  getLogsFromIds = (logIds, logs) => {
+  getLogsFromIds = () => {
     let selectedLogs = [];
     let logsToSelect = {};
-    logIds.forEach(logId => logsToSelect[logId] = true);
-    selectedLogs = logs.filter(log => logsToSelect[log.id]);
+    this.state.selectedLogIds.forEach(logId => logsToSelect[logId] = true);
+    selectedLogs = this.state.logs.filter(log => logsToSelect[log.id]);
     return selectedLogs;
   }
 
 
   render() {
     if (!this.context.account.email) this.props.history.push('/overview');
-
-    let selectedLogs = this.getLogsFromIds(this.state.selectedLogIds, this.state.logs);
+    let selectedLogs = this.getLogsFromIds();
 
     return (
-      <>
-        <SideBar />
-        <main>
-          <ProjectTitles selectors={this.state.selectors} projects={this.state.currentProjects} />
-          <Formatter
-            format={this.state.format}
-            updateFormat={this.updateLogListFormat}
-            formatLogList={this.formatLogList} />
-          <Exporter />
-          <LogList logs={selectedLogs} />
-        </main>
-      </>
+      <div className='view'>
+        <SideBar viewLogs={this.updateSelectedLogIds} />
+        <div className='view-wrapper'>
+          <div className='view-main'>
+            <ProjectTitles
+              selectors={this.state.selectors}
+              projects={this.state.currentProjects} />
+            <Formatter
+              format={this.state.format}
+              updateFormat={this.updateLogListFormat}
+              formatLogList={this.formatLogList} />
+            <Exporter />
+            <LogList logs={selectedLogs} />
+          </div>
+        </div>
+      </div>
     );
   }
 }

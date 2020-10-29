@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProjectPicker from '../ProjectPicker/ProjectPicker';
 import LoggingContext from '../../../Context/LoggingContext';
+import './SideBar.css';
 
 class SideBar extends Component {
   state = {
+    open: true,
     loading: false,
     fetchError: {
       code: '',
@@ -13,6 +16,10 @@ class SideBar extends Component {
 
   static contextType = LoggingContext;
 
+  handleToggleOpen = () => {
+    this.setState({ open: !this.state.open });
+  }
+
   // fetchProjectsORAllProjectsAndLogs() {}
   // if user enters site from viewpage, 
   // fetch project or all projects and logs to load sidebar
@@ -21,8 +28,9 @@ class SideBar extends Component {
   // if all logs not loaded in App already, see handlesubmit below
 
   /* if not loading all logs, fetch logs on submit*/
-  handleSubmit = (e) => {
+  handleSubmit = (e, viewLogs) => {
     e.preventDefault();
+    viewLogs();
     //loading/error
     //use picked context to store picked, and fetch logs of picked;
 
@@ -40,26 +48,52 @@ class SideBar extends Component {
   }
 
   render() {
-    const projects = this.context.projects.map(project => 
-      <ProjectPicker key={project.id} />
+    const projects = this.context.projects.map(project =>
+      <ProjectPicker
+        key={project.id}
+        projectId={project.id}
+        project={project.name} />
     );
     return (
       <aside className='sidebar'>
-        <output form='sidebar-form' className='form-status'>{this.state.fetchError.message || (this.state.loading && 'Loading projects...')}</output>
-        {/* fetch projects if not already fetch on log in -- but will log in be saved on refresh?*/}
-        {/* also for getting logs if all logs not stored in state*/}
-        <p className='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
-        <button type='submit' form='sidebar-form' onClick={(e) => { this.handleSubmit(e) }}>View Selected</button>
-        <p className='note'>Overlapping logs will be counted once</p>
-        <form action='' id='sidebar-form'>
-          {/*<!--add scroll so view button stays in view-->*/}
-          <ul>
-            {projects}
-          </ul>
-        </form >
+        {this.state.open &&
+          <div className='sidebar-main'>
+            {/* <img src='' alt='A hamburger menu button to open the sidebar.'/> */}
+            <output form='sidebar-form' className='form-status'>{this.state.fetchError.message || (this.state.loading && 'Loading projects...')}</output>
+            {/* fetch projects if not already fetch on log in -- but will log in be saved on refresh?*/}
+            {/* also for getting logs if all logs not stored in state*/}
+            <p className='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
+            <button
+              type='submit'
+              form='sidebar-form'
+              onClick={(e) => { this.handleSubmit(e, this.props.viewLogs) }}
+            > View Selected
+            </button>
+            <p className='note'>Overlapping logs will be counted once</p>
+            <form action='' id='sidebar-form'>
+              {/*<!--add scroll so view button stays in view-->*/}
+              <ul>
+                {projects}
+              </ul>
+            </form >
+          </div>}
+        <button
+          className='open-sidebar'
+          onClick={(e) => this.handleToggleOpen(e, this.state.open)}
+        > {'<'}
+        </button>
       </aside >
+
     );
   }
+}
+
+SideBar.defaultProps = {
+  viewLogs: () => { }
+}
+
+SideBar.propTypes = {
+  viewLogs: PropTypes.func.isRequired
 }
 
 export default SideBar;

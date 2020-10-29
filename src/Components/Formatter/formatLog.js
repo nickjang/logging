@@ -1,4 +1,4 @@
-export default function formatLog (log, format) {
+export default function formatLog (start, end, format) {
   //apply format to log
-  return log;
+  return `${start} - ${end}`;
 };

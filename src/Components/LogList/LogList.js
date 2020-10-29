@@ -106,15 +106,16 @@ class LogList extends Component {
   render() {
     const options = this.props.logs.map(log =>
       <option
+        key={log.id}
         value={log.id}
         onMouseOver={(e) => this.handleMouseOver(e.target.value)}
         onMouseUp={(e) => this.handleMouseUp(e.target.value)}
-      >{formatLog(log.value, log.format)}
+      >{formatLog(log.start, log.end, log.format)}
       </option>
     );
 
     return (
-      <section className='logs'>
+      <section className='log-list'>
         <h3>Logs</h3>
         <span className='form-status'>{this.props.status || 'Please select logs to view from the side bar.'}</span>
         <form action='' id='logs-select-form'>
@@ -130,14 +131,6 @@ class LogList extends Component {
           >
             {options}
           </select>
-          <div className='curly-brace'>
-            <img src=''
-              alt='The top of a curly brace that show which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
-            <img src=''
-              alt='The middle of a curly brace that shows which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
-            <img src=''
-              alt='The bottom of a curly brace that shows which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
-          </div>
         </form>
         <aside className='note'>Logs are automatically updated to their project.</aside>
       </section>

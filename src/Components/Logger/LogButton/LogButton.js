@@ -28,11 +28,12 @@ class LogButton extends Component {
   render() {
     return (
       <>
-        <output className='form-status'>{this.state.fetchError.message || (this.state.log.logging && 'Logging...')}</output>
+        <output className='form-status log-button-status'>{this.state.fetchError.message || (this.state.log.logging && 'Logging...')}</output>
         <input
           type='button'
           value={this.state.log.logging ? 'End' : 'Start'}
           aria-label='Start or end a log.'
+          className='log-button'
           onClick={(e) => this.startEndLog(e)}/>
       </>
     );

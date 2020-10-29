@@ -7,7 +7,7 @@ import './LoggerForm.css';
 class LogForm extends Component {
   render() {
     return (
-      <form action='' id='project-form'>
+      <form action='' id='project-form' className='group-col'>
         <ProjectSelect updateProject={this.props.updateProject} />
         <LogButton />
       </form>

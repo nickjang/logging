@@ -73,7 +73,7 @@ class Settings extends Component {
     if (!this.context.account.email) this.props.history.push('/overview');
 
     return (
-      <main>
+      <div>
         <h2>Settings</h2>
         <section>
           <h3>Account Settings</h3>
@@ -107,7 +107,7 @@ class Settings extends Component {
             </button>
           </form>
         </section>
-      </main>
+      </div>
     );
   }
 }

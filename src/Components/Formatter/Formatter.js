@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './Formatter.css';
 
 class Formatter extends Component {
   state = {
@@ -32,7 +33,7 @@ class Formatter extends Component {
 
   render() {
     return (
-      <section className='format-logs'>
+      <section className='formatter'>
         <h3>Format Logs</h3>
         <output form='format-form' className='form-status'>{this.state.fetchError.message || (this.state.formatting && 'Saving format...')}</output>
         <form action='' id='format-form'>

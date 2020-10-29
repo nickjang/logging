@@ -4,5 +4,5 @@ export default React.createContext({
   account: {
     email: 'email'
   },
-  projects: []
+  projects: [{id: 'example-project-id', name: 'example'}]
 });

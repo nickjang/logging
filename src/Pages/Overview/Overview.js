@@ -15,7 +15,7 @@ class Overview extends Component {
     if (this.context.account.email) this.props.history.push('/');
     
     return (
-      <main>
+      <div>
         <article>
           <h2>Welcome to the logging app!</h2>
           <p>You can create logs by starting and stopping the clock.</p>
@@ -23,7 +23,7 @@ class Overview extends Component {
           <p>Highlight logs you want to adjust or export, also from the View page.</p>
           <button onClick={(e) => { this.handleNext(e) }}>Next</button>
         </article>
-      </main>
+      </div>
     );
   }
 }

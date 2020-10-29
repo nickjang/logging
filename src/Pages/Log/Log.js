@@ -24,23 +24,28 @@ import LoggingContext from '../../Context/LoggingContext';
 import formatLog from '../../Components/Formatter/formatLog';
 import './Log.css';
 
-class View extends Component {
+class Log extends Component {
   state = {
     currentProject: 'example-project-id',
-    logs: [], // logs of the project for the day
+    logs: [
+      { id: 'example-log-id1', start: '10-27-2020 12:00:00', end: '10-27-2020 14:00:00' },
+      { id: 'example-log-id2', start: '10-27-2020 12:00:00', end: '10-27-2020 14:00:00' },
+      { id: 'example-log-id3', start: '10-27-2020 12:00:00', end: '10-27-2020 14:00:00' }
+    ], // logs of the project for the day
     format: {
       min: 0,
       sec: 0,
       touched: false
     }
   }
+
   static contextType = LoggingContext;
 
   updateProject = () => { }
 
   updateFormat = (type, num) => {
     let { min, sec } = this.state.format;
-    
+
     num = parseInt(num);
     if (type === 'min') min = num;
     else if (type === 'sec') sec = num;
@@ -55,13 +60,16 @@ class View extends Component {
     if (!this.context.account.email) this.props.history.push('/overview');
 
     return (
-      <main>
-        <LoggerForm projects={this.context.projects} updateProject={this.updateProject} />
-        <Formatter format={this.state.format} updateFormat={this.updateFormat} formatLogList={this.formatLogList} /> {/* format logs somehow*/}
+      <div>
+        <LoggerForm updateProject={this.updateProject} />
+        <Formatter 
+          format={this.state.format} 
+          updateFormat={this.updateFormat} 
+          formatLogList={this.formatLogList} /> {/* format logs somehow*/}
         <LogList logs={this.state.logs} status='' />
-      </main>
+      </div>
     );
   }
 }
 
-export default withRouter(View);
+export default withRouter(Log);
