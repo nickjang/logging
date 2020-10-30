@@ -1,0 +1,53 @@
+<body>
+  <header>
+    <Link to='/welcome'><h1>Logo</h1></Link>
+  </header>
+  <main>
+    <article>
+      <h2>Welcome to the logging app!</h2>
+      <h3>Login</h3>
+      <output form='login-form' className='form-status'>{this.state.fetchError} || (this.state.loading && 'Loading...')}</output>
+      <form action='' id='login-form'>
+        <fieldset form='login-form' name='email'>
+          <label htmlFor='email'>Email:</label>
+          <label htmlFor='email' className='hint'>* required</p>
+          <input
+            ref={this.emailRef}
+            type='email'
+            id='email'
+            name='email'
+            aria-required='true'
+            aria-describedby='email-description'
+            aria-label='Enter an email:'
+            aria-invalid={!!this.validateEmail()}
+            onChange={(e) => this.updateEmail(e.target.value)}
+          />
+          {this.state.email.touched && <ValidationError id='email-error-message' message={'this.validateFolder()'} />}
+        </fieldset>
+        <fieldset form='login-form' name='password'>
+          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password' className='hint'>* required</p>
+          <input
+            ref={this.passwordRef}
+            type='password'
+            id='password'
+            name='password'
+            aria-required='true'
+            aria-describedby='password-description'
+            aria-label='Enter a password:'
+            aria-invalid={!!this.validatePassword()}
+            onChange={(e) => this.updatePassword(e.target.value)}
+          />
+          {this.state.password.touched && <ValidationError id='password-error-message' message={'this.validateFolder()'} />}
+        </fieldset>
+        <button
+          type='submit'
+          form='login-form'
+          onClick={(e) => {this.handleSubmit(e)}}
+          disabled={this.validateEmail() || this.validatePassword()}
+        > Submit
+        </button>
+      </form>
+    </article>
+  </main>
+</body>
