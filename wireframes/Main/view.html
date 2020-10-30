@@ -1,33 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>HTML wireframe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../index.css">
+</head>
+
 <body>
   <header>
     <nav>
-      <h1><Link to='/'>Logo</Link></h1>
-      <Link to='/view'>View</Link>
-      <hr>
+      <ul class='navigation group-row'>
+        <h1><a href='/'>Logo</a></h1>
+        <a href='/view'>View</a>
+        <a href='/settings'>Settings</a>
+      </ul>
     </nav>
-    <Link to='/settings'>
-      <img src='' alt='The user\' s profile picture.' />
-    </Link>
   </header>
+  <aside class='sidebar'>
+    <p class='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
+    <button type='submit' form='sidebar-form'>View Selected</button>
+    <p class='note'>Overlapping logs will be counted once</p>
+    <form action='' id='sidebar-form'>
+      <ul>
+        <li>
+          <h3>Project 1</h3>
+          <fieldset class='group-row'>
+            <input type='button' value='All' aria-label='Select the entire project'/>
+            <input type='button' value='Year(s)' aria-label='Make a selection for a year or year range'/>
+            <input type='button' value='Month(s)' aria-label='Make a selection for a month or month range'/>
+            <input type='button' value='Day(s)' aria-label='Make a selection for a day or date range'/>
+          </fieldset>
+        </li>
+      </ul>
+    </form>
+  </aside>
   <main>
     <h2>
       <span class='project-title'>+ Project 1</span>
       <span class='project-title'>+ Project 2:</span>
-      <span class='project-selection'>Jan {2-5} 2019</span>
+      <span class='project-selection'>Jan (2-5) 2019</span>
     </h2>
     <section class='format-logs'>
-      <div class='group-row' role='presentation'>
-        <h3>Format Logs</h3>
-        <input type='checkbox' id='export-only' name='export-only' form='format-form' />
-        <label for='export-only'>For export only</label>
-      </div>
+      <h3>Format Logs</h3>
       <form action='' id='format-form'>
         <fieldset form='format-form' name='format-time'>
           <legend>To the nearest multiple of:</legend>
           <time>
             <label for='format-minute'>(min)</label>
             <input type=number id='format-minute' name='minute' placeholder='05' />
-            <!--Deleting input applies no format-->
             <span>:</span>
             <label for='format-second'>(sec)</label>
             <input type=number id='format-second' name='second' placeholder='00' />
@@ -37,7 +59,7 @@
       </form>
     </section>
     <section class='export-logs'>
-      <div class='group-row' role='presentation'> <!--Check how this affects DOM-->
+      <div class='group-row' role='presentation'>
         <h3 id='export-heading'>Export Logs</h3>
         <fieldset class='group-column'>
           <div class='group-row' role='presentation'>
@@ -53,45 +75,34 @@
       <form action='' id='export-form' class='group-column' role='grid' aria-labelledby='export-heading'>
         <div class='group-row' role='row'>
           <div class='group-row' role='gridcell'>
-            <input type='radio' id='row' name='row' form='export-form' />
-            <label for='row'>As rows</label>
+            <input type='radio' id='csv' name='row' form='export-form' />
+            <label for='csv'>CSV</label>
           </div>
           <div class='group-row' role='gridcell'>
-            <input type='radio' id='row' name='row' form='export-form' />
-            <label for='row'>As rows</label>
+            <input type='radio' id='excel' name='row' form='export-form' />
+            <label for='excel'>Excel</label>
           </div>
           <div class='group-row' role='gridcell'>
-            <input type='radio' id='row' name='row' form='export-form' />
-            <label for='row'>As rows</label>
+            <input type='radio' id='json' name='row' form='export-form' />
+            <label for='json'>JSON</label>
           </div>
         </div>
-        <!--x3-->
         <button type='submit' form='export-form'>Export</button>
       </form>
     </section>
     <section class='logs'>
       <h3>Logs</h3>
-      <output form='logs-select-form' className='form-status'>{this.state.fetchError} || (this.state.loading && 'Loading...')}</output>
-      <!--Message on initial get request-->
       <form action='' id='logs-select-form'>
-        <!--only accepts option or optgroup-->
         <select id='logs-list-select' name='logs'
           aria-label='Select logs you would like to format. Selected logs can be formatted in any format logs box on the page.'
           multiple>
-          <option value='logId1'>1. 12:00 PM (11:59:00 PM) - 3:00 PM (3:02:00 PM)</option>
-          <option value='logId2'>2. 3:00 PM (2:59:00 PM) - 4:00 PM (4:02:00 PM)</option>
+          <option value='logId1'>1. 12:00 PM - 3:00 PM</option>
+          <option value='logId2'>2. 3:00 PM - 4:00 PM</option>
         </select>
-        <!--patch request to api only on page change or save button?-->
-        <div class='curly-brace'>
-          <img src=''
-            alt='The top of a curly brace that show which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
-          <img src=''
-            alt='The middle of a curly brace that shows which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
-          <img src=''
-            alt='The bottom of a curly brace that shows which logs are selected. Selected logs can be formatted in any format logs box on the page.' />
-        </div>
       </form>
       <aside class='note'>Logs are automatically updated to their project.</p>
     </section>
   </main>
 </body>
+
+</html>

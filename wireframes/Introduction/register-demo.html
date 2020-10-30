@@ -1,16 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>HTML wireframe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../index.css">
+</head>
+
 <body>
   <header>
-    <Link to='/welcome'><h1>Logo</h1></Link>
+    <h1>Logo</h1>
     <nav>
-      <Link to='/login'>Login</Link>
+      <a href='/login'>Login</a>
     </nav>
   </header>
   <main>
-    <section>
-      <p>Create an account, or use the demo account.</p>
-      <p>With the demo account, you’ll be able to use the app’s features; however, logs made with the demo account won’t be saved to the server. You’ll also see demo logs already in your view page.</p>
-      <button onClick={(e) => {this.handleSubmit(e)}}>Sign Up</button>
-      <button onClick={(e) => {this.handleDemoClick(e)}}>Demo</button>
-    </section>
-  </main>
+    <main>
+      <section>
+        <p>Create an account, or use the demo account.</p>
+        <p>With the demo account, you’ll be able to use the app’s features; however, logs made with the demo account
+          won’t
+          be saved to the server. You’ll also see demo logs already in your view page.</p>
+        <button>Sign Up</button>
+        <button>Demo</button>
+      </section>
+    </main>
 </body>
+
+</html>

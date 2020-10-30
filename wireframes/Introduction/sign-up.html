@@ -1,53 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>HTML wireframe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../index.css">
+</head>
+
 <body>
   <header>
-    <Link to='/welcome'><h1>Logo</h1></Link>
+    <h1>Logo</h1>
+    <nav>
+      <a href='/login'>Login</a>
+    </nav>
   </header>
   <main>
     <article>
       <h2>Welcome to the logging app!</h2>
       <h3>Sign up</h3>
-      <output form='sign-up-form' className='form-status'>{this.state.fetchError} || (this.state.loading && 'Loading...')}</output>
       <form action='' id='sign-up-form'>
         <fieldset form='sign-up-form' name='email'>
-          <label htmlFor='email'>Email:</label>
-          <label htmlFor='email' className='hint'>* required</p>
-          <input
-            ref={this.emailRef}
-            type='email'
-            id='email'
-            name='email'
-            aria-required='true'
-            aria-describedby='email-description'
-            aria-label='Enter an email:'
-            aria-invalid={!!this.validateEmail()}
-            onChange={(e) => this.updateEmail(e.target.value)}
-          />
-          {this.state.email.touched && <ValidationError id='email-error-message' message={'this.validateFolder()'} />} <!--use label not p-->
+          <label for='email'>Email:</label>
+          <label for='email' class='hint'>* required</p>
+            <input type='email' id='email' name='email' />
         </fieldset>
         <fieldset form='sign-up-form' name='password'>
-          <label htmlFor='password'>Password:</label>
-          <label htmlFor='password' className='hint'>* required</p>
-          <input
-            ref={this.passwordRef}
-            type='password'
-            id='password'
-            name='password'
-            aria-required='true'
-            aria-describedby='password-description'
-            aria-label='Enter a password:'
-            aria-invalid={!!this.validatePassword()}
-            onChange={(e) => this.updatePassword(e.target.value)}
-          />
-          {this.state.password.touched && <ValidationError id='password-error-message' message={'this.validateFolder()'} />}
+          <label for='password'>Password:</label>
+          <label for='password' class='hint'>* required</p>
+            <input type='password' id='password' name='password' />
         </fieldset>
-        <button
-          type='submit'
-          form='sign-up-form'
-          onClick={(e) => {this.handleSubmit(e)}}
-          disabled={this.validateEmail() || this.validatePassword()}
-        > Submit
-        </button>
+        <button type='submit' form='sign-up-form'>Submit</button>
       </form>
     </article>
   </main>
 </body>
+
+</html>
