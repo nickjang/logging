@@ -63,7 +63,7 @@ class ProjectSelect extends Component {
       <option key={project.id} value={project.id}>{project.name}</option>);
 
     return (
-      <h2>
+      <h2 className='group-row'>
         <select
           id='project-select'
           name='project'
@@ -91,14 +91,19 @@ class ProjectSelect extends Component {
           placeholder='Enter a new project title.'
           aria-label='Enter a new project title:'
           onChange={(e) => this.updateNewProject(e.target.value)} />
-        <button
-          type='submit'
-          form='project-form'
-          onClick={(e) => this.handleSubmitNew(e)}
-          disabled={this.validateNewProject()}
-        >Submit
-        </button>
-        <button type='reset' form='project-form' onClick={(e) => this.handleCancel(e)}>Cancel</button>
+        <div>
+          <button
+            type='submit'
+            form='project-form'
+            onClick={(e) => this.handleSubmitNew(e)}
+            disabled={this.validateNewProject()}
+          >Submit</button>
+          <button
+            type='reset'
+            form='project-form'
+            onClick={(e) => this.handleCancel(e)}
+          >Cancel</button>
+        </div>
         {this.state.newProject.touched
           && <ValidationError errorFor='new-project' message={this.validateNewProject()} />}
       </>
@@ -107,7 +112,7 @@ class ProjectSelect extends Component {
 
   render() {
     return (
-      <fieldset form='project-form' name='project'>
+      <fieldset form='project-form' name='project' className='project-select'>
         {!this.state.newProject.new ? this.renderSelect() : this.renderNew()}
       </fieldset>
     );

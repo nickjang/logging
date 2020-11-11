@@ -1,8 +1,22 @@
 .log-list {
   background-color: lightgray;
-  margin: 17px 0px;
+  width: fit-content;
+  margin: 17px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .log-list h3 {
   margin: 0px;
+}
+
+.log-list .log-list-form select {
+  width: 100%;
+}
+
+.log-list .log-list-form option {
+  font-size: 17px;
+  text-align: center;
+  padding: 12px;
 }

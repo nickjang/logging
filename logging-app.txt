@@ -2,6 +2,8 @@ ln
 
 Logging App
 
+log list might already work with drag and shift
+
 store logs in utc format, 
 put format settings(by day and list of log id's with their format setting, 
 patch only the day (better than patch each id?) in context so when user logs in response from api puts in context, 

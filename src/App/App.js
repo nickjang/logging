@@ -22,21 +22,23 @@ class App extends Component {
       }
     ]
   }
-  
+
   render() {
     return (
-      <main className='App' >
+      <>
         <MainHeader />
-        <Switch>
-          <Route exact path='/' component={Log} />
-          <Route path='/overview' component={Overview} />
-          <Route path='/getting-started' component={Start} />
-          <Route path='/sign-up' component={SignUp} />
-          <Route path='/login' component={Login} />
-          <Route path='/view' component={View} />
-          <Route path='/settings' component={Settings} />
-        </Switch>
-      </main>
+        <main className='App' >
+          <Switch>
+            <Route exact path='/' component={Log} />
+            <Route path='/overview' component={Overview} />
+            <Route path='/getting-started' component={Start} />
+            <Route path='/sign-up' component={SignUp} />
+            <Route path='/login' component={Login} />
+            <Route path='/view' component={View} />
+            <Route path='/settings' component={Settings} />
+          </Switch>
+        </main>
+      </>
     );
   }
 }

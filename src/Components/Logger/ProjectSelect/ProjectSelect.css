@@ -1,0 +1,15 @@
+.project-select {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-select h2,
+.project-select select {
+  width: 100%;
+}
+
+@media all and (min-width: 440px) {
+  .view .view-main {
+    padding-left: 12px;
+  }
+}

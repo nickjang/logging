@@ -60,7 +60,7 @@ class Log extends Component {
     if (!this.context.account.email) this.props.history.push('/overview');
 
     return (
-      <div>
+      <div className='logger page'>
         <LoggerForm updateProject={this.updateProject} />
         <Formatter 
           format={this.state.format} 

@@ -4,10 +4,10 @@ import ProjectSelect from '../ProjectSelect/ProjectSelect';
 import LogButton from '../LogButton/LogButton';
 import './LoggerForm.css';
 
-class LogForm extends Component {
+class LoggerForm extends Component {
   render() {
     return (
-      <form action='' id='project-form' className='group-col'>
+      <form action='' id='project-form' className='logger-form group-col'>
         <ProjectSelect updateProject={this.props.updateProject} />
         <LogButton />
       </form>
@@ -23,4 +23,4 @@ ProjectSelect.propTypes = {
   updateProject: PropTypes.func.isRequired
 }
 
-export default LogForm;
+export default LoggerForm;

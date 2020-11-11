@@ -1,6 +1,7 @@
 .formatter {
   background-color: lightgray;
-  margin: 17px 0px;
+  margin: 17px auto;
+  width: fit-content;
 }
 
 .formatter h3 {
