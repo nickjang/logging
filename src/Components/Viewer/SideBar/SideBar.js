@@ -8,10 +8,7 @@ class SideBar extends Component {
   state = {
     open: true,
     loading: false,
-    fetchError: {
-      code: '',
-      message: ''
-    }
+    fetchError: ''
   }
 
   static contextType = LoggingContext;
@@ -59,7 +56,7 @@ class SideBar extends Component {
         {this.state.open &&
           <div className='sidebar-main'>
             {/* <img src='' alt='A hamburger menu button to open the sidebar.'/> */}
-            <output form='sidebar-form' className='form-status'>{this.state.fetchError.message || (this.state.loading && 'Loading projects...')}</output>
+            <output form='sidebar-form' className='form-status'>{this.state.fetchError || (this.state.loading && 'Loading projects...')}</output>
             {/* fetch projects if not already fetch on log in -- but will log in be saved on refresh?*/}
             {/* also for getting logs if all logs not stored in state*/}
             <p className='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>

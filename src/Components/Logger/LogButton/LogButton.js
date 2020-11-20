@@ -9,10 +9,7 @@ class LogButton extends Component {
       start: null,
       end: null
     },
-    fetchError: {
-      code: '',
-      message: ''
-    }
+    fetchError: ''
   }
 
   componentDidMount() {
@@ -28,7 +25,7 @@ class LogButton extends Component {
   render() {
     return (
       <>
-        <output className='form-status log-button-status'>{this.state.fetchError.message || (this.state.log.logging && 'Logging...')}</output>
+        <output className='form-status log-button-status'>{this.state.fetchError || (this.state.log.logging && 'Logging...')}</output>
         <input
           type='button'
           value={this.state.log.logging ? 'End' : 'Start'}

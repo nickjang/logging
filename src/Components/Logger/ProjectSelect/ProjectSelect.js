@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ValidationError from '../../ValidationError/ValidationError';
+import LoggingApiService from '../../../services/logging-api-service';
 import LoggingContext from '../../../Context/LoggingContext';
 import './ProjectSelect.css';
 
@@ -12,10 +13,7 @@ class ProjectSelect extends Component {
       touched: false
     },
     loading: false,
-    fetchError: {
-      code: '',
-      message: ''
-    }
+    fetchError: ''
   }
 
   static contextType = LoggingContext;
@@ -26,26 +24,61 @@ class ProjectSelect extends Component {
   handleNewButtonClick = (e) => {
     e.preventDefault();
     this.setState(
-      { newProject: { new: true, value: '', touched: false } },
-      () => { if (this.newProjectRef) this.newProjectRef.current.focus() }
+      {
+        newProject: {
+          new: true,
+          value: '',
+          touched: false
+        }
+      },
+      () => {
+        if (this.newProjectRef)
+          this.newProjectRef.current.focus()
+      }
     );
   }
 
   handleSubmitNew = (e) => {
     e.preventDefault();
-    //loading/error
-    //fetch(put)
-    // add to state/context
-    //new: false
+    this.setState(
+      {
+        loading: true,
+        fetchError: ''
+      },
+      LoggingApiService.postProject(this.state.newProject.value)
+        .then(project => {
+          this.setState(
+            {
+              newProject: { new: false, value: '', touched: false },
+              loading: false
+            },
+            this.props.addNewProject(project.title)
+          )
+        })
+        .catch(e =>
+          this.setState({
+            loading: false,
+            fetchError: e.error
+          })
+        )
+    );
   }
 
   handleCancel = (e) => {
     e.preventDefault();
-    this.setState({ newProject: { new: false, value: '', touched: false } })
+    this.setState({
+      newProject: { new: false, value: '', touched: false }
+    });
   }
 
   updateNewProject = (project) => {
-    this.setState({ newProject: { new: true, value: project, touched: true } });
+    this.setState({
+      newProject: {
+        new: true,
+        value: project,
+        touched: true
+      }
+    });
   }
 
   validateNewProject = () => {
@@ -55,7 +88,8 @@ class ProjectSelect extends Component {
   }
 
   componentDidMount() {
-    if (this.projectRef) this.projectRef.current.focus();
+    if (this.projectRef)
+      this.projectRef.current.focus();
   }
 
   renderSelect = () => {
@@ -71,7 +105,6 @@ class ProjectSelect extends Component {
           aria-label='Choose a project to log in.'
           aria-required='true'
           onChange={(e) => this.props.updateProject(e.target.value)}>
-          {/*Automatically selects last logged project in context, or newly created project.*/}
           {options}
         </select>
         <button type='button' onClick={(e) => this.handleNewButtonClick(e)}>New</button>
@@ -82,7 +115,7 @@ class ProjectSelect extends Component {
   renderNew = () => {
     return (
       <>
-        <output className='form-status'>{this.state.fetchError.message || (this.state.loading && 'Adding...')}</output>
+        <output className='form-status'>{this.state.fetchError || (this.state.loading && 'Adding...')}</output>
         <input
           type='text'
           id='new-project'

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import LoggingContext from '../../Context/LoggingContext';
 import './Start.css';
 
 class Start extends Component {
-  static contextType = LoggingContext;
-
   handleSignUpClick = (e) => {
     e.preventDefault();
     this.props.history.push('/sign-up');
@@ -17,9 +14,7 @@ class Start extends Component {
     this.props.history.push('/overview');
   }
 
-  render() {
-    if (this.context.account.email) this.props.history.push('/');
-    
+  render() {    
     return (
       <div>
         <section>

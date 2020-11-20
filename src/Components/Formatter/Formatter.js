@@ -5,10 +5,7 @@ import './Formatter.css';
 class Formatter extends Component {
   state = {
     formatting: false,
-    fetchError: {
-      code: '',
-      message: ''
-    }
+    fetchError: ''
   }
 
   updateMinute = (min) => {
@@ -35,7 +32,7 @@ class Formatter extends Component {
     return (
       <section className='formatter'>
         <h3>Format Logs</h3>
-        <output form='format-form' className='form-status'>{this.state.fetchError.message || (this.state.formatting && 'Saving format...')}</output>
+        <output form='format-form' className='form-status'>{this.state.fetchError || (this.state.formatting && 'Saving format...')}</output>
         <form action='' id='format-form'>
           <fieldset form='format-form' name='format-time'>
             <legend>To the nearest multiple of:</legend>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AccountInput from '../../Components/AccountInput/AccountInput';
-import LoggingContext from '../../Context/LoggingContext';
 import './Settings.css';
 
 class Settings extends Component {
@@ -14,13 +13,8 @@ class Settings extends Component {
       touched: false
     },
     loading: false,
-    fetchError: {
-      code: '',
-      message: ''
-    }
+    fetchError: ''
   }
-
-  static contextType = LoggingContext;
 
   emailRef = React.createRef();
 
@@ -70,14 +64,12 @@ class Settings extends Component {
   }
 
   render() {
-    if (!this.context.account.email) this.props.history.push('/overview');
-
     return (
       <div>
         <h2>Settings</h2>
         <section>
           <h3>Account Settings</h3>
-          <output form='account-settings-form'>{`Current Email: ${this.context.account.email}`}</output>
+          <output form='account-settings-form'>{`Current Email: Something`}</output>
           <form id='account-settings-form'>
             <AccountInput
               form='account-settings-form'

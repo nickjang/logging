@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import LoggingContext from '../../Context/LoggingContext';
 import './Overview.css';
 
 class Overview extends Component {
-  static contextType = LoggingContext;
-
   handleNext = (e) => {
     e.preventDefault();
     this.props.history.push('/getting-started');
   }
 
-  render() {
-    if (this.context.account.email) this.props.history.push('/');
-    
+  render() {    
     return (
       <div>
         <article>

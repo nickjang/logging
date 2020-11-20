@@ -5,13 +5,13 @@ import './AccountInput.css';
 
 class AccountInput extends Component {
   render() {
-    let inputLabel = this.props.type.replace('-', ' ');
+    let inputLabel = this.props.type.replace(/-|_/g, ' ');
     inputLabel = inputLabel.charAt(0).toUpperCase() + inputLabel.slice(1) + ':';
 
     return (
       <fieldset form={this.props.form} name={this.props.type}>
         <label htmlFor={this.props.type}>{inputLabel}</label>
-        <label htmlFor={this.props.type} className='hint'>* required</label>
+        <label htmlFor={this.props.type} className='hint'>{this.props.hint}</label>
         <input
           type={this.props.type}
           id={this.props.type}
@@ -19,7 +19,6 @@ class AccountInput extends Component {
           ref={this.props.inputRef || null}
           aria-required='true'
           aria-describedby={this.props.type + '-error-message'}
-          aria-label={`Enter a ${this.props.type.replace('-', ' ')}:`}
           aria-invalid={!!this.props.validate()}
           onChange={(e) => this.props.update(e.target.value)} />
         {this.props.touched && <ValidationError id={this.props.type + '-error-message'} errorFor={this.props.type} message={this.props.validate()} />}
@@ -34,7 +33,8 @@ AccountInput.defaultProps = {
   touched: false,
   validate: () => { },
   update: () => { },
-  inputRef: null
+  inputRef: null,
+  hint: ''
 }
 
 AccountInput.propTypes = {
@@ -43,7 +43,8 @@ AccountInput.propTypes = {
   touched: PropTypes.bool.isRequired,
   validate: PropTypes.func.isRequired,
   update: PropTypes.func.isRequired,
-  inputRef: PropTypes.func
+  inputRef: PropTypes.func,
+  hint: PropTypes.string
 }
 
 export default AccountInput;

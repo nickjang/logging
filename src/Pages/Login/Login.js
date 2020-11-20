@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
-import AccountForm from '../../Components/AccountForm/AccountForm';
-import LoggingContext from '../../Context/LoggingContext';
+import LoginForm from '../../Components/LoginForm/LoginForm';
 import './Login.css';
 
 class Login extends Component {
-  static contextType = LoggingContext;
+  handleLoginSuccess = () => {
+    const { location, history } = this.props
+    const destination = (location.state || {}).from || '/'
+    history.push(destination)
+  }
 
   render() {
-    if (this.context.account.email) this.props.history.push('/');
-    
     return (
-      <AccountForm type='login' />
+      <LoginForm onSuccess={this.handleLoginSuccess} />
     );
+  }
+}
+
+Login.defaultProps = {
+  location: {},
+  history: {
+    push: () => { }
   }
 }
 

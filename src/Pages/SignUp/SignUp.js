@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import AccountForm from '../../Components/AccountForm/AccountForm';
-import LoggingContext from '../../Context/LoggingContext';
+import SignUpForm from '../../Components/SignUpForm/SignUpForm';
 import './SignUp.css';
 
-class SignUp extends Component {
-  static contextType = LoggingContext;
-  
-  render() {
-    if (this.context.account.email) this.props.history.push('/');
-    
+class SignUp extends Component {  
+  handleRegistrationSuccess = user => {
+    const { history } = this.props
+    history.push('/login')
+  }
+
+  render() {    
     return (
-      <AccountForm type='sign-up' />
+      <SignUpForm onSuccess={this.handleRegistrationSuccess} />
     );
+  }
+}
+
+SignUp.defaultProps = {
+  location: {},
+  history: {
+    push: () => { }
   }
 }
 

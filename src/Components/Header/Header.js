@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LoggingContext from '../../Context/LoggingContext';
+import TokenService from '../../services/token-service';
+import IdleService from '../../services/idle-service';
 import './Header.css';
-import userPic  from '../../images/user.png'
+import userPic from '../../images/user.png'
 
 class Header extends Component {
-  static contextType = LoggingContext;
+  handleLogoutClick = () => {
+    TokenService.clearAuthToken()
+    /* when logging out, clear the callbacks to the refresh api and idle auto logout */
+    TokenService.clearCallbackBeforeExpiry()
+    IdleService.unRegisterIdleResets()
+  }
 
   renderMainHeader = (view) => {
     return (
@@ -24,27 +30,38 @@ class Header extends Component {
           </ul>
           <hr />
         </nav>
-        <Link to='/settings' className='user-pic'>
-          <img src={userPic} alt="A link to the user's account settings." />
-        </Link> 
+        <img className='user-pic' src={userPic} alt="A link to the user's account settings." />
+        <Link onClick={this.handleLogoutClick} to='/'>
+          Logout
+        </Link>
+        <Link to='/settings'>
+          Settings
+        </Link>
       </header>
     );
   }
 
-  renderWelcomeHeader = () => {
+  renderOverviewHeader = () => {
     return (
       <header className='header group-row'>
-        <Link to='/welcome'><h1>Logo</h1></Link>
+        <Link to='/overview'><h1>Logo</h1></Link>
         <nav>
-          <Link to='/login'>Login</Link>
+          <ul>
+            <li>
+              <Link to='/sign-up'>Sign up</Link>
+            </li>
+            <li>
+              <Link to='/login'>Log in</Link>
+            </li>
+          </ul>
         </nav>
       </header>
     );
   }
 
   render() {
-    if (this.context.account.email) return this.renderMainHeader();
-    return this.renderWelcomeHeader();
+    if (TokenService.hasAuthToken()) return this.renderMainHeader();
+    return this.renderOverviewHeader();
   }
 }
 

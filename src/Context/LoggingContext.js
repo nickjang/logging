@@ -1,8 +1,5 @@
 import React from 'react';
-
+//do you need two contexts?
 export default React.createContext({
-  account: {
-    email: 'email'
-  },
   projects: [{id: 'example-project-id', name: 'example'}]
 });

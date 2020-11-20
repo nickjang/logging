@@ -20,7 +20,6 @@ import { withRouter } from 'react-router-dom';
 import LoggerForm from '../../Components/Logger/LoggerForm/LoggerForm';
 import Formatter from '../../Components/Formatter/Formatter';
 import LogList from '../../Components/LogList/LogList';
-import LoggingContext from '../../Context/LoggingContext';
 import formatLog from '../../Components/Formatter/formatLog';
 import './Log.css';
 
@@ -39,8 +38,6 @@ class Log extends Component {
     }
   }
 
-  static contextType = LoggingContext;
-
   updateProject = () => { }
 
   updateFormat = (type, num) => {
@@ -56,18 +53,20 @@ class Log extends Component {
     formatLog({}, {}); //formatlogs not log?
   }
 
-  render() {
-    if (!this.context.account.email) this.props.history.push('/overview');
+  componentDidMount() {
+    
+  }
 
+  render() {
     return (
-      <div className='logger page'>
+      <article className='logger page'>
         <LoggerForm updateProject={this.updateProject} />
         <Formatter 
           format={this.state.format} 
           updateFormat={this.updateFormat} 
           formatLogList={this.formatLogList} /> {/* format logs somehow*/}
         <LogList logs={this.state.logs} status='' />
-      </div>
+      </article>
     );
   }
 }

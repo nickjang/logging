@@ -7,10 +7,7 @@ class Exporter extends Component {
     orientation: '',
     selectedOptions: [],
     exporting: false,
-    fetchError: {
-      code: '',
-      message: ''
-    }
+    fetchError: ''
   }
 
   orientationRef = React.createRef();
@@ -92,7 +89,7 @@ class Exporter extends Component {
   render() {
     return (
       <section className='exporter'>
-        <output form='export-form' className='form-status'>{this.state.fetchError.message || (this.state.exporting && 'Exporting...')}</output>
+        <output form='export-form' className='form-status'>{this.state.fetchError || (this.state.exporting && 'Exporting...')}</output>
         <div className='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
           <h3 id='export-heading'>Export Logs</h3>
           <fieldset className='group-column'>

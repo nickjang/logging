@@ -4,7 +4,6 @@ import Formatter from '../../Components/Formatter/Formatter';
 import Exporter from '../../Components/Viewer/Exporter/Exporter';
 import LogList from '../../Components/LogList/LogList';
 import SideBar from '../../Components/Viewer/SideBar/SideBar';
-import LoggingContext from '../../Context/LoggingContext';
 import formatLog from '../../Components/Formatter/formatLog';
 import './View.css';
 
@@ -40,8 +39,6 @@ class View extends Component {
       touched: false
     }
   };
-
-  static contextType = LoggingContext;
 
   /**
    * Update current projects with selectors
@@ -146,7 +143,8 @@ class View extends Component {
           formattedSelectors[projectId] = ['project'];
           break;
         }
-        const { start, end } = this.formatSelectors(selector);
+        // call helper function to format
+        const { start, end } = this.formatSelector(selector);
         formattedSelectors[projectId].push([start, end]);
       };
 
@@ -266,14 +264,13 @@ class View extends Component {
 
 
   render() {
-    if (!this.context.account.email) this.props.history.push('/overview');
     let selectedLogs = this.getLogsFromIds();
 
     return (
       <div className='view'>
         <SideBar viewLogs={this.updateSelectedLogIds} />
         <div className='view-wrapper'>
-          <div className='view-main'>
+          <article className='view-main'>
             <ProjectTitles
               selectors={this.state.selectors}
               projects={this.state.currentProjects} />
@@ -283,7 +280,7 @@ class View extends Component {
               formatLogList={this.formatLogList} />
             <Exporter />
             <LogList logs={selectedLogs} />
-          </div>
+          </article>
         </div>
       </div>
     );
