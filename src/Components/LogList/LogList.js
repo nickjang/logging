@@ -25,7 +25,6 @@ class LogList extends Component {
     return (
       <section className='log-list'>
         <h3>Logs</h3>
-        <span className='form-status'>{this.props.status || 'Please select logs to view from the side bar.'}</span>
         <form action='' id='logs-select-form' className='log-list-form'>
           {/* only accepts option or optgroup */}
           <select
@@ -34,7 +33,7 @@ class LogList extends Component {
             multiple
             aria-label='Select logs you would like to format. Selected logs can be formatted in any format logs box on the page.'
             aria-required='true'
-            onChange={(e) => console.log(Array.from(e.target.selectedOptions, option => option.value))}
+            // onChange={(e) => console.log(Array.from(e.target.selectedOptions, option => option.value))}
           >
             {options}
           </select>
@@ -47,12 +46,10 @@ class LogList extends Component {
 
 LogList.defaultProps = {
   logs: [],
-  status: ''
 }
 
 LogList.propTypes = {
   logs: PropTypes.array,
-  status: PropTypes.string
 }
 
 export default LogList;

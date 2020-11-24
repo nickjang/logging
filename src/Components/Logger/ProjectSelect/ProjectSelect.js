@@ -45,22 +45,28 @@ class ProjectSelect extends Component {
         loading: true,
         fetchError: ''
       },
-      LoggingApiService.postProject(this.state.newProject.value)
-        .then(project => {
-          this.setState(
-            {
-              newProject: { new: false, value: '', touched: false },
-              loading: false
-            },
-            this.props.addNewProject(project.title)
-          )
-        })
-        .catch(e =>
-          this.setState({
-            loading: false,
-            fetchError: e.error
+      () => {
+        LoggingApiService.postProject(this.state.newProject.value)
+          .then(project => {
+            this.setState(
+              {
+                newProject: { new: false, value: '', touched: false },
+                loading: false
+              },
+              this.context.addProject({ 
+                id: project.id,
+                title: project.title,
+                date_created: project.date_created
+              })
+            )
           })
-        )
+          .catch(e => {
+            this.setState({
+              loading: false,
+              fetchError: e.message //sometimes e.message , sometime e.error. fix
+            })}
+          )
+      }
     );
   }
 
@@ -94,7 +100,8 @@ class ProjectSelect extends Component {
 
   renderSelect = () => {
     const options = this.context.projects.map(project =>
-      <option key={project.id} value={project.id}>{project.name}</option>);
+      <option key={project.id} value={project.id}>{project.title}</option>
+    );
 
     return (
       <h2 className='group-row'>
@@ -104,7 +111,8 @@ class ProjectSelect extends Component {
           ref={this.projectRef}
           aria-label='Choose a project to log in.'
           aria-required='true'
-          onChange={(e) => this.props.updateProject(e.target.value)}>
+          value={this.context.currentProjectId}
+          onChange={(e) => this.context.updateCurrentProject(e.target.value)}>
           {options}
         </select>
         <button type='button' onClick={(e) => this.handleNewButtonClick(e)}>New</button>
@@ -150,16 +158,6 @@ class ProjectSelect extends Component {
       </fieldset>
     );
   }
-}
-
-ProjectSelect.defaultProps = {
-  updateProject: () => { },
-  addNewProject: () => { }
-}
-
-ProjectSelect.propTypes = {
-  updateProject: PropTypes.func.isRequired,
-  addNewProject: PropTypes.func.isRequired
 }
 
 export default ProjectSelect;

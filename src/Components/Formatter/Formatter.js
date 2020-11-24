@@ -17,7 +17,6 @@ class Formatter extends Component {
   }
 
   formatSelected = (e) => {
-    console.log(e.target);
     e.preventDefault();
     //formatting/error
     //context get project

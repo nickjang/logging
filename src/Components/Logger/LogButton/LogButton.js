@@ -37,12 +37,4 @@ class LogButton extends Component {
   }
 }
 
-LogButton.defaultProps = {
-  addLog: () => { }
-}
-
-LogButton.propTypes = {
-  addLog: PropTypes.func.isRequired
-}
-
 export default LogButton;
