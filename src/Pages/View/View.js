@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
 import ProjectTitles from '../../Components/Viewer/ProjectTitles/ProjectTitles';
 import Formatter from '../../Components/Formatter/Formatter';
 import Exporter from '../../Components/Viewer/Exporter/Exporter';
@@ -135,8 +136,6 @@ class View extends Component {
   /***************** Process Selectors *****************/
 
 
-  validateSelector
-
   /**
    * Format a selector to have start and end
    * ranges in MM-DD-YYYY format. 
@@ -147,29 +146,30 @@ class View extends Component {
       '05': '31', '06': '30', '07': '31', '08': '31',
       '09': '30', '10': '31', '11': '30', '12': '31'
     }
-    let start = selector.calendar.value;
+    let start = selector.calendar.value; //should these be dates to begin with??????????????????????????????????????????????????????????????????
     let end = selector.endRange.added
       ? selector.endRange.value
       : selector.calendar.value;
 
     if (selector.type === 'years') {
-      start = `$01-01-${start}`;
-      end = `12-31-${end}`;
+      start = new Date(start);
+      end = new Date(`${end}-12-31T23:59:59.999Z`);
     } else if (selector.type === 'months') {
       start = start.split('-');
       end = end.split('-');
-      start = `${start[0]}-01-${start[1]}`;
-      end = `${end[0]}-${monthDays.end[0]}-${end[1]}`;
+      start = new Date(`${start[1]}-${start[0]}-01T00:00:00.000Z`);
+      end = new Date(`${end[1]}-${end[0]}-${monthDays[end[0]]}T23:59:59.999Z`);
+    } else {
+      start = new Date(start);
+      end = end.split('-');
+      end = new Date(`${end[2]}-${end[1]}-${end[0]}T23:59:59.999Z`);
     }
     return [start, end];
   }
 
-  // convert format selector to dates, so sort and merge work.
-  // check if can do new Date(start);
-
   /**
    * Format selectors to have a start and end 
-   * range in MM-DD-YYYY format, or format to 
+   * range as Date values, or format to 
    * select the entire project. Given an array 
    * of projects and their selectors.
    */
@@ -179,13 +179,10 @@ class View extends Component {
     for (let i = 0; i < selectors.length; i++) {
       let selector = selectors[i];
 
-      if (this.validateSelector(selector))
-        throw new Error('Given invalid selector.');
+      if (!selector) throw new Error('Given invalid selector.');
 
-      if (selector.type === 'project') {
-        // don't need the other selectors if selecting the entire project
-        return ['project'];
-      }
+      // don't need the other selectors if selecting the entire project
+      if (selector.type === 'project') return ['project'];
 
       // call helper function to format
       selector = this.formatSelector(selector);
@@ -326,6 +323,14 @@ class View extends Component {
                 date_created: project.date_created
               };
             })
+
+            // convert dayRanges to use moment objects because 
+            // the Datetime picker uses moment
+            for (let projectId in dayRanges) {
+              dayRanges[projectId] = dayRanges[projectId].map(range =>
+                [moment(range[0]), moment(range[1])]
+              );
+            }
 
             // initialize selectors
             let selectors = {};

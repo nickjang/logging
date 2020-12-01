@@ -93,9 +93,9 @@ const LoggingApiService = {
     let start = new Date();
     start.setHours(0, 0, 0, 0);
 
-    let end = new Date();
-    end.setHours(0, 0, 0, 0);
-    end.setDate(start.getDate() + 1);
+    let end = new Date(start);
+    end.setDate(end.getDate() + 1);
+    end.setHours(0, 0, 0, -1);
 
     start = start.toISOString();
     end = end.toISOString();

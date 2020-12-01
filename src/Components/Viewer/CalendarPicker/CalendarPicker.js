@@ -1,17 +1,49 @@
 import React, { Component } from 'react';
 import Datetime from 'react-datetime';
 import PropTypes from 'prop-types';
+import SelectorContext from '../../../Context/SelectorContext';
 import 'react-datetime/css/react-datetime.css';
 import './CalendarPicker.css';
 
-// react datepicker but filter dates might only work for dates and not months or years
 class CalendarPicker extends Component {
-  valid(current) {
-    return current.day() === 0;
+  static contextType = SelectorContext;
+
+  validMonthOrYear = (current, type) => {
+    this.context.dayRanges[this.props.projectId].forEach(range => {
+      if (current.isSame(range[0], type) || current.isSame(range[1], type))
+        return true;
+    })
+    return false;
   }
 
+  validDay = (current) => {
+    this.context.dayRanges[this.props.projectId].forEach(range => {
+      if (current.isBetween(range[0], range[1], undefined, '[]'))
+        return true;
+    })
+    return false;
+  }
+
+  // how to set and get value ????????????????????
+
   render() {
-    return <Datetime dateFormat="MM-DD-YYYY" timeFormat={false} isValidDate={this.valid} />;
+    let type = this.props.type;
+    // remove the 's' because moment uses 'month' and 'year'
+    type = type.substring(0, type.length - 1);
+
+    const dateFormat = (type === 'day') ? 'MM-DD-YYY'
+      : (type === 'month') ? 'MM-YYYY' : 'YYYY';
+
+    return (
+      <Datetime
+        dateFormat={dateFormat}
+        timeFormat={false}
+        isValidDate={
+          type === 'day'
+            ? this.validDay
+            : (current) => this.validMonthOrYear(current, type)}
+      />
+    );
   }
 }
 
@@ -20,15 +52,17 @@ CalendarPicker.defaultProps = {
   type: '',
   value: '',
   open: false,
-  updateSelector: () => {}
+  updateSelector: () => { },
+  projectId: null
 }
 
 CalendarPicker.propTypes = {
   selectorId: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['project', 'years', 'months', 'days']).isRequired,
+  type: PropTypes.oneOf(['years', 'months', 'days']).isRequired,
   value: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
-  updateSelector: PropTypes.func.isRequired
+  updateSelector: PropTypes.func.isRequired,
+  projectId: PropTypes.number.isRequired
 }
 
 export default CalendarPicker;
