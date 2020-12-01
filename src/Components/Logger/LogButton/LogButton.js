@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import LoggingContext from '../../../Context/LoggingContext';
+
 import './LogButton.css';
 
 class LogButton extends Component {
   state = {
-    log: {
-      logging: false,
-      start: null,
-      end: null
-    },
-    fetchError: ''
+    loading: '',
+    fetchError: '',
   }
 
-  componentDidMount() {
-    //fetch, logging project still?
-  }
+  static contextType = LoggingContext;
 
-  startEndLog = () => {
-    //if start, fetcherror/logging, fetch, setstate start // if never stop
-    //if stop, fetcherror/logging, fetch, setstate stop, add log to MainLog state for main log list 
-
+  toggleLogButton = (e) => {
+    e.preventDefault();
+    const loading = this.context.loggerStartTime ? 'Ending log ...' : 'Starting log ...';
+    this.setState(
+      {
+        loading,
+        fetchError: ''
+      },
+      () => {
+        this.context.toggleLogger()
+          .then(() => this.setState({ loading: '', fetchError: '' }))
+          .catch(e => this.setState({
+            loading: '',
+            fetchError: e.message || e.error
+          }));
+      }
+    );
   }
 
   render() {
     return (
       <>
-        <output className='form-status log-button-status'>{this.state.fetchError || (this.state.log.logging && 'Logging...')}</output>
+        <output className='form-status log-button-status'>{this.state.fetchError || this.state.loading}</output>
         <input
           type='button'
-          value={this.state.log.logging ? 'End' : 'Start'}
+          value={this.context.loggerStartTime ? 'End' : 'Start'}
           aria-label='Start or end a log.'
           className='log-button'
-          onClick={(e) => this.startEndLog(e)}/>
+          onClick={(e) => this.toggleLogButton(e)}
+          disabled={!this.context.currentProjectId} />
       </>
     );
   }

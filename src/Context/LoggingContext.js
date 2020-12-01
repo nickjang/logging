@@ -1,8 +1,10 @@
 import React from 'react';
+
 export default React.createContext({
   projects: [],
-  currentProjectId: 0,
+  currentProjectId: null,
   updateCurrentProject: ()=>{},
   addProject: ()=>{},
-  addLog: ()=>{},
+  loggerStartTime: null,
+  toggleLogger: ()=>{},
 });

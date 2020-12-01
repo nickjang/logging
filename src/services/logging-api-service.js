@@ -62,6 +62,7 @@ const LoggingApiService = {
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
+        start_time: (new Date()).toISOString(),
         project_id: projectId
       }),
     })
@@ -71,15 +72,15 @@ const LoggingApiService = {
           : res.json()
       )
   },
-  patchProjectLog(projectId) {
-    return fetch(`${config.API_ENDPOINT}/logs`, {
-      method: 'POST',
+  endProjectLog(logId) {
+    return fetch(`${config.API_ENDPOINT}/logs/${logId}`, {
+      method: 'PATCH',
       headers: {
         'content-type': 'application/json',
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        project_id: projectId
+        end_time: (new Date()).toISOString()
       }),
     })
       .then(res =>
@@ -112,6 +113,21 @@ const LoggingApiService = {
           : res.json()
       )
   },
+  // get ranges of days with logs for each project
+  getDayRanges() {
+    let params = '?part=day-ranges';
+    
+    return fetch(`${config.API_ENDPOINT}/projects${params}`, {
+      headers: {
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
+      }
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  },
   getLogsBySelectors(selectorsByProject) {
     let params = '?filter=projects-and-ranges';
     for (let projectId in selectorsByProject) {
@@ -132,9 +148,6 @@ const LoggingApiService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
-  },
-  getDaysWithLogsPerProject() {
-
   }
 }
 

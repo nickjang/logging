@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProjectPicker from '../ProjectPicker/ProjectPicker';
-import LoggingContext from '../../../Context/LoggingContext';
+import SelectorContext from '../../../Context/SelectorContext';
 import './SideBar.css';
 
 class SideBar extends Component {
@@ -11,7 +11,7 @@ class SideBar extends Component {
     fetchError: ''
   }
 
-  static contextType = LoggingContext;
+  static contextType = SelectorContext;
 
   handleToggleOpen = () => {
     this.setState({ open: !this.state.open });
@@ -46,11 +46,9 @@ class SideBar extends Component {
 
   render() {
     const projects = this.context.projects.map(project =>
-      <ProjectPicker
-        key={project.id}
-        projectId={project.id}
-        project={project.name} />
+      <ProjectPicker key={project.id} project={project} />
     );
+    
     return (
       <aside className='sidebar'>
         {this.state.open &&

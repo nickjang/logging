@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ValidationError from '../../ValidationError/ValidationError';
 import LoggingApiService from '../../../services/logging-api-service';
 import LoggingContext from '../../../Context/LoggingContext';
@@ -111,7 +110,7 @@ class ProjectSelect extends Component {
           ref={this.projectRef}
           aria-label='Choose a project to log in.'
           aria-required='true'
-          value={this.context.currentProjectId}
+          value={this.context.currentProjectId || ''}
           onChange={(e) => this.context.updateCurrentProject(e.target.value)}>
           {options}
         </select>

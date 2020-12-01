@@ -1,15 +1,15 @@
-.view {
+.view-page {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
 }
 
-.view .view-wrapper {
+.view-page .view-wrapper {
   width: 100%;
 }
 
-.view .view-main {
+.view-page .view-main {
   width: fit-content;
   margin: auto;
   padding: 12px 12px 12px 42px;
@@ -19,7 +19,7 @@
 }
 
 @media all and (min-width: 440px) {
-  .view .view-main {
+  .view-page .view-main {
     padding-left: 12px;
   }
 }

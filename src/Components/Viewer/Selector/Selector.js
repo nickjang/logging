@@ -9,12 +9,12 @@ class Selector extends Component {
 
   handleDelete = (e) => {
     e.preventDefault();
-    this.context.deleteSelector(this.props.id);
+    this.context.deleteSelector(this.props.projectId, this.props.id);
   }
 
   handleAddRange = (e) => {
     e.preventDefault();
-    this.context.addEndRange(this.props.id);
+    this.context.addEndRange(this.props.projectId, this.props.id);
   }
 
   renderEntireProject = () => {
@@ -32,13 +32,13 @@ class Selector extends Component {
           updateSelector={this.context.updateSelector} />
         <span>to</span>
         {
-          !this.props.endRange.value && !this.props.endRange.open ?
-            <input
+          !this.props.endRange.added
+            ? <input
               type='button'
               value='+'
               aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
-              onClick={(e) => this.handleAddRange(e)} /> :
-            <CalendarPicker
+              onClick={(e) => this.handleAddRange(e)} />
+            : <CalendarPicker
               selectorId={this.props.id}
               type={this.props.type}
               value={this.props.endRange.value}
@@ -51,7 +51,7 @@ class Selector extends Component {
 
   render() {
     return (
-      <li class='group-row'>
+      <li className='group-row'>
         {this.props.type === 'project' ? this.renderEntireProject() : this.renderDate()}
         <input
           type='button'
@@ -71,22 +71,26 @@ Selector.defaultProps = {
     open: false
   },
   endRange: {
+    added: false,
     value: '',
     open: false
-  }
+  },
+  projectId: null
 }
 
 Selector.propTypes = {
   id: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['project', 'year', 'month', 'day']).isRequired,
+  type: PropTypes.oneOf(['project', 'years', 'months', 'days']).isRequired,
   calendar: PropTypes.shape({
     value: PropTypes.string,
     open: PropTypes.bool
   }),
   endRange: PropTypes.shape({
+    added: PropTypes.bool,
     value: PropTypes.string,
     open: PropTypes.bool
-  })
+  }),
+  projectId: PropTypes.number.isRequired
 }
 
 export default Selector;

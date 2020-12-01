@@ -1,7 +1,9 @@
 import React from 'react'
 
 export default React.createContext({
-  addProject: ()=>{},
+  projects: [],
+  selectors: {},
+  dayRanges: {},
   addSelector: ()=>{},
   addEndRange: () => {},
   deleteSelector: () => {},

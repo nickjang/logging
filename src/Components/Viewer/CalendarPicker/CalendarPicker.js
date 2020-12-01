@@ -25,7 +25,7 @@ CalendarPicker.defaultProps = {
 
 CalendarPicker.propTypes = {
   selectorId: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['project', 'year', 'month', 'day']).isRequired,
+  type: PropTypes.oneOf(['project', 'years', 'months', 'days']).isRequired,
   value: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   updateSelector: PropTypes.func.isRequired

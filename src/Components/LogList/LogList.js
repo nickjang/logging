@@ -15,7 +15,7 @@ class LogList extends Component {
       <option
         key={log.id}
         value={log.id}
-      >{formatLog(log.start, log.end, log.format)}
+      >{formatLog(log.start_time, log.end_time || '', log.format)}
       </option>
     );
 
