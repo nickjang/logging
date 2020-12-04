@@ -31,8 +31,8 @@ class CalendarPicker extends Component {
     // remove the 's' because moment uses 'month' and 'year'
     type = type.substring(0, type.length - 1);
 
-    const dateFormat = (type === 'day') ? 'MM-DD-YYYY'
-      : (type === 'month') ? 'MM-YYYY' : 'YYYY';
+    const dateFormat = (type === 'day') ? 'MM/DD/YYYY'
+      : (type === 'month') ? 'MM/YYYY' : 'YYYY';
 
     return (
       <Datetime

@@ -79,14 +79,12 @@ class SideBar extends Component {
               or their year(s), month(s), and day(s).
             </p>
             <p className='note'>
-              Overlapping logs will be counted once.
+              Overlapping selections will be counted once.
               Calendars are displayed in your time zone.
               Logs will also displayed in your time zone.
             </p>
-            <output form='sidebar-form' className='form-status'>
-              {this.state.error || (this.state.loading && 'Getting logs...')}
-            </output>
             <button
+              className='sidebar-top-btn lg-btn lg-btn-success'
               type='submit'
               form='sidebar-form'
               onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
@@ -94,11 +92,15 @@ class SideBar extends Component {
             > View logs
             </button>
             <button
+              className='sidebar-top-btn lg-btn'
               type='reset'
               form='sidebar-form'
               onClick={(e) => { this.handleReset(e) }}
             > Clear selections
             </button>
+            <output form='sidebar-form' className='form-status'>
+              {this.state.error || (this.state.loading && 'Getting logs...')}
+            </output>
             <form action='' id='sidebar-form'>
               <ul>
                 {projects}

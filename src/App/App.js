@@ -22,12 +22,6 @@ import '../assets/styles/base.css'
 // prebuilt components: React calendar/datepicker
 class App extends Component {
   state = {
-    projects: [
-      {
-        id: '',
-        logs: [{ id: '', start: '', end: '' }]
-      }
-    ],
     hasError: false
   }
 
@@ -95,7 +89,7 @@ class App extends Component {
       <>
         <Header />
         <main className='App' >
-        {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
+          {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
           <Switch>
             <PrivateRoute exact path='/' component={Log} />
             <PublicOnlyRoute path='/overview' component={Overview} />

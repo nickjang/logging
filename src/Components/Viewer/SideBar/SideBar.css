@@ -26,3 +26,7 @@
 .sidebar .form-status {
   max-width: fit-content;
 }
+
+.sidebar .sidebar-top-btn {
+  margin-right: 1rem;
+}

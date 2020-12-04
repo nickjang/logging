@@ -16,10 +16,8 @@ import './View.css';
 
 class View extends Component {
   state = {
-    //currentProjects: {},
     projects: [],
     dayRanges: {},
-    //logs: [], //sorted by start time //add logs on addSelector, deactivate days there are no logs
     selectors: {},
     selectedLogs: [], // logs fetched with selectors
     format: {
@@ -27,6 +25,7 @@ class View extends Component {
       sec: 0,
       touched: false
     },
+    formattedSelectors: {}, // titles to display after fetching logs
     loading: '',
     error: ''
   };
@@ -274,11 +273,22 @@ class View extends Component {
    */
   fetchLogs = () => {
     const selectors = this.prepareSelectors(this.state.selectors);
-    if (!Object.keys(selectors).length)
-      throw new Error('Could not get logs because no selections were made')
+    const projectIds = Object.keys(selectors);
+    if (!projectIds.length)
+      throw new Error('Could not get logs because no selections were made');
     return LoggingApiService.getLogsBySelectors(selectors)
       .then(selectedLogs => {
+        // a dictionary to check if selected projects, returned logs
+        let visitedProjectIds = {};
+        projectIds.forEach(id => visitedProjectIds[id] = false);
+
         selectedLogs = selectedLogs.map(log => {
+          // check if logs are from selected projects
+          if (selectors[log.project_id])
+            visitedProjectIds[log.project_id] = true;
+          else
+            throw new Error('Got back logs from projects that weren\'t selected');
+
           return {
             id: log.id,
             project_id: log.project_id,
@@ -286,7 +296,13 @@ class View extends Component {
             end_time: log.end_time
           };
         })
-        this.setState({ selectedLogs });
+
+        // delete selected projects that returned no logs
+        for(const projectId in visitedProjectIds) {
+          if (visitedProjectIds[projectId] === false)
+            delete selectors[projectId];
+        }
+        this.setState({ selectedLogs, formattedSelectors: selectors });
       });
   }
 
@@ -330,7 +346,6 @@ class View extends Component {
         ])
           .then(([projects, dayRanges]) => {
             // filter data from projects
-            console.log('projects', projects, 'day ranges', dayRanges);
             projects = projects.map(project => {
               return {
                 id: project.id,
@@ -382,9 +397,7 @@ class View extends Component {
           <div className='view-wrapper'>
             <article className='view-main'>
               <span className='status'>{this.state.error || this.state.loading}</span>
-              <ProjectTitles
-                selectors={this.state.selectors}
-                projects={this.state.currentProjects} />
+              <ProjectTitles selectors={this.state.formattedSelectors} />
               <Formatter
                 format={this.state.format}
                 updateFormat={this.updateLogListFormat}
