@@ -18,7 +18,7 @@ class Selector extends Component {
   }
 
   renderEntireProject = () => {
-    return (<span>Entire Project</span>);
+    return (<span>Entire project</span>);
   };
 
   renderDate = () => {
@@ -73,11 +73,11 @@ Selector.defaultProps = {
   id: '',
   type: '',
   calendar: {
-    value: '',
+    value: null,
   },
   endRange: {
     added: false,
-    value: '',
+    value: null,
   },
   projectId: null
 }
@@ -87,11 +87,11 @@ Selector.propTypes = {
   type: PropTypes.oneOf(['project', 'years', 'months', 'days']).isRequired,
   calendar: PropTypes.shape({
     value: PropTypes.object,
-  }),
+  }).isRequired,
   endRange: PropTypes.shape({
     added: PropTypes.bool,
     value: PropTypes.object,
-  }),
+  }).isRequired,
   projectId: PropTypes.number.isRequired
 }
 

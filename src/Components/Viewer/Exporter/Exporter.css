@@ -2,3 +2,7 @@
   background-color: lightgray;
   margin: 17px 0px;
 }
+
+.exporter #export-heading + fieldset {
+  height: fit-content;
+}

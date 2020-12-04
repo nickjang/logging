@@ -29,8 +29,10 @@ class SideBar extends Component {
       if (selectors[projectId].length) {
         // if there were selectors, check if any selector has a value
         const projectSelectors = selectors[projectId];
-        for (const selector of projectSelectors)
+        for (const selector of projectSelectors) {
           if (selector.calendar.value) return true;
+          else if (selector.type === 'project') return true;
+        }
       }
     }
     return false;
@@ -54,6 +56,14 @@ class SideBar extends Component {
     );
   }
 
+  /**
+   * Clear all selectors
+   */
+  handleReset = (e) => {
+    e.preventDefault();
+    this.context.resetSelectors();
+  }
+
 
   render() {
     const projects = this.context.projects.map(project =>
@@ -68,21 +78,27 @@ class SideBar extends Component {
               View logs from selected projects
               or their year(s), month(s), and day(s).
             </p>
-            <button
-              type='submit'
-              form='sidebar-form'
-              onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
-              disabled={!this.hasSelectors()}
-            > View Selected
-            </button>
-            <output form='sidebar-form' className='form-status'>
-              {this.state.error || (this.state.loading && 'Getting logs...')}
-            </output>
             <p className='note'>
               Overlapping logs will be counted once.
               Calendars are displayed in your time zone.
               Logs will also displayed in your time zone.
             </p>
+            <output form='sidebar-form' className='form-status'>
+              {this.state.error || (this.state.loading && 'Getting logs...')}
+            </output>
+            <button
+              type='submit'
+              form='sidebar-form'
+              onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
+              disabled={!this.hasSelectors()}
+            > View logs
+            </button>
+            <button
+              type='reset'
+              form='sidebar-form'
+              onClick={(e) => { this.handleReset(e) }}
+            > Clear selections
+            </button>
             <form action='' id='sidebar-form'>
               <ul>
                 {projects}

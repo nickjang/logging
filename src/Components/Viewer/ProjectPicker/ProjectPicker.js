@@ -22,7 +22,7 @@ class ProjectPicker extends Component {
     );
 
     const selectorTypes =
-      [{ type: 'project', label: 'Select the entire project', buttonText: '+ Entire Project' },
+      [{ type: 'project', label: 'Select the entire project', buttonText: '+ Entire project' },
       { type: 'years', label: 'Make a selection for a year or year range', buttonText: '+ Year(s)' },
       { type: 'months', label: 'Make a selection for a month or month range', buttonText: '+ Month(s)' },
       { type: 'days', label: 'Make a selection for a day or date range', buttonText: '+ Day(s)' }]

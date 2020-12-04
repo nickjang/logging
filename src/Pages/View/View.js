@@ -70,8 +70,8 @@ class View extends Component {
     const newSelector = {
       id: uuidv4(),
       type,
-      calendar: { value: '' },
-      endRange: { added: false, value: '' }
+      calendar: { value: null },
+      endRange: { added: false, value: null }
     };
 
     if (projectId == null)
@@ -96,7 +96,7 @@ class View extends Component {
     // add end range to target selector
     selectors[projectId][selectorIdx].endRange = {
       added: true,
-      value: ''
+      value: null
     };
 
     this.setState({ selectors });
@@ -131,6 +131,17 @@ class View extends Component {
     this.setState({ selectors });
   }
 
+  /**
+   * Delete all selectors;
+   */
+  resetSelectors = () => {
+    let selectors = { ...this.state.selectors };
+    for (const projectId in selectors)
+      selectors[projectId] = [];
+
+    this.setState({ selectors });
+  }
+
 
   /***************** Process Selectors *****************/
 
@@ -141,16 +152,20 @@ class View extends Component {
    */
   formatSelector = (selector) => {
     let start = selector.calendar.value;
-    let end = selector.endRange.added
-      ? selector.endRange.value
-      : selector.calendar.value;
+    let end = selector.endRange.value || new Date(selector.calendar.value);
 
     if (selector.type === 'years') {
-      end = end.setFullYear(end.getFullYear() + 1);
+      start.setMonth('00');
+      start.setDate('01');
+      end.setFullYear(end.getFullYear() + 1);
+      end.setMonth('00');
+      end.setDate('01')
     } else if (selector.type === 'months') {
-      end = end.setMonth(end.getMonth() + 1);
+      start.setDate('01');
+      end.setMonth(end.getMonth() + 1);
+      end.setDate('01')
     } else {
-      end = end.setDate(end.getDate() + 1);
+      end.setDate(end.getDate() + 1);
     }
     return [start, end];
   }
@@ -168,11 +183,10 @@ class View extends Component {
       let selector = selectors[i];
 
       if (!selector) throw new Error('Given invalid selector.');
+      // don't need the other selectors if selecting the entire project
+      else if (selector.type === 'project') return ['project'];
       // skip if selector is not used
       else if (!selector.calendar.value) continue;
-
-      // don't need the other selectors if selecting the entire project
-      if (selector.type === 'project') return ['project'];
 
       // call helper function to format
       selector = this.formatSelector(selector);
@@ -209,9 +223,9 @@ class View extends Component {
         idx2++;
       }
       // if the loop is ending, push the last range 
-      // or the range merged with last range
+      // or the range merged with the last range
       if (idx2 >= selectors.length)
-        mergedSelectors.push(mergedSelectors[idx1]);
+        mergedSelectors.push(selectors[idx1]);
     }
     return mergedSelectors;
   }
@@ -242,6 +256,11 @@ class View extends Component {
       // then merge project's selectors
       newDictionary[projectId] =
         this.mergeSelectors(newDictionary[projectId]);
+
+      // and convert to ISO strings
+      newDictionary[projectId] = newDictionary[projectId].map(selector =>
+        [selector[0].toISOString(), selector[1].toISOString()]
+      );
     }
     return newDictionary;
   }
@@ -255,6 +274,8 @@ class View extends Component {
    */
   fetchLogs = () => {
     const selectors = this.prepareSelectors(this.state.selectors);
+    if (!Object.keys(selectors).length)
+      throw new Error('Could not get logs because no selections were made')
     return LoggingApiService.getLogsBySelectors(selectors)
       .then(selectedLogs => {
         selectedLogs = selectedLogs.map(log => {
@@ -350,7 +371,8 @@ class View extends Component {
       addSelector: this.addSelector,
       addEndRange: this.addEndRange,
       deleteSelector: this.deleteSelector,
-      updateSelector: this.updateSelector
+      updateSelector: this.updateSelector,
+      resetSelectors: this.resetSelectors
     }
 
     return (

@@ -18,6 +18,11 @@
   min-width: 30px;
 }
 
-.sidebar .note {
+.sidebar .form-status {
+  display: inline-block;
+}
+
+.sidebar .note,
+.sidebar .form-status {
   max-width: fit-content;
 }

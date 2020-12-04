@@ -130,15 +130,8 @@ const LoggingApiService = {
       )
   },
   getLogsBySelectors(selectorsByProject) {
-    let params = '?filter=projects-and-ranges';
-    for (let projectId in selectorsByProject) {
-      const selectors = selectorsByProject[projectId];
-      for (let i = 0; i < selectors.length; i++) {
-        params += `&selectors[${String(projectId)}][][${i}][]=${selectors[i][0]}`;
-        params += `&selectors[${String(projectId)}][][${i}][]=${selectors[i][1]}`;
-      }
-    }
-
+    let params = '?filter=projects-and-ranges&selectors=' + JSON.stringify(selectorsByProject);
+    
     return fetch(`${config.API_ENDPOINT}/logs${params}`, {
       headers: {
         'authorization': `bearer ${TokenService.getAuthToken()}`,

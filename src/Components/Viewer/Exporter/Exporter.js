@@ -88,11 +88,11 @@ class Exporter extends Component {
 
   render() {
     return (
-      <section className='exporter'>
+      <section className='exporter lg-card'>
         <output form='export-form' className='form-status'>{this.state.fetchError || (this.state.exporting && 'Exporting...')}</output>
         <div className='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
-          <h3 id='export-heading'>Export Logs</h3>
-          <fieldset className='group-column'>
+          <h3 id='export-heading' className='lg-title'>Export Logs</h3>
+          <fieldset className='group-column m-1'>
             {this.renderOrientationOptions()}
           </fieldset>
         </div>
@@ -100,13 +100,16 @@ class Exporter extends Component {
           <fieldset form='export-form' className='group-row'>
             {this.renderExportOptions()}
           </fieldset>
-          <button
-            type='submit'
-            form='export-form'
-            onClick={(e) => { this.handleSubmit(e) }}
-            disabled={!this.state.orientation || !this.state.selectedOptions.length}
-          > Export
-          </button>
+          <div className='lg-text-right mt-1'>
+            <button
+              className='lg-btn lg-btn-success'
+              type='submit'
+              form='export-form'
+              onClick={(e) => { this.handleSubmit(e) }}
+              disabled={!this.state.orientation || !this.state.selectedOptions.length}
+            > Export
+            </button>
+          </div>
         </form>
       </section>
     );
