@@ -17,11 +17,12 @@ class CalendarPicker extends Component {
   }
 
   validDay = (current) => {
+    let isValid = false;
     this.context.dayRanges[this.props.projectId].forEach(range => {
-      if (current.isBetween(range[0], range[1], undefined, '[]'))
-        return true;
+      if (current.isBetween(range[0], range[1], undefined, '[)'))
+        isValid = true;
     })
-    return false;
+    return isValid;
   }
 
   // how to set and get value ????????????????????
@@ -36,6 +37,15 @@ class CalendarPicker extends Component {
 
     return (
       <Datetime
+        value={this.props.value}
+        onChange={(momentObj) =>
+          this.context.updateSelector(
+            this.props.projectId,
+            this.props.selectorId,
+            this.props.isStart,
+            momentObj.toDate()
+          )
+        }
         dateFormat={dateFormat}
         timeFormat={false}
         isValidDate={
@@ -48,21 +58,19 @@ class CalendarPicker extends Component {
 }
 
 CalendarPicker.defaultProps = {
+  projectId: null,
   selectorId: '',
+  isStart: true,
   type: '',
   value: '',
-  open: false,
-  updateSelector: () => { },
-  projectId: null
 }
 
 CalendarPicker.propTypes = {
+  projectId: PropTypes.number.isRequired,
   selectorId: PropTypes.string.isRequired,
+  isStart: PropTypes.bool.isRequired,
   type: PropTypes.oneOf(['years', 'months', 'days']).isRequired,
   value: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-  updateSelector: PropTypes.func.isRequired,
-  projectId: PropTypes.number.isRequired
 }
 
 export default CalendarPicker;

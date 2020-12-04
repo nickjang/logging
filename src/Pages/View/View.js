@@ -21,8 +21,7 @@ class View extends Component {
     dayRanges: {},
     //logs: [], //sorted by start time //add logs on addSelector, deactivate days there are no logs
     selectors: {},
-    //selectedLogIds: [],
-    selectedLogs: [],
+    selectedLogs: [], // logs fetched with selectors
     format: {
       min: 0,
       sec: 0,
@@ -49,9 +48,9 @@ class View extends Component {
    */
   getSelectorIndex = (projectId, selectorId) => {
     if (projectId == null)
-      throw new Error('Given undefined or null projectId')
+      throw new Error('Given undefined or null project id')
     if (!selectorId)
-      throw new Error('Given undefined or null selectorId')
+      throw new Error('Given undefined or null selector id')
 
     // get the index of the target selector
     const selectorIdx = this.state.selectors[projectId].findIndex(selector =>
@@ -71,24 +70,19 @@ class View extends Component {
     const newSelector = {
       id: uuidv4(),
       type,
-      calendar: { value: '', open: false },
-      endRange: { added: false, value: '', open: false }
+      calendar: { value: '' },
+      endRange: { added: false, value: '' }
     };
 
     if (projectId == null)
-      throw new Error('Given undefined or null projectId.')
+      throw new Error('Given undefined or null project id.')
     if (this.validateSelectorType(newSelector)) {
       throw new Error('Selector must be one of \'project\', '
         + '\'years\', \'months\', or \'days\'.')
     }
 
-    // make sure projectId is a String before adding to object
-    projectId = String(projectId);
     const selectors = { ...this.state.selectors };
-    selectors[projectId] = [
-      ...this.state.selectors[projectId],
-      newSelector
-    ];
+    selectors[projectId].push(newSelector);
     this.setState({ selectors })
   }
 
@@ -97,22 +91,14 @@ class View extends Component {
    */
   addEndRange = (projectId, selectorId) => {
     const selectorIdx = this.getSelectorIndex(projectId, selectorId);
-    let projectSelectors = [...this.state.selectors[projectId]];
+    let selectors = { ...this.state.selectors };
 
     // add end range to target selector
-    projectSelectors[selectorIdx] = {
-      ...projectSelectors[selectorIdx],
-      endRange: {
-        added: true,
-        value: '',
-        open: true
-      }
-    }
+    selectors[projectId][selectorIdx].endRange = {
+      added: true,
+      value: ''
+    };
 
-    // make sure projectId is a String before adding to object
-    projectId = String(projectId);
-    const selectors = { ...this.state.selectors };
-    selectors[projectId] = projectSelectors;
     this.setState({ selectors });
   }
 
@@ -121,14 +107,27 @@ class View extends Component {
    */
   deleteSelector = (projectId, selectorId) => {
     const selectorIdx = this.getSelectorIndex(projectId, selectorId);
-    let projectSelectors = [...this.state.selectors[projectId]];
+    let selectors = { ...this.state.selectors };
 
     // delete target selector
-    projectSelectors.splice(selectorIdx, 1);
+    selectors[projectId].splice(selectorIdx, 1);
 
-    projectId = String(projectId);
-    const selectors = { ...this.state.selectors };
-    selectors[projectId] = projectSelectors;
+    this.setState({ selectors });
+  }
+
+  /**
+   * Update the start or end of a project's selector.
+   */
+  updateSelector = (projectId, selectorId, isStart, value) => {
+    const selectorIdx = this.getSelectorIndex(projectId, selectorId);
+    let selectors = { ...this.state.selectors };
+
+    // update start or end
+    if (isStart)
+      selectors[projectId][selectorIdx].calendar.value = value;
+    else
+      selectors[projectId][selectorIdx].endRange.value = value;
+
     this.setState({ selectors });
   }
 
@@ -141,28 +140,17 @@ class View extends Component {
    * ranges in MM-DD-YYYY format. 
    */
   formatSelector = (selector) => {
-    const monthDays = {
-      '01': '31', '02': '29', '03': '31', '04': '30',
-      '05': '31', '06': '30', '07': '31', '08': '31',
-      '09': '30', '10': '31', '11': '30', '12': '31'
-    }
-    let start = selector.calendar.value; //should these be dates to begin with??????????????????????????????????????????????????????????????????
+    let start = selector.calendar.value;
     let end = selector.endRange.added
       ? selector.endRange.value
       : selector.calendar.value;
 
     if (selector.type === 'years') {
-      start = new Date(start);
-      end = new Date(`${end}-12-31T23:59:59.999Z`);
+      end = end.setFullYear(end.getFullYear() + 1);
     } else if (selector.type === 'months') {
-      start = start.split('-');
-      end = end.split('-');
-      start = new Date(`${start[1]}-${start[0]}-01T00:00:00.000Z`);
-      end = new Date(`${end[1]}-${end[0]}-${monthDays[end[0]]}T23:59:59.999Z`);
+      end = end.setMonth(end.getMonth() + 1);
     } else {
-      start = new Date(start);
-      end = end.split('-');
-      end = new Date(`${end[2]}-${end[1]}-${end[0]}T23:59:59.999Z`);
+      end = end.setDate(end.getDate() + 1);
     }
     return [start, end];
   }
@@ -180,6 +168,8 @@ class View extends Component {
       let selector = selectors[i];
 
       if (!selector) throw new Error('Given invalid selector.');
+      // skip if selector is not used
+      else if (!selector.calendar.value) continue;
 
       // don't need the other selectors if selecting the entire project
       if (selector.type === 'project') return ['project'];
@@ -189,9 +179,6 @@ class View extends Component {
       formatted.push(selector);
     };
 
-    // sort selectors of project by their start days in ascending order
-    sortSelectors(formatted);
-
     return formatted;
   }
 
@@ -200,29 +187,33 @@ class View extends Component {
    * overlap.
    */
   mergeSelectors = (selectors) => {
-    let newSelectors = [];
+    let mergedSelectors = [];
     let idx1 = 0;
-    let idx2 = 0;
+    let idx2 = 1;
 
-    // if 'project' selector exists, it is the only selector
-    if (selectors[idx1] === 'project') {
-      return selectors;
-    }
+    // sort selectors of project by their start days in ascending order
+    sortSelectors(selectors);
 
-    // merge selectors or add to the new selector list
+    if (selectors.length === 1) return selectors;
+
+    // merge selectors or selector add to the new selector list
     while (idx2 < selectors.length) {
       // compare end of first selector to start of second
       if (selectors[idx1][1] < selectors[idx2][0]) {
-        newSelectors.push(selectors[idx1]);
-        idx1++;
+        mergedSelectors.push(selectors[idx1]);
+        idx1 = idx2;
         idx2++;
       } else {
         selectors[idx1][1] =
           mostRecentDay(selectors[idx1][1], selectors[idx2][1]);
         idx2++;
       }
+      // if the loop is ending, push the last range 
+      // or the range merged with last range
+      if (idx2 >= selectors.length)
+        mergedSelectors.push(mergedSelectors[idx1]);
     }
-    return newSelectors;
+    return mergedSelectors;
   }
 
   /**
@@ -233,9 +224,21 @@ class View extends Component {
   prepareSelectors = (selectorDictionary) => {
     let newDictionary = {};
     for (const projectId in selectorDictionary) {
-      // format project's selectors
-      newDictionary[projectId] =
-        this.formatSelectors(selectorDictionary[projectId]);
+      let selectors;
+
+      // don't add to new dictionary if project has no selectors
+      if (!selectorDictionary[projectId].length) continue;
+
+      // format project's selectors // only selectors with values are kept
+      selectors = this.formatSelectors(selectorDictionary[projectId]);
+      // don't add to new dictionary if selectors have no values
+      if (!selectors.length) continue;
+      else newDictionary[projectId] = selectors;
+
+      // if selecting the entire project, the project's selectors 
+      // are finished getting prepared
+      if (newDictionary[projectId][0] === 'project') continue;
+
       // then merge project's selectors
       newDictionary[projectId] =
         this.mergeSelectors(newDictionary[projectId]);
@@ -248,31 +251,22 @@ class View extends Component {
 
 
   /**
-   * Get ids of logs filtered by selectors.
-   * Logs and selectors are grouped by project.
+   * Get logs filtered by selectors.
    */
-  // Change to call merge selectors, separate merge 
-  // selectors to do for one project. Combine merge 
-  // and format selectors functions.
-  // Fetch
-  getSelectedIds = (selectorsByProject, logsByProject) => {
-    let selectedLogIds = [];
-    for (const projectId in selectorsByProject) {
-      const currLogs = logsByProject[projectId];
-      const currSelectors = selectorsByProject[projectId];
-      let idx1 = 0, idx2 = 0;
-      let start = new Date(currSelectors[idx1].start);
-      let end = new Date(currSelectors[idx1].end);
-      while (idx2 < currLogs.length) {
-        if (currLogs[idx2] >= start && currLogs[idx2] <= end) {
-          selectedLogIds.push(currLogs[idx2].id);
-        } else {
-          idx1++;
-          idx2++;
-        }
-      }
-    };
-    this.setState({ selectedLogIds });
+  fetchLogs = () => {
+    const selectors = this.prepareSelectors(this.state.selectors);
+    return LoggingApiService.getLogsBySelectors(selectors)
+      .then(selectedLogs => {
+        selectedLogs = selectedLogs.map(log => {
+          return {
+            id: log.id,
+            project_id: log.project_id,
+            start_time: log.start_time,
+            end_time: log.end_time
+          };
+        })
+        this.setState({ selectedLogs });
+      });
   }
 
 
@@ -355,13 +349,14 @@ class View extends Component {
       dayRanges: this.state.dayRanges,
       addSelector: this.addSelector,
       addEndRange: this.addEndRange,
-      deleteSelector: this.deleteSelector
+      deleteSelector: this.deleteSelector,
+      updateSelector: this.updateSelector
     }
 
     return (
       <SelectorContext.Provider value={contextValue}>
         <div className='view-page'>
-          <SideBar viewLogs={this.updateSelectedLogIds} />
+          <SideBar fetchLogs={this.fetchLogs} />
           <div className='view-wrapper'>
             <article className='view-main'>
               <span className='status'>{this.state.error || this.state.loading}</span>

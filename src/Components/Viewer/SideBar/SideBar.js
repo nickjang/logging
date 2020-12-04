@@ -8,65 +8,82 @@ class SideBar extends Component {
   state = {
     open: true,
     loading: false,
-    fetchError: ''
+    error: ''
   }
 
   static contextType = SelectorContext;
 
+  /**
+   * Open or close the sidebar.
+   */
   handleToggleOpen = () => {
     this.setState({ open: !this.state.open });
   }
 
-  // fetchProjectsORAllProjectsAndLogs() {}
-  // if user enters site from viewpage, 
-  // fetch project or all projects and logs to load sidebar
-
-  // fetchLogs() {}
-  // if all logs not loaded in App already, see handlesubmit below
-
-  /* if not loading all logs, fetch logs on submit*/
-  handleSubmit = (e, viewLogs) => {
-    e.preventDefault();
-    viewLogs();
-    //loading/error
-    //use picked context to store picked, and fetch logs of picked;
-
-    //otherwise, remove handlesubmit and view selected button,
-    //and put picked context in viewmain page and store picked there
-    //and update main page on picked update.
-    //--------------------------------------------------
-    //if store all projects and logs in app, add newly created logs to inital fetch of all logs
-    //and pass all projects and logs to view main page,
-    //but also passes and stores all projects and logs to log main page
-
-    //if store just projects in app, fetch newly created logs when clicking logmain page,
-    //and include viewselectedbutton and fetch logs when clicking view button in sidebar,
-    //but need to fetch logs each time click view and can't deactivate days there's no logs
+  /**
+   * Return whether the user has made selectors.
+   */
+  hasSelectors = () => {
+    const selectors = this.context.selectors;
+    for (const projectId in selectors) {
+      if (selectors[projectId].length) {
+        // if there were selectors, check if any selector has a value
+        const projectSelectors = selectors[projectId];
+        for (const selector of projectSelectors)
+          if (selector.calendar.value) return true;
+      }
+    }
+    return false;
   }
+
+  /**
+   * Fetch logs by user's selectors.
+   */
+  handleSubmit = (e, fetchLogs) => {
+    e.preventDefault();
+    this.setState(
+      {
+        loading: true,
+        error: ''
+      },
+      () => {
+        fetchLogs()
+          .then(() => this.setState({ loading: false }))
+          .catch(e => this.setState({ loading: false, error: e.message || e.error }));
+      }
+    );
+  }
+
 
   render() {
     const projects = this.context.projects.map(project =>
       <ProjectPicker key={project.id} project={project} />
     );
-    
+
     return (
       <aside className='sidebar'>
         {this.state.open &&
           <div className='sidebar-main'>
-            {/* <img src='' alt='A hamburger menu button to open the sidebar.'/> */}
-            <output form='sidebar-form' className='form-status'>{this.state.fetchError || (this.state.loading && 'Loading projects...')}</output>
-            {/* fetch projects if not already fetch on log in -- but will log in be saved on refresh?*/}
-            {/* also for getting logs if all logs not stored in state*/}
-            <p className='note'>View logs from selected projects or their year(s), month(s), and day(s).</p>
+            <p className='note'>
+              View logs from selected projects
+              or their year(s), month(s), and day(s).
+            </p>
             <button
               type='submit'
               form='sidebar-form'
-              onClick={(e) => { this.handleSubmit(e, this.props.viewLogs) }}
+              onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
+              disabled={!this.hasSelectors()}
             > View Selected
             </button>
-            <p className='note'>Overlapping logs will be counted once</p>
+            <output form='sidebar-form' className='form-status'>
+              {this.state.error || (this.state.loading && 'Getting logs...')}
+            </output>
+            <p className='note'>
+              Overlapping logs will be counted once.
+              Calendars are displayed in your time zone.
+              Logs will also displayed in your time zone.
+            </p>
             <form action='' id='sidebar-form'>
-              {/*<!--add scroll so view button stays in view-->*/}
               <ul>
                 {projects}
               </ul>
@@ -84,11 +101,11 @@ class SideBar extends Component {
 }
 
 SideBar.defaultProps = {
-  viewLogs: () => { }
+  fetchLogs: () => { }
 }
 
 SideBar.propTypes = {
-  viewLogs: PropTypes.func.isRequired
+  fetchLogs: PropTypes.func.isRequired
 }
 
 export default SideBar;

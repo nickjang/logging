@@ -1,3 +1,4 @@
+import moment from 'moment';
 import TokenService from './token-service';
 import config from '../config';
 
@@ -95,7 +96,6 @@ const LoggingApiService = {
 
     let end = new Date(start);
     end.setDate(end.getDate() + 1);
-    end.setHours(0, 0, 0, -1);
 
     start = start.toISOString();
     end = end.toISOString();
@@ -115,8 +115,9 @@ const LoggingApiService = {
   },
   // get ranges of days with logs for each project
   getDayRanges() {
-    let params = '?part=day-ranges';
-    
+    let params = '?part=day-ranges&time_zone='
+      + Intl.DateTimeFormat().resolvedOptions().timeZone;
+
     return fetch(`${config.API_ENDPOINT}/projects${params}`, {
       headers: {
         'authorization': `bearer ${TokenService.getAuthToken()}`,

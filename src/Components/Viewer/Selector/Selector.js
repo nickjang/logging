@@ -25,25 +25,27 @@ class Selector extends Component {
     return (
       <>
         <CalendarPicker
+          key='calendar'
+          projectId={this.props.projectId}
           selectorId={this.props.id}
+          isStart={true}
           type={this.props.type}
-          value={this.props.calendar.value}
-          open={this.props.calendar.open}
-          updateSelector={this.context.updateSelector} />
+          value={this.props.calendar.value} />
         <span>to</span>
         {
           !this.props.endRange.added
             ? <input
-              type='button'
-              value='+'
-              aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
-              onClick={(e) => this.handleAddRange(e)} />
+                type='button'
+                value='+'
+                aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
+                onClick={(e) => this.handleAddRange(e)} />
             : <CalendarPicker
-              selectorId={this.props.id}
-              type={this.props.type}
-              value={this.props.endRange.value}
-              open={this.props.endRange.open}
-              updateSelector={this.context.updateEndRange} />
+                key='endRange'
+                projectId={this.props.projectId}
+                selectorId={this.props.id}
+                isStart={false}
+                type={this.props.type}
+                value={this.props.endRange.value} />
         }
       </>
     );
@@ -52,7 +54,11 @@ class Selector extends Component {
   render() {
     return (
       <li className='group-row'>
-        {this.props.type === 'project' ? this.renderEntireProject() : this.renderDate()}
+        {
+          this.props.type === 'project'
+            ? this.renderEntireProject()
+            : this.renderDate()
+        }
         <input
           type='button'
           value='x'
@@ -68,12 +74,10 @@ Selector.defaultProps = {
   type: '',
   calendar: {
     value: '',
-    open: false
   },
   endRange: {
     added: false,
     value: '',
-    open: false
   },
   projectId: null
 }
@@ -82,13 +86,11 @@ Selector.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['project', 'years', 'months', 'days']).isRequired,
   calendar: PropTypes.shape({
-    value: PropTypes.string,
-    open: PropTypes.bool
+    value: PropTypes.object,
   }),
   endRange: PropTypes.shape({
     added: PropTypes.bool,
-    value: PropTypes.string,
-    open: PropTypes.bool
+    value: PropTypes.object,
   }),
   projectId: PropTypes.number.isRequired
 }

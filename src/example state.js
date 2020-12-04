@@ -12,8 +12,8 @@ const state = {
         {
           id: '',
           type: 'day',
-          calendar: { value: '00-00-0000', open: false },
-          endRange: { value: '', open: false }
+          calendar: { value: '00-00-0000', },
+          endRange: { value: '', }
         }
       ]
     }

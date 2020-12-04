@@ -12,18 +12,13 @@ class LogList extends Component {
 
   render() {
     const options = this.props.logs.map(log =>
-      <option
-        key={log.id}
-        value={log.id}
-      >{formatLog(log.start_time, log.end_time || '', log.format)}
+      <option key={log.id} value={log.id}>
+        {formatLog(log.start_time, log.end_time || '', log.format)}
       </option>
     );
 
-    const updateSelectedLogs = (logs) => {
-    }
-
     return (
-      <section className='log-list'>
+      <section className='log-list lg-card'>
         <h3>Logs</h3>
         <form action='' id='logs-select-form' className='log-list-form'>
           {/* only accepts option or optgroup */}
@@ -33,7 +28,7 @@ class LogList extends Component {
             multiple
             aria-label='Select logs you would like to format. Selected logs can be formatted in any format logs box on the page.'
             aria-required='true'
-            // onChange={(e) => console.log(Array.from(e.target.selectedOptions, option => option.value))}
+          // onChange={(e) => console.log(Array.from(e.target.selectedOptions, option => option.value))}
           >
             {options}
           </select>

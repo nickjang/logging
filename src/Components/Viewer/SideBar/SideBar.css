@@ -1,18 +1,23 @@
 .sidebar {
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: calc(100vh - 80px);
   position: absolute;
   background-color: white;
-  border: 1px solid black;
-  overflow: auto;
+  border-right: 1px solid black;
   z-index: 1;
 }
 
 .sidebar-main {
-  padding: 20px;
+  width: fit-content;
+  padding: 0px 20px 0px 20px;
+  overflow: auto;
 }
 
 .sidebar button.open-sidebar {
   min-width: 30px;
+}
+
+.sidebar .note {
+  max-width: fit-content;
 }

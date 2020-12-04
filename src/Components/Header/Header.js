@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TokenService from '../../services/token-service';
 import IdleService from '../../services/idle-service';
 import './Header.css';
-import userPic from '../../images/user.png'
+import userPic from '../../assets/images/user.png'
 
 class Header extends Component {
   handleLogoutClick = () => {

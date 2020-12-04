@@ -7,6 +7,5 @@ export default React.createContext({
   addSelector: ()=>{},
   addEndRange: () => {},
   deleteSelector: () => {},
-  updateSelector: () => {},
-  updateEndRange: () => {}
+  updateSelector: () => {}
 });

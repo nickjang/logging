@@ -64,7 +64,7 @@ class LoginForm extends Component {
         }, this.props.onSuccess())
       })
       .catch(res => {
-        this.setState({ error: res.error })
+        this.setState({ error: res.message || res.error })
       })
   }
 

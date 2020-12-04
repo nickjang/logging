@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SelectorContext from '../../../Context/SelectorContext';
 import './AddSelector.css';
 
-class Selector extends Component {
+class AddSelector extends Component {
   static contextType = SelectorContext;
 
   handleClick = (e) => {
@@ -22,18 +22,18 @@ class Selector extends Component {
   };
 }
 
-Selector.defaultProps = {
+AddSelector.defaultProps = {
   type: '',
   label: '',
   buttonText: '',
   projectId: null,
 }
 
-Selector.propTypes = {
+AddSelector.propTypes = {
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   projectId: PropTypes.number.isRequired
 }
 
-export default Selector;
+export default AddSelector;

@@ -29,10 +29,10 @@ class Formatter extends Component {
 
   render() {
     return (
-      <section className='formatter'>
-        <h3>Format Logs</h3>
+      <section className='formatter lg-card'>
+        <h3 className='lg-title'>Format Logs</h3>
         <output form='format-form' className='form-status'>{this.state.fetchError || (this.state.formatting && 'Saving format...')}</output>
-        <form action='' id='format-form'>
+        <form action='' id='format-form' className='mt-1'>
           <fieldset form='format-form' name='format-time'>
             <legend>To the nearest multiple of:</legend>
             <time>
@@ -60,13 +60,16 @@ class Formatter extends Component {
             </time>
             {/* Deleting input applies no format */}
           </fieldset>
-          <button
-            type='submit'
-            form='format-form'
-            disabled={!this.props.format.touched}
-            onClick={(e) => this.formatSelected(e)}
-          > Format
-          </button>
+          <div className='lg-text-right mt-1'>
+            <button
+              className='lg-btn lg-btn-success'
+              type='submit'
+              form='format-form'
+              disabled={!this.props.format.touched}
+              onClick={(e) => this.formatSelected(e)}
+            > Format
+            </button>
+          </div>
         </form>
       </section>
     );
@@ -79,8 +82,8 @@ Formatter.defaultProps = {
     sec: 0,
     touched: false
   },
-  updateFormat: ()=>{},
-  formatLogList: ()=>{}
+  updateFormat: () => { },
+  formatLogList: () => { }
 };
 
 Formatter.propTypes = {

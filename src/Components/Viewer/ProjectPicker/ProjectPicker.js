@@ -29,7 +29,7 @@ class ProjectPicker extends Component {
         .map(selectorType => {
           return (
             <AddSelector
-              key={`${this.props.project.id}-add-selector-${selectorType.type}`}
+              key={`${this.props.project.id}-${selectorType.type}`}
               type={selectorType.type}
               label={selectorType.label}
               buttonText={selectorType.buttonText}
@@ -40,7 +40,7 @@ class ProjectPicker extends Component {
     return (
       <li>
         <h3>{this.props.project.title}</h3>
-        <fieldset className='group-row'>
+        <fieldset className='add-selector-group group-row'>
           {selectorTypes}
         </fieldset>
         <ul className='selected' role='presentation'>
