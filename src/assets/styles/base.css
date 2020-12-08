@@ -41,6 +41,10 @@ input:focus {
   color: var(--color-white);
 }
 
+.lg-btn-success:disabled {
+  background: rgb(117, 143, 117);
+}
+
 .lg-text-left {
   text-align: left;
 }

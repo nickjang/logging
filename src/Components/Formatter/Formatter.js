@@ -4,34 +4,78 @@ import './Formatter.css';
 
 class Formatter extends Component {
   state = {
-    formatting: false,
-    fetchError: ''
+    minutes: {
+      value: null,
+      touched: false
+    },
+    seconds: {
+      value: null,
+      touched: false
+    },
+    loading: '',
+    error: ''
   }
 
-  updateMinute = (min) => {
-    this.props.updateFormat('min', min);
+  updateMinute = (minutes) => {
+    this.setState({
+      minutes: {
+        value: minutes,
+        touched: true
+      }
+    });
   }
 
-  updateSecond = (sec) => {
-    this.props.updateFormat('sec', sec);
+  updateSecond = (seconds) => {
+    this.setState({
+      seconds: {
+        value: seconds,
+        touched: true
+      }
+    });
+  }
+
+  validateMinutes = () => {
+    return (
+      !isNaN(parseInt(this.state.minutes.value)) &&
+      this.state.minutes.touched
+    );
+  }
+
+  validateSeconds = () => {
+    return (
+      !isNaN(parseInt(this.state.seconds.value)) &&
+      this.state.seconds.touched
+    );
   }
 
   formatSelected = (e) => {
     e.preventDefault();
-    //formatting/error
-    //context get project
-    //get selected logs from state
-    //fetch(put)
-    // apply format to selected logs, or get from api and setState in main log or loglist with updated logs
-    //save format as last format in state
-    //this.props.formatLogList();
+
+    // if LogList has no logs selected, display error
+    if (!this.props.listHasLogs)
+      return this.setState({ error: 'Select logs from the list below' });
+
+    const minutes = parseInt(this.state.minutes.value);
+    const seconds = parseInt(this.state.seconds.value);
+
+    this.setState(
+      {
+        loading: 'Formatting logs...',
+        error: ''
+      },
+      () => this.props.updateFormats(minutes, seconds)
+        .then(this.setState({ loading: '' }))
+        .catch(e => this.setState({ loading: '', error: e.message || e.error }))
+    );
   }
 
   render() {
     return (
       <section className='formatter lg-card'>
         <h3 className='lg-title'>Format Logs</h3>
-        <output form='format-form' className='form-status'>{this.state.fetchError || (this.state.formatting && 'Saving format...')}</output>
+        <output form='format-form' className='form-status'>
+          {this.state.error || this.state.loading}
+        </output>
         <form action='' id='format-form' className='mt-1'>
           <fieldset form='format-form' name='format-time'>
             <legend>To the nearest multiple of:</legend>
@@ -65,7 +109,7 @@ class Formatter extends Component {
               className='lg-btn lg-btn-success'
               type='submit'
               form='format-form'
-              disabled={!this.props.format.touched}
+              disabled={!this.validateMinutes() || !this.validateSeconds()}
               onClick={(e) => this.formatSelected(e)}
             > Format
             </button>
@@ -77,23 +121,13 @@ class Formatter extends Component {
 }
 
 Formatter.defaultProps = {
-  format: {
-    min: 0,
-    sec: 0,
-    touched: false
-  },
-  updateFormat: () => { },
-  formatLogList: () => { }
+  listHasLogs: false,
+  updateFormats: () => { }
 };
 
 Formatter.propTypes = {
-  format: PropTypes.shape({
-    min: PropTypes.number,
-    sec: PropTypes.number,
-    false: PropTypes.bool
-  }),
-  updateFormat: PropTypes.func.isRequired,
-  formatLogList: PropTypes.func.isRequired
+  listHasLogs: PropTypes.bool.isRequired,
+  updateFormats: PropTypes.func.isRequired
 };
 
 export default Formatter;

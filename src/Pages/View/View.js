@@ -7,12 +7,10 @@ import Exporter from '../../Components/Viewer/Exporter/Exporter';
 import LogList from '../../Components/LogList/LogList';
 import SideBar from '../../Components/Viewer/SideBar/SideBar';
 import SelectorContext from '../../Context/SelectorContext';
-import { sortSelectors, mostRecentDay } from './selector-helper-functions';
-import formatLog from '../../Components/Formatter/formatLog';
+import { sortSelectors, mostRecentDay } from '../../Components/Utils/selector-helper-functions';
+import { updateListWithUpdatedLogs } from '../../Components/Utils/format-helper-functions';
 import LoggingApiService from '../../services/logging-api-service';
 import './View.css';
-
-// set up error boundary for log list, and fetch
 
 class View extends Component {
   state = {
@@ -26,6 +24,7 @@ class View extends Component {
       touched: false
     },
     formattedSelectors: {}, // titles to display after fetching logs
+    logListSelectedIds: [], // ids of logs selected in displayed log list
     loading: '',
     error: ''
   };
@@ -293,12 +292,13 @@ class View extends Component {
             id: log.id,
             project_id: log.project_id,
             start_time: log.start_time,
-            end_time: log.end_time
+            end_time: log.end_time,
+            format: log.format
           };
-        })
+        });
 
         // delete selected projects that returned no logs
-        for(const projectId in visitedProjectIds) {
+        for (const projectId in visitedProjectIds) {
           if (visitedProjectIds[projectId] === false)
             delete selectors[projectId];
         }
@@ -309,24 +309,26 @@ class View extends Component {
 
   /******************** Format Logs ********************/
 
-
-  /**
-   * Update format for logs
-   */
-  updateLogListFormat = (type, num) => {
-    let { min, sec } = this.state.format;
-
-    num = parseInt(num);
-    if (type === 'min') min = num;
-    else if (type === 'sec') sec = num;
-    this.setState({ format: { min, sec, touched: true } });
+  updateLogListSelectedOptions = (ids) => {
+    this.setState({ logListSelectedIds: ids });
   }
 
-  /**
-   * Apply format to logs
-   */
-  formatLogList = (logs) => {
-    return logs; //put this function in Formatter/formatLog?
+  updateFormats = (minutes, seconds) => {
+    return LoggingApiService.updateLogsWithFormat(
+      this.state.logListSelectedIds,
+      minutes,
+      seconds
+    )
+      .then(updatedLogs => {
+        // update logs in state
+        let selectedLogs = [...this.state.selectedLogs];
+
+        selectedLogs = updateListWithUpdatedLogs(
+          selectedLogs, updatedLogs
+        );
+
+        this.setState({ selectedLogs });
+      });
   }
 
 
@@ -399,11 +401,12 @@ class View extends Component {
               <span className='status'>{this.state.error || this.state.loading}</span>
               <ProjectTitles selectors={this.state.formattedSelectors} />
               <Formatter
-                format={this.state.format}
-                updateFormat={this.updateLogListFormat}
-                formatLogList={this.formatLogList} />
+                listHasLogs={!!this.state.logListSelectedIds.length}
+                updateFormats={this.updateFormats} />
               <Exporter />
-              <LogList logs={this.state.selectedLogs} />
+              <LogList
+                logs={this.state.selectedLogs}
+                updateSelected={this.updateLogListSelectedOptions} />
             </article>
           </div>
         </div>

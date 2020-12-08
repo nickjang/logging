@@ -1,44 +1,23 @@
-//updateProject
-//context: project
-//state: last format => apply last format to new logs
-//state: logs with their formats
-//state: selected log id
-
-/*
-keep state in a single object or obbject in a single context, 
-not seprate log and project in different
-
-arrayofproject and array of logs-->and is only of current project, 
-context will only hold logs for whetever logs of project is currently selected. 
-and can filter for selected logs if needed.
-
-setProject(projectid) fetches logs
-*/
-
 import React, { Component } from 'react';
 import LoggerForm from '../../Components/Logger/LoggerForm/LoggerForm';
 import Formatter from '../../Components/Formatter/Formatter';
 import LogList from '../../Components/LogList/LogList';
 import LoggingContext from '../../Context/LoggingContext';
-import formatLog from '../../Components/Formatter/formatLog';
-import './Log.css';
+import { updateListWithUpdatedLogs } from '../../Components/Utils/format-helper-functions';
 import LoggingApiService from '../../services/logging-api-service';
+import './Log.css';
 
 class Log extends Component {
   state = {
     projects: [],
     currentDayLogs: [], // all logs for current day
     currentProjectId: null,
-    format: {
-      min: 0,
-      sec: 0,
-      touched: false
-    },
-    currentProjectLogsIds: [],
+    currentProjectLogsIds: [], // ids of logs to display
     logger: {
       logId: null,
       start: null // start time if logger running
     },
+    logListSelectedIds: [], // ids of logs selected in displayed log list
     loading: '',
     error: ''
   }
@@ -77,7 +56,7 @@ class Log extends Component {
   updateCurrentProject = (projectId) => {
     const currentProjectLogsIds = this.getProjectLogs(projectId); // ids of logs of newly selected project
     let logger;
-    
+
     // check if project exists
     if (!this.state.projects.find(project => String(project.id) === String(projectId)))
       throw new Error('Could not find selected project.');
@@ -111,12 +90,13 @@ class Log extends Component {
             id: log.id,
             project_id: log.project_id,
             start_time: log.start_time,
-            end_time: log.end_time
+            end_time: log.end_time,
+            format: log.format
           };
 
           const currentDayLogs = [...this.state.currentDayLogs, log];
           const currentProjectLogsIds = [...this.state.currentProjectLogsIds, log.id];
-          
+
           this.setState({
             currentDayLogs,
             currentProjectLogsIds,
@@ -133,7 +113,8 @@ class Log extends Component {
             id: log.id,
             project_id: log.project_id,
             start_time: log.start_time,
-            end_time: log.end_time
+            end_time: log.end_time,
+            format: log.format
           };
 
           const logIdx = this.state.currentDayLogs.findIndex(currLog => currLog.id === log.id);
@@ -157,20 +138,6 @@ class Log extends Component {
     }
   }
 
-
-  updateFormat = (type, num) => {
-    let { min, sec } = this.state.format;
-
-    num = parseInt(num);
-    if (type === 'min') min = num;
-    else if (type === 'sec') sec = num;
-    this.setState({ format: { min, sec, touched: true } });
-  }
-
-  formatLogList = () => {
-    formatLog({}, {}); //formatlogs not log?
-  }
-
   getCurrentProjectLogs = () => {
     let logsToReturn = [];
     let idx1 = 0;
@@ -190,6 +157,37 @@ class Log extends Component {
       }
     }
     return logsToReturn;
+  }
+
+  updateLogListSelectedOptions = (ids) => {
+    this.setState({ logListSelectedIds: ids });
+  }
+
+  updateFormats = (minutes, seconds) => {
+    return LoggingApiService.updateLogsWithFormat(
+      this.state.logListSelectedIds,
+      minutes,
+      seconds
+    )
+      .then(updatedLogs => {
+        updatedLogs = updatedLogs.map(log => {
+          return {
+            id: log.id,
+            project_id: log.project_id,
+            start_time: log.start_time,
+            end_time: log.end_time,
+            format: log.format
+          };
+        });
+
+        let currentDayLogs = [...this.state.currentDayLogs];
+
+        currentDayLogs = updateListWithUpdatedLogs(
+          currentDayLogs, updatedLogs
+        );
+
+        this.setState({ currentDayLogs });
+      });
   }
 
   componentDidMount() {
@@ -217,7 +215,8 @@ class Log extends Component {
                 id: log.id,
                 project_id: log.project_id,
                 start_time: log.start_time,
-                end_time: log.end_time
+                end_time: log.end_time,
+                format: log.format
               };
             });
 
@@ -249,10 +248,11 @@ class Log extends Component {
           <output className='form-status'>{this.state.error || this.state.loading}</output>
           <LoggerForm />
           <Formatter
-            format={this.state.format}
-            updateFormat={this.updateFormat}
-            formatLogList={this.formatLogList} /> {/* format logs somehow*/}
-          <LogList logs={this.getCurrentProjectLogs()} />
+            listHasLogs={!!this.state.logListSelectedIds.length}
+            updateFormats={this.updateFormats} />
+          <LogList
+            logs={this.getCurrentProjectLogs()}
+            updateSelected={this.updateLogListSelectedOptions} />
         </article>
       </LoggingContext.Provider>
     );
