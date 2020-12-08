@@ -360,7 +360,7 @@ class View extends Component {
             // the Datetime picker uses moment
             for (let projectId in dayRanges) {
               dayRanges[projectId] = dayRanges[projectId].map(range =>
-                [moment(range[0]), moment(range[1])]
+                [moment(range[0]), moment(range[1]).subtract(1, 'milliseconds')]
               );
             }
 
@@ -403,7 +403,7 @@ class View extends Component {
               <Formatter
                 listHasLogs={!!this.state.logListSelectedIds.length}
                 updateFormats={this.updateFormats} />
-              <Exporter />
+              {/*<Exporter />*/}
               <LogList
                 logs={this.state.selectedLogs}
                 updateSelected={this.updateLogListSelectedOptions} />

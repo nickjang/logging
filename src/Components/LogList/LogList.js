@@ -18,7 +18,7 @@ class LogList extends Component {
 
     return (
       <section className='log-list lg-card'>
-        <h3>Logs</h3>
+        <h3 className='lg-title'>Logs</h3>
         <form action='' id='logs-select-form' className='log-list-form'>
           {/* only accepts option or optgroup */}
           <select

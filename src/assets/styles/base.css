@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;500;600;700;800&display=swap');
+
 :root {
   --color-black: black;
   --color-white: white;
+  --title-font: 'Lora', serif;
+  --timestamp-font:  'Montserrat', sans-s;
 }
 
 .lg-title {
-  color: blue;
+  color: rgb(2, 52, 110);
+  font-family: var(--title-font);
   font-size: 2rem;
 }
 

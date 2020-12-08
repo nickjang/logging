@@ -8,22 +8,74 @@ import './CalendarPicker.css';
 class CalendarPicker extends Component {
   static contextType = SelectorContext;
 
-  validMonthOrYear = (current, type) => {
-    let isValid = false;
-    this.context.dayRanges[this.props.projectId].forEach(range => {
+  binarySearch = (list, toMatch, compareFunc, l, r) => {
+    if (r >= l) {
+      let mid = l + Math.floor((r - l) / 2);
+      let result = compareFunc(toMatch, list[mid]);
+
+      if (result === 0)
+        return true;
+      else if (result > 0 ) // search right half
+        return this.binarySearch(list, toMatch, compareFunc, mid + 1, r)
+      else // search left half
+        return this.binarySearch(list, toMatch, compareFunc, l, mid -1);
+    } else { // element is not in array (no more elements to search between)
+      return false;
+    }
+  }
+
+  validMonthOrYear(current, type) {
+    // callback function compares current month/year to month/year range
+    const compareFunc = (current, range) => {
       if (current.isSame(range[0], type) || current.isSame(range[1], type))
-        isValid = true;
-    })
-    return isValid;
+        return 0;
+      else if (current.isBefore(range[0], type))
+        return -1;
+      else
+        return 1;
+    }
+
+    // dayRanges is sorted, so binary search
+    return this.binarySearch(
+      this.context.dayRanges[this.props.projectId],
+      current,
+      compareFunc,
+      0,
+      this.context.dayRanges[this.props.projectId].length - 1
+    );
+    // this.context.dayRanges[this.props.projectId].forEach(range => {
+    //   if (current.isSame(range[0], type) || current.isSame(range[1], type))
+    //     isValid = true;
+    // })
+    // return isValid;
   }
 
   validDay = (current) => {
-    let isValid = false;
-    this.context.dayRanges[this.props.projectId].forEach(range => {
-      if (current.isBetween(range[0], range[1], undefined, '[)'))
-        isValid = true;
-    })
-    return isValid;
+    // callback function compares date to dates range
+    const compareFunc = (current, range) => {
+      console.log(current.format("YYY-MM-DDTHH:mm:ss.SSSSZ"), range[0].format("YYY-MM-DDTHH:mm:ss.SSSSZ"), range[1].format("YYY-MM-DDTHH:mm:ss.SSSSZ"))
+      if (current.isBetween(range[0], range[1], undefined, '[]'))
+        return 0;
+      else if (current.isBefore(range[0], 'day'))
+        return -1;
+      else
+        return 1;
+    }
+
+    // dayRanges is sorted, so binary search
+    return this.binarySearch(
+      this.context.dayRanges[this.props.projectId],
+      current,
+      compareFunc,
+      0,
+      this.context.dayRanges[this.props.projectId].length - 1
+    );
+    // let isValid = false;
+    // this.context.dayRanges[this.props.projectId].forEach(range => {
+    //   if (current.isBetween(range[0], range[1], undefined, '[)'))
+    //     isValid = true;
+    // })
+    // return isValid;
   }
 
   render() {

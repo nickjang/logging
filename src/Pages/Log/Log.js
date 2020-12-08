@@ -54,12 +54,13 @@ class Log extends Component {
   }
 
   updateCurrentProject = (projectId) => {
-    const currentProjectLogsIds = this.getProjectLogs(projectId); // ids of logs of newly selected project
-    let logger;
-
     // check if project exists
     if (!this.state.projects.find(project => String(project.id) === String(projectId)))
       throw new Error('Could not find selected project.');
+
+    const currentProjectLogsIds = this.getProjectLogs(projectId); // ids of logs of newly selected project
+    let logger;
+
 
     // check if there is a log already running
     const runningLog = this.getRunningLog(projectId);

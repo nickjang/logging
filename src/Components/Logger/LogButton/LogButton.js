@@ -33,12 +33,14 @@ class LogButton extends Component {
   render() {
     return (
       <>
-        <output className='form-status log-button-status'>{this.state.fetchError || this.state.loading}</output>
+        <output className='form-status log-button-status'>
+          {this.state.fetchError || this.state.loading}
+          </output>
         <input
+          className={`log-button ${this.context.loggerStartTime ? 'log-button-end' : 'log-button-start'}`}
           type='button'
           value={this.context.loggerStartTime ? 'End' : 'Start'}
           aria-label='Start or end a log.'
-          className='log-button'
           onClick={(e) => this.toggleLogButton(e)}
           disabled={!this.context.currentProjectId} />
       </>

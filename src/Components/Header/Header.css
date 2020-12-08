@@ -32,7 +32,15 @@
   height: 40px;
 }
 
-.header h1,
-.header .view-page-link {
+.header .main-nav li {
   font-size: var(--nav-font-size);
+}
+
+.main-nav li a {
+  color: white;
+  text-decoration: none;
+}
+
+.main-nav li a.active {
+  border-bottom: 1px solid white;
 }

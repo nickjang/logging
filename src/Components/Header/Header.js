@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TokenService from '../../services/token-service';
 import IdleService from '../../services/idle-service';
@@ -18,17 +18,14 @@ class Header extends Component {
     return (
       <header className='header group-row'>
         <nav>
-          <ul>
+          <ul className='main-nav'>
             <li>
-              <h1><Link to='/'>Logo</Link></h1>
+              <NavLink exact={true} to='/' activeClassName='active'>Log</NavLink>
             </li>
             <li className='view-page-link'>
-              {view ?
-                <h2><Link to='/view'>View</Link></h2> :
-                <Link to='/view'>View</Link>}
+              <NavLink to='/view' activeClassName='active'>View</NavLink>
             </li>
           </ul>
-          <hr />
         </nav>
         <img className='user-pic' src={userPic} alt="A link to the user's account settings." />
         <Link onClick={this.handleLogoutClick} to='/'>

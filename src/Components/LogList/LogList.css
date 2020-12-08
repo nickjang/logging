@@ -16,6 +16,8 @@
 }
 
 .log-list .log-list-form option {
+  font-family: var(--timestamp-font);
+  font-weight: 600;
   font-size: 17px;
   text-align: left;
   padding: 12px;

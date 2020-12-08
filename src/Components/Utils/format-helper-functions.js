@@ -1,10 +1,52 @@
 import moment from 'moment';
 
 const durationOfType = (logValue, type) => {
-  if (type === 'minutes') 
+  if (type === 'minutes')
     return moment.duration(logValue).minutes();
-  else if (type === 'seconds') 
+  else if (type === 'seconds')
     return moment.duration(logValue).seconds();
+};
+
+const formatAtType = (ts, type, formatValue) => {
+  // return if no format given
+  if (formatValue == null) return ts;
+
+  // duration is recalculated on each step in case the seconds are rounded to the next minute
+  const durationValue = durationOfType(ts, type);
+  // get the closest negative and positive changes
+  let negClosest;
+  let posClosest;
+
+  // if the format is 00, the result should be 00
+  if (formatValue === 0) {
+    negClosest = -1 * durationValue;
+    posClosest = 60 + negClosest;
+  } else {
+    negClosest = -1 * durationValue % formatValue;
+    posClosest = formatValue + negClosest;
+  }
+
+  // format values over thirty will have a positive closest value greater than the negative closest 
+  // value if the log time is greater than the format value => (*(60 - log time)* + format value)
+  if (formatValue > 30 && formatValue < durationValue) {
+    ts.add(negClosest)
+  } else {
+    // otherwise, add the smallest difference
+    if (Math.abs(negClosest) < Math.abs(posClosest))
+      ts.add(negClosest, type);
+    else {
+      ts.add(posClosest, type);
+    }
+  }
+  return ts;
+}
+
+const formatTimestamp = (ts, format) => {
+  ts = moment(ts);
+  // start formatting with seconds, so if seconds rounds to the next minute, minutes is handled after
+  ts = formatAtType(ts, 'seconds', format.seconds);
+  ts = formatAtType(ts, 'minutes', format.minutes);
+  return ts;
 }
 
 /**
@@ -17,60 +59,16 @@ const durationOfType = (logValue, type) => {
  * }
  */
 export function formatLog(start, end, format) {
-  // iterate
-  let log = [start, end];
-  for (let i = 0; i < log.length; i++) {
-    let logValue = log[i];
+  // adjust start and end to format
+  start = formatTimestamp(start, format);
+  // if end is not yet logged, use empty string instead
+  if (!end) end = '';
+  else end = formatTimestamp(end, format);
 
-    // if end is not yet logged, return empty string
-    if (!logValue) {
-      log[i] = '';
-      continue;
-    } else {
-      logValue = moment(logValue);
-    }
-
-    // start formatting with seconds, so if seconds rounds to the next minute, minutes is handled after
-    for (const type of ['seconds', 'minutes']) {
-      // continue if no format given
-      if (format[type] == null) continue;
-
-      const formatValue = format[type];
-      // duration is recalculated on each step in case the seconds are rounded to the next minute
-      const durationValue = durationOfType(logValue, type);
-      // get the closest negative and positive changes
-      let negClosest;
-      let posClosest;
-
-      // if the format is 00, the result should be 00
-      if (formatValue === 0) {
-        negClosest = -1 * durationValue;
-        posClosest = 60 + negClosest;
-      } else {
-        negClosest = -1 * durationValue % formatValue;
-        posClosest = formatValue + negClosest;
-      }
-
-      // format values over thirty will have a positive closest value greater than the negative closest 
-      // value if the log time is greater than the format value => (*(60 - log time)* + format value)
-      if (formatValue > 30 && formatValue < durationValue) {
-        logValue.add(negClosest)
-      } else {
-        // otherwise, add the smallest difference
-        if (Math.abs(negClosest) < Math.abs(posClosest))
-          logValue.add(negClosest, type);
-        else {
-          logValue.add(posClosest, type);
-        }
-      }
-    }
-    log[i] = logValue;
-  }
-
-  log[0] = log[0].format('MM-DD-YYYY h:mm:ss a');
-  if (log[1]) log[1] = log[1].format('MM-DD-YYYY h:mm:ss a');
+  start = start.format('MM-DD-YYYY h:mm:ss a');
+  if (end) end = end.format('MM-DD-YYYY h:mm:ss a');
   // else, end is an empty string
-  return `${log[0]} - ${log[1]}`;
+  return `${start} - ${end}`;
 };
 
 export function updateListWithUpdatedLogs(logList, updatedLogs) {
