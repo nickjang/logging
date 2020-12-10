@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogButton component renders LogButton by default 1`] = `
+<Fragment>
+  <output
+    className="form-status log-button-status"
+  />
+  <input
+    aria-label="Start or end a log."
+    className="
+            log-button 
+            log-button-start"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+    value="Start"
+  />
+</Fragment>
+`;

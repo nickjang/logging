@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selector component renders Selector by default 1`] = `
+<li
+  className="group-row"
+>
+  <CalendarPicker
+    isStart={true}
+    key="calendar"
+    projectId={null}
+    selectorId=""
+    type=""
+    value={null}
+  />
+  <span
+    className="range-to ml-1 mr-1"
+  >
+    to
+  </span>
+  <input
+    aria-label="Make the selection a range by adding an ending "
+    className="lg-btn lg-btn-light"
+    onClick={[Function]}
+    type="button"
+    value="+"
+  />
+  <input
+    aria-label="Delete this selection"
+    className="lg-btn lg-btn-reset ml-1"
+    onClick={[Function]}
+    type="button"
+    value="x"
+  />
+</li>
+`;

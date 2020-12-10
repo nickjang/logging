@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoggerForm component renders LoggerForm by default 1`] = `
+<form
+  action=""
+  className="logger-form group-col"
+  id="project-form"
+>
+  <ProjectSelect />
+  <LogButton />
+</form>
+`;

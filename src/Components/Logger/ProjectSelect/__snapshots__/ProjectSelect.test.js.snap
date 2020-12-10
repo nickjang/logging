@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectSelect component renders ProjectSelect by default 1`] = `
+<fieldset
+  className="lg-card project-select"
+  form="project-form"
+  name="project"
+>
+  <output
+    className="form-status"
+  />
+  <input
+    aria-label="Enter a new project title:"
+    id="new-project"
+    name="new-project"
+    onChange={[Function]}
+    placeholder="Enter a new project title."
+    type="text"
+  />
+  <div
+    className="lg-text-right mt-1"
+  >
+    <button
+      className="lg-btn lg-btn-success mr-1"
+      disabled="Project name cannot be empty."
+      form="project-form"
+      onClick={[Function]}
+      type="submit"
+    >
+      Submit
+    </button>
+    <button
+      className="lg-btn lg-btn-reset"
+      disabled={true}
+      form="project-form"
+      onClick={[Function]}
+      type="reset"
+    >
+      Cancel
+    </button>
+  </div>
+</fieldset>
+`;

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View component renders View by default 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addEndRange": [Function],
+      "addSelector": [Function],
+      "dayRanges": Object {},
+      "deleteSelector": [Function],
+      "projects": Array [],
+      "resetSelectors": [Function],
+      "selectors": Object {},
+      "updateSelector": [Function],
+    }
+  }
+>
+  <div
+    className="view-page"
+  >
+    <SideBar
+      fetchLogs={[Function]}
+    />
+    <div
+      className="view-wrapper"
+    >
+      <article
+        className="view-main"
+      >
+        <span
+          className="status"
+        >
+          Loading projects...
+        </span>
+        <ProjectTitles
+          selectors={Object {}}
+        />
+        <Formatter
+          listHasLogs={false}
+          updateFormats={[Function]}
+        />
+        <LogList
+          logs={Array []}
+          updateSelected={[Function]}
+        />
+      </article>
+    </div>
+  </div>
+</ContextProvider>
+`;

@@ -121,7 +121,7 @@ class ProjectSelect extends Component {
     );
   }
 
-  renderNew = () => {
+  renderNew = (numProjects) => {
     return (
       <>
         <output className='form-status'>
@@ -148,7 +148,7 @@ class ProjectSelect extends Component {
             type='reset'
             form='project-form'
             onClick={(e) => this.handleCancel(e)}
-            disabled={!this.context.projects.length}
+            disabled={!numProjects}
           >Cancel</button>
         </div>
         {this.state.newProject.touched
@@ -163,10 +163,14 @@ class ProjectSelect extends Component {
   }
 
   render() {
+    let numProjects = 0;
+    if (this.context.projects)
+      numProjects = this.context.projects.length;
+
     return (
       <fieldset form='project-form' name='project' className='lg-card project-select'>
-        {this.state.newProject.new || !this.context.projects.length 
-          ? this.renderNew() 
+        {this.state.newProject.new || !numProjects
+          ? this.renderNew(numProjects)
           : this.renderSelect()}
       </fieldset>
     );

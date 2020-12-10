@@ -403,7 +403,6 @@ class View extends Component {
               <Formatter
                 listHasLogs={!!this.state.logListSelectedIds.length}
                 updateFormats={this.updateFormats} />
-              {/*<Exporter />*/}
               <LogList
                 logs={this.state.selectedLogs}
                 updateSelected={this.updateLogListSelectedOptions} />

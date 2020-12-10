@@ -29,6 +29,7 @@ class AccountInput extends Component {
 
 AccountInput.defaultProps = {
   form: '',
+  id: '',
   type: '',
   touched: false,
   validate: () => { },
@@ -39,6 +40,7 @@ AccountInput.defaultProps = {
 
 AccountInput.propTypes = {
   form: PropTypes.string.isRequired,
+  id: PropTypes.string,
   type: PropTypes.string.isRequired,
   touched: PropTypes.bool.isRequired,
   validate: PropTypes.func.isRequired,

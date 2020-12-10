@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountInput component renders AccountInput by default 1`] = `
+<fieldset
+  className="account-input"
+  form=""
+  name=""
+>
+  <label
+    className="input-label"
+    htmlFor=""
+  >
+    :
+  </label>
+  <label
+    className="hint"
+    htmlFor=""
+  />
+  <input
+    aria-describedby="-error-message"
+    aria-invalid={false}
+    aria-required="true"
+    id=""
+    name=""
+    onChange={[Function]}
+    type=""
+  />
+</fieldset>
+`;

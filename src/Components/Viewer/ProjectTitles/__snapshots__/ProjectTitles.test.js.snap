@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectTitles component renders ProjectTitles by default 1`] = `
+<p
+  className="project-title-instructions note"
+>
+  To view logs, open the side bar and choose where/when to get logs from
+</p>
+`;

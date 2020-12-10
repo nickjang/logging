@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Log component renders Log by default 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addProject": [Function],
+      "currentProjectId": null,
+      "loggerStartTime": null,
+      "projects": Array [],
+      "toggleLogger": [Function],
+      "updateCurrentProject": [Function],
+    }
+  }
+>
+  <article
+    className="log-page"
+  >
+    <output
+      className="form-status"
+    >
+      Loading projects...
+    </output>
+    <LoggerForm />
+    <Formatter
+      listHasLogs={false}
+      updateFormats={[Function]}
+    />
+    <LogList
+      logs={Array []}
+      updateSelected={[Function]}
+    />
+  </article>
+</ContextProvider>
+`;

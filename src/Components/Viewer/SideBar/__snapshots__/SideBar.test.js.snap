@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideBar component renders SideBar by default 1`] = `
+<aside
+  className="sidebar opened"
+>
+  <div
+    className="sidebar-container"
+  >
+    <div
+      className="sidebar-main"
+    >
+      <p
+        className="note"
+      >
+        View logs from selected projects or their year(s), month(s), and day(s).
+      </p>
+      <p
+        className="note"
+      >
+        Overlapping selections will be counted once. Calendars are displayed in your time zone. Logs will also displayed in your time zone.
+      </p>
+      <button
+        className="sidebar-top-btn lg-btn lg-btn-success"
+        disabled={true}
+        form="sidebar-form"
+        onClick={[Function]}
+        type="submit"
+      >
+         View logs
+      </button>
+      <button
+        className="sidebar-top-btn lg-btn"
+        form="sidebar-form"
+        onClick={[Function]}
+        type="reset"
+      >
+         Clear selections
+      </button>
+      <output
+        className="form-status"
+        form="sidebar-form"
+      />
+      <form
+        action=""
+        id="sidebar-form"
+      >
+        <ul
+          className="side-bar-projects mt-1"
+        />
+      </form>
+    </div>
+  </div>
+  <button
+    className="open-sidebar"
+    onClick={[Function]}
+  >
+     
+    &lt;
+  </button>
+</aside>
+`;

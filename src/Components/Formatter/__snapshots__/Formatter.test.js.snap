@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Formatter component renders Formatter by default 1`] = `
+<section
+  className="formatter lg-card"
+>
+  <h3
+    className="lg-title"
+  >
+    Format Logs
+  </h3>
+  <output
+    className="form-status"
+    form="format-form"
+  />
+  <form
+    action=""
+    className="mt-1"
+    id="format-form"
+  >
+    <fieldset
+      form="format-form"
+      name="format-time"
+    >
+      <legend>
+        To the nearest multiple of
+      </legend>
+      <time>
+        <input
+          id="format-minute"
+          max={59}
+          min={0}
+          name="minute"
+          onChange={[Function]}
+          placeholder="05"
+          step={1}
+          type="number"
+        />
+        <label
+          htmlFor="format-minute"
+        >
+          (min)
+        </label>
+        <span>
+           : 
+        </span>
+        <input
+          id="format-second"
+          max={59}
+          min={0}
+          name="second"
+          onChange={[Function]}
+          placeholder="00"
+          step={1}
+          type="number"
+        />
+        <label
+          htmlFor="format-second"
+        >
+          (sec)
+        </label>
+      </time>
+    </fieldset>
+    <div
+      className="lg-text-right mt-1"
+    >
+      <button
+        className="lg-btn lg-btn-success"
+        disabled={true}
+        form="format-form"
+        onClick={[Function]}
+        type="submit"
+      >
+         Format
+      </button>
+    </div>
+  </form>
+</section>
+`;

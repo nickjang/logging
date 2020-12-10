@@ -66,9 +66,12 @@ class SideBar extends Component {
 
 
   render() {
-    const projects = this.context.projects.map(project =>
-      <ProjectPicker key={project.id} project={project} />
-    );
+    let projects = [];
+    if (this.context.projects) {
+      projects = this.context.projects.map(project =>
+        <ProjectPicker key={project.id} project={project} />
+      );
+    }
 
     return (
       <aside className={`sidebar ${this.state.open && 'opened'}`}>

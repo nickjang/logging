@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exporter component renders Exporter by default 1`] = `
+<section
+  className="exporter lg-card"
+>
+  <output
+    className="form-status"
+    form="export-form"
+  />
+  <div
+    className="group-row"
+    role="presentation"
+  >
+     
+    <h3
+      className="lg-title"
+      id="export-heading"
+    >
+      Export Logs
+    </h3>
+    <fieldset
+      className="group-column m-1"
+    >
+      <ExportOption
+        form="export-form"
+        inputRef={null}
+        key="As columns"
+        name="orientation"
+        option="As columns"
+        role="presentation"
+        selected={
+          Array [
+            "",
+          ]
+        }
+        type="radio"
+        update={[Function]}
+      />
+      <ExportOption
+        form="export-form"
+        inputRef={null}
+        key="As rows"
+        name="orientation"
+        option="As rows"
+        role="presentation"
+        selected={
+          Array [
+            "",
+          ]
+        }
+        type="radio"
+        update={[Function]}
+      />
+    </fieldset>
+  </div>
+  <form
+    action=""
+    aria-labelledby="export-heading"
+    className="group-column"
+    id="export-form"
+    role="grid"
+  >
+    <fieldset
+      className="group-row"
+      form="export-form"
+    >
+      <div
+        key="export-options-col-0"
+        role="row"
+      >
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="Excel"
+          name="export-options"
+          option="Excel"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="SQL"
+          name="export-options"
+          option="SQL"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="Dataframe"
+          name="export-options"
+          option="Dataframe"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+      </div>
+      <div
+        key="export-options-col-3"
+        role="row"
+      >
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="TXT"
+          name="export-options"
+          option="TXT"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="Array"
+          name="export-options"
+          option="Array"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="Formatted String"
+          name="export-options"
+          option="Formatted String"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+      </div>
+      <div
+        key="export-options-col-6"
+        role="row"
+      >
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="Object"
+          name="export-options"
+          option="Object"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="CSV"
+          name="export-options"
+          option="CSV"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+        <ExportOption
+          form="export-form"
+          inputRef={null}
+          key="JSON"
+          name="export-options"
+          option="JSON"
+          role="gridcell"
+          type="checkbox"
+          update={[Function]}
+        />
+      </div>
+    </fieldset>
+    <div
+      className="lg-text-right mt-1"
+    >
+      <button
+        className="lg-btn lg-btn-success"
+        disabled={true}
+        form="export-form"
+        onClick={[Function]}
+        type="submit"
+      >
+         Export
+      </button>
+    </div>
+  </form>
+</section>
+`;

@@ -236,7 +236,7 @@ class Log extends Component {
 
   render() {
     const contextValue = {
-      projects: this.state.projects,
+      projects: this.state.projects || [],
       currentProjectId: this.state.currentProjectId,
       updateCurrentProject: this.updateCurrentProject,
       addProject: this.addProject,

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CalendarPicker component renders CalendarPicker by default 1`] = `
+<n
+  className=""
+  closeOnClickOutside={true}
+  closeOnSelect={false}
+  closeOnTab={true}
+  dateFormat="YYYY"
+  input={true}
+  inputProps={Object {}}
+  isValidDate={[Function]}
+  onBeforeNavigate={[Function]}
+  onCalendarClose={[Function]}
+  onCalendarOpen={[Function]}
+  onChange={[Function]}
+  onClose={[Function]}
+  onNavigate={[Function]}
+  onNavigateBack={[Function]}
+  onNavigateForward={[Function]}
+  onOpen={[Function]}
+  strictParsing={true}
+  timeConstraints={Object {}}
+  timeFormat={false}
+  utc={false}
+  value={null}
+/>
+`;

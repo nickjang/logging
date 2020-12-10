@@ -9,17 +9,20 @@ class ProjectPicker extends Component {
   static contextType = SelectorContext;
 
   render() {
-    const selectorList = (
-      this.context.selectors[this.props.project.id].map(selector =>
-        <Selector
-          key={selector.id}
-          id={selector.id}
-          type={selector.type}
-          calendar={selector.calendar}
-          endRange={selector.endRange}
-          projectId={this.props.project.id} />
-      )
-    );
+    let selectorList = [];
+    if (this.context.selectors) {
+      selectorList = (
+        this.context.selectors[this.props.project.id].map(selector =>
+          <Selector
+            key={selector.id}
+            id={selector.id}
+            type={selector.type}
+            calendar={selector.calendar}
+            endRange={selector.endRange}
+            projectId={this.props.project.id} />
+        )
+      );
+    }
 
     const selectorTypes =
       [{ type: 'project', label: 'Select the entire project', buttonText: '+ Entire project' },

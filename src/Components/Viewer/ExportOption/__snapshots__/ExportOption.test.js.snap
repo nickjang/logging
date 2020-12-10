@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExportOption component renders ExportOption by default 1`] = `
+<div
+  className="group-row"
+  role={null}
+>
+  <input
+    form={null}
+    id=""
+    name=""
+    onChange={[Function]}
+    type="radio"
+    value=""
+  />
+  <label
+    htmlFor=""
+  />
+</div>
+`;
