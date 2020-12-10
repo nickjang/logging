@@ -3,7 +3,27 @@
 }
 
 .add-selector-group {
+  display: flex;
+  flex-direction: column;
   width: fit-content;
-  padding: 2px;
+  margin: auto;
   border: 0;
+  margin: 0;
+  padding: 2px 2px 2px 34px;
+}
+
+.selector-type-group {
+  max-width: fit-content;
+}
+
+@media all and (min-width: 490px) {
+  .selector-type-group {
+    max-width: none;
+  }
+}
+
+@media all and (min-width: 294px) {
+  .add-selector-group {
+    flex-direction: row;
+  }
 }

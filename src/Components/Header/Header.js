@@ -16,9 +16,7 @@ class Header extends Component {
   renderMainHeader = () => {
     return (
       <header>
-        <div className='title-container'>
-          <h1>Logger</h1>
-        </div>
+        <h1>Logger</h1>
         <nav>
           <ul>
             <div className='main-link-container'>
@@ -46,11 +44,9 @@ class Header extends Component {
   renderOverviewHeader = () => {
     return (
       <header>
-        <div className='title-container'>
-          <h1>
-            <Link to='/overview'>Logger</Link>
-          </h1>
-        </div>
+        <h1>
+          <Link to='/overview'>Logger</Link>
+        </h1>
         <nav>
           <ul>
             <div className='right-link-container'>

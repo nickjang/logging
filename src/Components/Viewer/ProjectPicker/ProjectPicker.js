@@ -8,24 +8,22 @@ import './ProjectPicker.css';
 class ProjectPicker extends Component {
   static contextType = SelectorContext;
 
-  render() {
-    let selectorList = [];
-    if (this.context.selectors) {
-      selectorList = (
-        this.context.selectors[this.props.project.id].map(selector =>
-          <Selector
-            key={selector.id}
-            id={selector.id}
-            type={selector.type}
-            calendar={selector.calendar}
-            endRange={selector.endRange}
-            projectId={this.props.project.id} />
-        )
-      );
-    }
+  generateSelectorList = () => {
+    return this.context.selectors[this.props.project.id].map(selector =>
+      <Selector
+        key={selector.id}
+        id={selector.id}
+        type={selector.type}
+        calendar={selector.calendar}
+        endRange={selector.endRange}
+        projectId={this.props.project.id} />
+    );
+  }
 
+  generateSelectorTypes = () => {
+    let groupedSelectorTypes = [];
     const selectorTypes =
-      [{ type: 'project', label: 'Select the entire project', buttonText: '+ Entire project' },
+      [{ type: 'project', label: 'All logs from this project', buttonText: '+ All logs' },
       { type: 'years', label: 'Make a selection for a year or year range', buttonText: '+ Year(s)' },
       { type: 'months', label: 'Make a selection for a month or month range', buttonText: '+ Month(s)' },
       { type: 'days', label: 'Make a selection for a day or date range', buttonText: '+ Day(s)' }]
@@ -40,12 +38,33 @@ class ProjectPicker extends Component {
           );
         });
 
+    // group the buttons into pairs
+    for (let i = 0; i < selectorTypes.length; i += 2) {
+      const nextSelectorType = selectorTypes[i + 1];
+      groupedSelectorTypes.push(
+        <div key={i} className='selector-type-group'>
+          {selectorTypes[i]}
+          {nextSelectorType ? nextSelectorType : null}
+        </div>
+      );
+    }
+    return groupedSelectorTypes;
+  }
+
+  render() {
+    let selectorList = [];
+    if (this.context.selectors)
+      selectorList = this.generateSelectorList();
+
+
+    const selectorTypes = this.generateSelectorTypes();
+
     return (
       <li className='project-picker'>
         <h3 className='lg-project-title side-bar-project-title ml-1'>
           {this.props.project.title}
         </h3>
-        <fieldset className='add-selector-group group-row'>
+        <fieldset className='add-selector-group'>
           {selectorTypes}
         </fieldset>
         <ul className='selected' role='presentation'>

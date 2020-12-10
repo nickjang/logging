@@ -8,10 +8,6 @@
   box-shadow: 10px 0px 15px -4px rgba(0, 0, 0, 0.1), 4px 0px 7px -2px rgba(0, 0, 0, 0.05);
 }
 
-.opened {
-  min-width: 75vw;
-}
-
 .sidebar-container {
   width: 100%;
   overflow: auto;
@@ -39,8 +35,7 @@
 .sidebar .note {
   max-width: fit-content;
   width: 100%;
-  margin: auto 1rem;
-  margin-top: 1.75rem;
+  margin: 1.75rem 1rem auto 1rem;
 }
 
 .sidebar .form-status {

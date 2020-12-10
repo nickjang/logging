@@ -247,7 +247,11 @@ class Log extends Component {
     return (
       <LoggingContext.Provider value={contextValue}>
         <article className='log-page'>
-          <output className='form-status'>{this.state.error || this.state.loading}</output>
+          <output
+            className={`form-status log-page-status 
+              ${this.state.error ? 'fail-status' : ''}`}
+          > {this.state.error || this.state.loading}
+          </output>
           <LoggerForm />
           <Formatter
             listHasLogs={!!this.state.logListSelectedIds.length}

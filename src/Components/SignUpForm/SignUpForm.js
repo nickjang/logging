@@ -55,7 +55,7 @@ class SignUpForm extends Component {
   }
 
   REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
-  
+
   validatePassword = () => {
     const password = this.state.password.value.trim();
     if (!password) return 'Password cannot be empty.';
@@ -119,7 +119,11 @@ class SignUpForm extends Component {
       <article className='account-form'>
         <h2 className='lg-title'>Welcome!</h2>
         <h3 className='lg-title'>{title}</h3>
-        <output form={form} className='form-status'>{this.state.error || (this.state.loading && 'Loading...')}</output>
+        <output
+          form={form}
+          className={`form-status ${this.state.error ? 'fail-status' : ''}`}
+        > {this.state.error || (this.state.loading && 'Loading...')}
+        </output>
         <form action='' id={form}>
           <AccountInput
             form={form}

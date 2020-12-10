@@ -1,15 +1,28 @@
 .account-input {
+  display: flex;
+  flex-direction: column;
   font-family: var(--note-font);
   border: 0;
   text-align: right;
 }
 
-.account-input .input-label,
-.account-input .hint {
+.account-input .input-label {
   margin-right: 4px;
+}
+
+.account-input .hint {
+  margin-left: 4px;
 }
 
 .account-input .validation-error {
   display: block;
   margin-left: 1rem;
+}
+
+
+@media all and (min-width: 345px) {
+  .account-input {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 }

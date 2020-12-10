@@ -81,7 +81,11 @@ class LoginForm extends Component {
     return (
       <article className='account-form'>
         <h2 className='lg-title'>{title}</h2>
-        <output form={form} className='form-status'>{this.state.error || (this.state.loading && 'Loading...')}</output>
+        <output
+          form={form}
+          className={`form-status ${this.state.error ? 'fail-status' : ''}`}
+        > {this.state.error || (this.state.loading && 'Loading...')}
+        </output>
         <form action='' id={form}>
           <AccountInput
             form='account-settings-form'

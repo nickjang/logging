@@ -1,7 +1,6 @@
 .project-select {
   display: flex;
   flex-direction: column;
-  min-width: 20rem;
   margin-top: 2rem;
 }
 
@@ -24,12 +23,16 @@
   min-width: 4.5rem;
 }
 
+.project-select .form-status {
+  margin-bottom: 0.5rem;
+}
+
 .select-default {
   color: darkgray;
 }
 
-@media all and (min-width: 440px) {
-  .view .view-main {
-    padding-left: 12px;
+@media all and (min-width: 24.5rem) {
+  .project-select {
+    min-width: 20rem;
   }
 }

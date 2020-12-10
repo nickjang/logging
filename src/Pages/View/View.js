@@ -398,7 +398,10 @@ class View extends Component {
           <SideBar fetchLogs={this.fetchLogs} />
           <div className='view-wrapper'>
             <article className='view-main'>
-              <span className='status'>{this.state.error || this.state.loading}</span>
+              <span 
+                className={`status ${this.state.error ? 'fail-status' : ''}`}
+              > {this.state.error || this.state.loading}
+              </span>
               <ProjectTitles selectors={this.state.formattedSelectors} />
               <Formatter
                 listHasLogs={!!this.state.logListSelectedIds.length}

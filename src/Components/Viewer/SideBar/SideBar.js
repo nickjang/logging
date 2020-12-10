@@ -66,10 +66,14 @@ class SideBar extends Component {
 
 
   render() {
-    let projects = [];
-    if (this.context.projects) {
+    let projects;
+    if (this.context.projects && this.context.projects.length) {
       projects = this.context.projects.map(project =>
         <ProjectPicker key={project.id} project={project} />
+      );
+    } else {
+      projects = (
+        <li className='note'>No projects to make selections from</li>
       );
     }
 
@@ -81,12 +85,12 @@ class SideBar extends Component {
               <p className='note'>
                 View logs from selected projects
                 or their year(s), month(s), and day(s).
-            </p>
+              </p>
               <p className='note'>
                 Overlapping selections will be counted once.
                 Calendars are displayed in your time zone.
                 Logs will also displayed in your time zone.
-            </p>
+              </p>
               <button
                 className='sidebar-top-btn lg-btn lg-btn-success'
                 type='submit'
@@ -94,16 +98,18 @@ class SideBar extends Component {
                 onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
                 disabled={!this.hasSelectors()}
               > View logs
-            </button>
+              </button>
               <button
                 className='sidebar-top-btn lg-btn'
                 type='reset'
                 form='sidebar-form'
                 onClick={(e) => { this.handleReset(e) }}
               > Clear selections
-            </button>
-              <output form='sidebar-form' className='form-status'>
-                {this.state.error || (this.state.loading && 'Getting logs...')}
+              </button>
+              <output
+                form='sidebar-form'
+                className={`form-status ${this.state.error ? 'fail-status' : ''}`}
+              > {this.state.error || (this.state.loading && 'Getting logs...')}
               </output>
               <form action='' id='sidebar-form'>
                 <ul className='side-bar-projects mt-1'>

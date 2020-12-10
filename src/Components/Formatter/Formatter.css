@@ -2,7 +2,6 @@
   background-color: lightgray;
   margin: 17px auto;
   width: fit-content;
-  min-width: 20rem;
 }
 
 .formatter h3 {
@@ -12,10 +11,13 @@
 .formatter time input {
   font-family: var(--body-font);
   margin-right: 2px;
+  width: 2.25rem;
 }
 
 .formatter time span {
   font-family: var(--body-font);
+  display: block;
+  color: white;
 }
 
 .formatter fieldset legend,
@@ -31,4 +33,22 @@
 
 .formatter legend {
   text-align: end;
+}
+
+.formatter .form-status {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+@media all and (min-width: 24.5rem) {
+  .formatter {
+    min-width: 20rem;
+  }
+}
+
+@media all and (min-width: 325px) {
+  .formatter time span {
+    display: inline;
+    color: black;
+  }
 }

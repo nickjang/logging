@@ -73,8 +73,10 @@ class Formatter extends Component {
     return (
       <section className='formatter lg-card'>
         <h3 className='lg-title'>Format Logs</h3>
-        <output form='format-form' className='form-status'>
-          {this.state.error || this.state.loading}
+        <output
+          form='format-form'
+          className={`form-status ${this.state.error ? 'fail-status' : ''}`}
+        > {this.state.error || this.state.loading}
         </output>
         <form action='' id='format-form' className='mt-1'>
           <fieldset form='format-form' name='format-time'>

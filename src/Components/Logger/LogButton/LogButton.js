@@ -33,7 +33,7 @@ class LogButton extends Component {
   render() {
     return (
       <>
-        <output className='form-status log-button-status'>
+        <output className='form-status log-button-status fail-status'>
           {this.state.fetchError}
         </output>
         <input

@@ -13,12 +13,20 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+.log-button-start {
+  background-color: green;
+}
+
+.log-button-start:disabled {
+  background-color:rgb(117, 143, 117);
+}
+
 .log-button-end {
   background-color: red;
 }
 
-.log-button-start {
-  background-color: green;
+.log-button-end:disabled {
+  background-color: rgb(153, 119, 119);
 }
 
 input.log-button:active {

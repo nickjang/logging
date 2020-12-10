@@ -41,10 +41,10 @@ input:focus {
 }
 
 .account-form {
-  width: 50%;
+  width: fit-content;
   text-align: center;
-  margin: auto;
-  margin-top: 2rem;
+  max-width: fit-content;
+  margin: 2rem auto auto auto;
 }
 
 .account-form h3 {
@@ -90,10 +90,16 @@ input:focus {
 .form-status,
 .note,
 .hint,
+.status,
 .validation-error {
   font-family: var(--note-font);
 }
 
+.success-status {
+  color: green;
+}
+
+.fail-status,
 .hint {
   color: red;
 }

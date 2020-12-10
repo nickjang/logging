@@ -89,8 +89,12 @@ class Exporter extends Component {
   render() {
     return (
       <section className='exporter lg-card'>
-        <output form='export-form' className='form-status'>{this.state.fetchError || (this.state.exporting && 'Exporting...')}</output>
-        <div className='group-row' role='presentation'> {/*<!--Check how this affects DOM-->*/}
+        <output 
+          form='export-form' 
+          className={`form-status ${this.state.fetchError ? 'fail-status' : ''}`}
+        >{this.state.fetchError || (this.state.exporting && 'Exporting...')}
+        </output>
+        <div className='group-row' role='presentation'>
           <h3 id='export-heading' className='lg-title'>Export Logs</h3>
           <fieldset className='group-column m-1'>
             {this.renderOrientationOptions()}

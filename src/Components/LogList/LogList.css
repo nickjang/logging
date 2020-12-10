@@ -15,11 +15,13 @@
 .log-list .log-list-form select {
   width: 100%;
   min-height: 3rem;
+  height: max-content;
   max-height: 30rem;
   border: 1px solid white;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   border-radius: 2px;
+  overflow-x: scroll;
 }
 
 .log-list .log-list-form option {

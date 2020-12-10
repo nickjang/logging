@@ -10,8 +10,12 @@ class AccountInput extends Component {
 
     return (
       <fieldset className='account-input' form={this.props.form} name={this.props.id}>
-        <label htmlFor={this.props.id} className='input-label'>{inputLabel}</label>
-        <label htmlFor={this.props.id} className='hint'>{this.props.hint}</label>
+        <label
+          htmlFor={this.props.id}
+          className='input-label'
+        > {inputLabel}
+          <span htmlFor={this.props.id} className='hint'>{this.props.hint}</span>
+        </label>
         <input
           type={this.props.type}
           id={this.props.id}

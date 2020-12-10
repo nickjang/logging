@@ -14,7 +14,7 @@ class AddSelector extends Component {
   render() {
     return (
       <input
-        className='lg-btn lg-btn-light add-selector'
+        className={`lg-btn lg-btn-light add-selector ${this.props.classes}`}
         type='button'
         value={this.props.buttonText}
         aria-label={this.props.label}
@@ -34,7 +34,7 @@ AddSelector.propTypes = {
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
-  projectId: PropTypes.number.isRequired
+  projectId: PropTypes.number.isRequired,
 }
 
 export default AddSelector;

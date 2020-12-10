@@ -62,7 +62,7 @@ class ProjectSelect extends Component {
           .catch(e => {
             this.setState({
               loading: false,
-              fetchError: e.message //sometimes e.message , sometime e.error. fix
+              fetchError: e.message || e.error
             })
           }
           )
@@ -124,7 +124,7 @@ class ProjectSelect extends Component {
   renderNew = (numProjects) => {
     return (
       <>
-        <output className='form-status'>
+        <output className={`form-status ${this.state.fetchError ? 'fail-status' : ''}`}>
           {this.state.fetchError || (this.state.loading && 'Adding...')}
         </output>
         <input

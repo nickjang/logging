@@ -122,10 +122,11 @@ class Settings extends Component {
         <h2 className='lg-title'>Settings</h2>
         <section>
           <h3 className='lg-title'>Account Settings</h3>
-          <output form='account-settings-form'>
-            {this.state.error ||
-              (this.state.email.updated &&
-                `Updated email: ${this.state.email.value}`)}
+          <output 
+            form='account-settings-form'
+            className={this.state.error ? 'fail-status' : ''}
+          > {this.state.error ||
+              (this.state.email.updated && `Updated email: ${this.state.email.value}`)}
           </output>
           <form id='account-settings-form'>
             <AccountInput

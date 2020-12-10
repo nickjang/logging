@@ -68,13 +68,13 @@ class CalendarPicker extends Component {
 
   handleChange = (datetime) => {
     try {
-      if (typeof datetime === 'string' ) {
+      if (typeof datetime === 'string') {
         datetime = new Date(datetime);
         if (isNaN(datetime.getTime())) return;
       } else {
         datetime = datetime.toDate();
       }
-      
+
       this.context.updateSelector(
         this.props.projectId,
         this.props.selectorId,
@@ -91,20 +91,40 @@ class CalendarPicker extends Component {
     // remove the 's' because moment uses 'month' and 'year'
     type = type.substring(0, type.length - 1);
 
-    const dateFormat = (type === 'day') ? 'MM/DD/YYYY'
+    const fullDateFormat = (type === 'day') ? 'MM/DD/YYYY'
       : (type === 'month') ? 'MM/YYYY' : 'YYYY';
+    const shortDateFormat = (type === 'day') ? 'DD'
+      : (type === 'month') ? 'MM' : 'YY';
 
     return (
-      <Datetime
-        value={this.props.value}
-        onChange={(datetime) => this.handleChange(datetime)}
-        dateFormat={dateFormat}
-        timeFormat={false}
-        isValidDate={
-          type === 'day'
-            ? this.validDay
-            : (current) => this.validMonthOrYear(current, type)}
-      />
+      <>
+        <Datetime
+          className='full'
+          value={this.props.value}
+          onChange={(datetime) => this.handleChange(datetime)}
+          dateFormat={fullDateFormat}
+          timeFormat={false}
+          isValidDate={
+            type === 'day'
+              ? this.validDay
+              : (current) => this.validMonthOrYear(current, type)}
+        />
+        {this.props.isStart &&
+          <span className='short calendar-type'>
+            {this.props.type[0].toUpperCase()} : 
+          </span>}
+        <Datetime
+          className='short'
+          value={this.props.value}
+          onChange={(datetime) => this.handleChange(datetime)}
+          dateFormat={shortDateFormat}
+          timeFormat={false}
+          isValidDate={
+            type === 'day'
+              ? this.validDay
+              : (current) => this.validMonthOrYear(current, type)}
+        />
+      </>
     );
   }
 }

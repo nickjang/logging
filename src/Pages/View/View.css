@@ -20,6 +20,11 @@
   justify-content: center;
 }
 
+.view-main .status {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
 @media all and (min-width: 440px) {
   .view-page .view-main {
     padding-left: 12px;
