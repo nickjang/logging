@@ -42,6 +42,7 @@ const AuthApiService = {
         TokenService.queueCallbackBeforeExpiry(() => {
           AuthApiService.postRefreshToken()
         })
+        window.location.reload()
         return res
       })
   },
@@ -74,6 +75,51 @@ const AuthApiService = {
         console.error(err)
       })
   },
+  updateUser({ email, password }) {
+    const body = {
+      email: email ? email : '',
+      password: password ? password : ''
+    };
+
+    return fetch(`${config.API_ENDPOINT}/auth/users`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+      .then(res => {
+        TokenService.saveAuthToken(res.authToken)
+        IdleService.regiserIdleTimerResets()
+        TokenService.queueCallbackBeforeExpiry(() => {
+          AuthApiService.postRefreshToken()
+        })
+        console.log(res)
+        return res
+      })
+  },
+  deleteUser() {
+    return fetch(`${config.API_ENDPOINT}/auth/users`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e => Promise.reject(e))
+        } else {
+          TokenService.clearCallbackBeforeExpiry()
+          IdleService.unRegisterIdleResets()
+          window.location.reload()
+        }
+      })
+  }
 }
 
 export default AuthApiService

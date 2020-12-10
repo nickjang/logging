@@ -11,10 +11,6 @@ class ProjectTitles extends Component {
    * and it's selectors, if it has any.
    */
   generateProjectTitles = (selectors, projects) => {
-    // if logs have not been fetched yet, display instructions to fetch them
-    console.log(selectors);
-    if (!Object.keys(selectors).length)
-      return 'To view logs, open the side bar and choose where/when to get logs from.'
     let titles = [];
     for (const project of projects) {
       // if project has no selectors, continue
@@ -29,8 +25,8 @@ class ProjectTitles extends Component {
         // end is not inclusive
         end.setDate(end.getDate() - 1);
 
-        start = `${start.getMonth()+1}/${start.getDate()}/${start.getFullYear()}`;
-        end = `${end.getMonth()+1}/${end.getDate()}/${end.getFullYear()}`;
+        start = `${start.getMonth() + 1}/${start.getDate()}/${start.getFullYear()}`;
+        end = `${end.getMonth() + 1}/${end.getDate()}/${end.getFullYear()}`;
 
         return (
           <span
@@ -52,13 +48,21 @@ class ProjectTitles extends Component {
   }
 
   render() {
-    const titles = this.generateProjectTitles(this.props.selectors, this.context.projects);
-
-    return (
-      <h2 className='project-titles group-col'>
-        {titles}
-      </h2>
-    );
+    // if logs have not been fetched yet, display instructions to fetch them
+    if (!Object.keys(this.props.selectors).length) {
+      return (
+        <p className='project-title-instructions note'>
+          To view logs, open the side bar and choose where/when to get logs from
+        </p>
+      );
+    } else {
+      const titles = this.generateProjectTitles(this.props.selectors, this.context.projects);
+      return (
+        <h3 className='project-titles group-col'>
+          {titles}
+        </h3>
+      );
+    }
   }
 }
 

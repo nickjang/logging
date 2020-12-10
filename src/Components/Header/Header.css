@@ -1,46 +1,69 @@
-.header {
+header,
+header ul,
+header .main-link-container,
+header .right-link-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+header {
   height: 80px;
   background-color: black;
-  justify-content: center;
-  --nav-font-size: 38px
 }
 
-.header h1, h2 {
-  margin: 0px;
+header h1 {
+  font-family: var(--title-font);
+  font-weight: 400;
+  color: white;
+  margin-left: 1rem;
 }
 
-.header ul {
+header h1 a {
+  color: white;
+  text-decoration: none;
+}
+
+header nav {
+  margin-right: 1rem;
+  flex: 2;
+}
+
+header ul {
+  width: 100%;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.header li {
-  float: left;
-}
-
-.header a {
+header li a {
   display: block;
   padding: 8px;
-}
-
-.header .user-pic,
-.header .user-pic img {
-  position: absolute;
-  right: 0;
-  width: 40px;
-  height: 40px;
-}
-
-.header .main-nav li {
-  font-size: var(--nav-font-size);
-}
-
-.main-nav li a {
+  font-family: var(--action-font);
+  font-size: 1.1rem;
   color: white;
   text-decoration: none;
 }
 
-.main-nav li a.active {
+header .main-link-container,
+header .right-link-container,
+header .title-container {
+  flex: 1;
+}
+
+header .main-link-container {
+  justify-content: center;
+}
+
+header .right-link-container {
+  justify-content: flex-end;
+}
+
+header .main-link a {
+  font-family: var(--action-font);
+  font-size: 2rem;
+}
+
+header .main-link a.active {
   border-bottom: 1px solid white;
 }

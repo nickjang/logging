@@ -52,7 +52,7 @@ class ProjectSelect extends Component {
                 newProject: { new: false, value: '', touched: false },
                 loading: false
               },
-              this.context.addProject({ 
+              this.context.addProject({
                 id: project.id,
                 title: project.title,
                 date_created: project.date_created
@@ -63,7 +63,8 @@ class ProjectSelect extends Component {
             this.setState({
               loading: false,
               fetchError: e.message //sometimes e.message , sometime e.error. fix
-            })}
+            })
+          }
           )
       }
     );
@@ -92,10 +93,6 @@ class ProjectSelect extends Component {
     return;
   }
 
-  componentDidMount() {
-    if (this.projectRef)
-      this.projectRef.current.focus();
-  }
 
   renderSelect = () => {
     const options = this.context.projects.map(project =>
@@ -114,7 +111,12 @@ class ProjectSelect extends Component {
           onChange={(e) => this.context.updateCurrentProject(e.target.value)}>
           {options}
         </select>
-        <button type='button' onClick={(e) => this.handleNewButtonClick(e)}>New</button>
+        <button
+          className='lg-btn lg-btn-light ml-1'
+          type='button'
+          onClick={(e) => this.handleNewButtonClick(e)}
+        > New
+        </button>
       </h2>
     );
   }
@@ -122,7 +124,9 @@ class ProjectSelect extends Component {
   renderNew = () => {
     return (
       <>
-        <output className='form-status'>{this.state.fetchError || (this.state.loading && 'Adding...')}</output>
+        <output className='form-status'>
+          {this.state.fetchError || (this.state.loading && 'Adding...')}
+        </output>
         <input
           type='text'
           id='new-project'
@@ -131,17 +135,20 @@ class ProjectSelect extends Component {
           placeholder='Enter a new project title.'
           aria-label='Enter a new project title:'
           onChange={(e) => this.updateNewProject(e.target.value)} />
-        <div>
+        <div className='lg-text-right mt-1'>
           <button
+            className='lg-btn lg-btn-success mr-1'
             type='submit'
             form='project-form'
             onClick={(e) => this.handleSubmitNew(e)}
             disabled={this.validateNewProject()}
           >Submit</button>
           <button
+            className='lg-btn lg-btn-reset'
             type='reset'
             form='project-form'
             onClick={(e) => this.handleCancel(e)}
+            disabled={!this.context.projects.length}
           >Cancel</button>
         </div>
         {this.state.newProject.touched
@@ -150,10 +157,17 @@ class ProjectSelect extends Component {
     );
   }
 
+  componentDidMount() {
+    if (this.projectRef.current)
+      this.projectRef.current.focus();
+  }
+
   render() {
     return (
-      <fieldset form='project-form' name='project' className='project-select'>
-        {!this.state.newProject.new ? this.renderSelect() : this.renderNew()}
+      <fieldset form='project-form' name='project' className='lg-card project-select'>
+        {this.state.newProject.new || !this.context.projects.length 
+          ? this.renderNew() 
+          : this.renderSelect()}
       </fieldset>
     );
   }

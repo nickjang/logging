@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import './Start.css';
 
 class Start extends Component {
@@ -28,4 +27,4 @@ class Start extends Component {
   }
 }
 
-export default withRouter(Start);
+export default Start;

@@ -71,46 +71,48 @@ class SideBar extends Component {
     );
 
     return (
-      <aside className='sidebar'>
+      <aside className={`sidebar ${this.state.open && 'opened'}`}>
         {this.state.open &&
-          <div className='sidebar-main'>
-            <p className='note'>
-              View logs from selected projects
-              or their year(s), month(s), and day(s).
+          <div className='sidebar-container'>
+            <div className='sidebar-main'>
+              <p className='note'>
+                View logs from selected projects
+                or their year(s), month(s), and day(s).
             </p>
-            <p className='note'>
-              Overlapping selections will be counted once.
-              Calendars are displayed in your time zone.
-              Logs will also displayed in your time zone.
+              <p className='note'>
+                Overlapping selections will be counted once.
+                Calendars are displayed in your time zone.
+                Logs will also displayed in your time zone.
             </p>
-            <button
-              className='sidebar-top-btn lg-btn lg-btn-success'
-              type='submit'
-              form='sidebar-form'
-              onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
-              disabled={!this.hasSelectors()}
-            > View logs
+              <button
+                className='sidebar-top-btn lg-btn lg-btn-success'
+                type='submit'
+                form='sidebar-form'
+                onClick={(e) => { this.handleSubmit(e, this.props.fetchLogs) }}
+                disabled={!this.hasSelectors()}
+              > View logs
             </button>
-            <button
-              className='sidebar-top-btn lg-btn'
-              type='reset'
-              form='sidebar-form'
-              onClick={(e) => { this.handleReset(e) }}
-            > Clear selections
+              <button
+                className='sidebar-top-btn lg-btn'
+                type='reset'
+                form='sidebar-form'
+                onClick={(e) => { this.handleReset(e) }}
+              > Clear selections
             </button>
-            <output form='sidebar-form' className='form-status'>
-              {this.state.error || (this.state.loading && 'Getting logs...')}
-            </output>
-            <form action='' id='sidebar-form'>
-              <ul>
-                {projects}
-              </ul>
-            </form >
+              <output form='sidebar-form' className='form-status'>
+                {this.state.error || (this.state.loading && 'Getting logs...')}
+              </output>
+              <form action='' id='sidebar-form'>
+                <ul className='side-bar-projects mt-1'>
+                  {projects}
+                </ul>
+              </form >
+            </div>
           </div>}
         <button
           className='open-sidebar'
           onClick={(e) => this.handleToggleOpen(e, this.state.open)}
-        > {'<'}
+        > {this.state.open ? '<' : '>'}
         </button>
       </aside >
 

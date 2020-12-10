@@ -1,3 +1,9 @@
 .project-titles .selector-title {
   padding-left: 33px
 }
+
+.project-title-instructions {
+  width: 80%;
+  margin: 1rem auto;
+  text-align: center;
+}

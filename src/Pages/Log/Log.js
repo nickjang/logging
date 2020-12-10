@@ -191,7 +191,7 @@ class Log extends Component {
       });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState(
       {
         loading: 'Loading projects...',
@@ -226,7 +226,8 @@ class Log extends Component {
               currentDayLogs,
               loading: ''
             });
-            this.updateCurrentProject(projects[0].id);
+            if (projects[0])
+              this.updateCurrentProject(projects[0].id);
           })
           .catch(e => this.setState({ loading: '', error: e.message || e.error }));
       }

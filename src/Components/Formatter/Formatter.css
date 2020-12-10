@@ -2,8 +2,33 @@
   background-color: lightgray;
   margin: 17px auto;
   width: fit-content;
+  min-width: 20rem;
 }
 
 .formatter h3 {
   margin: 0px;
+}
+
+.formatter time input {
+  font-family: var(--body-font);
+  margin-right: 2px;
+}
+
+.formatter time span {
+  font-family: var(--body-font);
+}
+
+.formatter fieldset legend,
+.formatter time label {
+  font-family: var(--note-font);
+}
+
+.formatter fieldset {
+  text-align: center;
+  border: 1px solid black;
+  padding: 12px 20px 20px 20px;
+}
+
+.formatter legend {
+  text-align: end;
 }

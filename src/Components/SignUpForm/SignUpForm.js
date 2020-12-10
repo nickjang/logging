@@ -116,40 +116,45 @@ class SignUpForm extends Component {
     const title = 'Sign Up';
     const form = 'sign-up-form';
     return (
-      <article>
-        <h2>Welcome to the logging app!</h2>
-        <h3>{title}</h3>
+      <article className='account-form'>
+        <h2 className='lg-title'>Welcome!</h2>
+        <h3 className='lg-title'>{title}</h3>
         <output form={form} className='form-status'>{this.state.error || (this.state.loading && 'Loading...')}</output>
         <form action='' id={form}>
           <AccountInput
             form={form}
-            type='full_name'
+            id='full_name'
+            type='text'
             touched={this.state.full_name.touched}
             validate={this.validateFullName}
             update={this.updateFullName}
-            hint='*' />
+            hint={<sup>*</sup>} />
           <AccountInput
             form={form}
-            type='nickname'
+            id='nickname'
+            type='text'
             touched={this.state.nickname.touched}
             validate={() => { }}
             update={this.updateNickname} />
           <AccountInput
             form='account-settings-form'
+            id='email'
             type='email'
             inputRef={el => this.emailRef = el}
             touched={this.state.email.touched}
             validate={this.validateEmail}
             update={this.updateEmail}
-            hint='*' />
+            hint={<sup>*</sup>} />
           <AccountInput
             form={form}
+            id='password'
             type='password'
             touched={this.state.password.touched}
             validate={this.validatePassword}
             update={this.updatePassword}
-            hint='*' />
+            hint={<sup>*</sup>} />
           <button
+            className='lg-btn lg-btn-light mt-1'
             type='submit'
             form={form}
             onClick={(e) => { this.handleSubmit(e) }}

@@ -1,0 +1,27 @@
+.range-to,
+.selector-project,
+.selected .form-control,
+.selected {
+  font-family: var(--body-font);
+}
+
+.selected li {
+  margin-top: 0.5rem;
+}
+
+.range-to {
+  margin: auto;
+}
+
+.selected .form-control,
+.selector-project {
+  width: 5.7rem;
+}
+
+.selector-project {
+  border: 1px solid lightgray;
+  margin: 2px;
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+}

@@ -4,9 +4,10 @@ import './Login.css';
 
 class Login extends Component {
   handleLoginSuccess = () => {
-    const { location, history } = this.props
-    const destination = (location.state || {}).from || '/'
-    history.push(destination)
+    const { location, history } = this.props;
+    const destination = (location.state || {}).from || '/';
+    history.push(destination);
+    this.forceUpdate()
   }
 
   render() {

@@ -5,23 +5,23 @@ import './AccountInput.css';
 
 class AccountInput extends Component {
   render() {
-    let inputLabel = this.props.type.replace(/-|_/g, ' ');
+    let inputLabel = this.props.id.replace(/-|_/g, ' ');
     inputLabel = inputLabel.charAt(0).toUpperCase() + inputLabel.slice(1) + ':';
 
     return (
-      <fieldset form={this.props.form} name={this.props.type}>
-        <label htmlFor={this.props.type}>{inputLabel}</label>
-        <label htmlFor={this.props.type} className='hint'>{this.props.hint}</label>
+      <fieldset className='account-input' form={this.props.form} name={this.props.id}>
+        <label htmlFor={this.props.id} className='input-label'>{inputLabel}</label>
+        <label htmlFor={this.props.id} className='hint'>{this.props.hint}</label>
         <input
           type={this.props.type}
-          id={this.props.type}
-          name={this.props.type}
+          id={this.props.id}
+          name={this.props.id}
           ref={this.props.inputRef || null}
           aria-required='true'
-          aria-describedby={this.props.type + '-error-message'}
+          aria-describedby={this.props.id + '-error-message'}
           aria-invalid={!!this.props.validate()}
           onChange={(e) => this.props.update(e.target.value)} />
-        {this.props.touched && <ValidationError id={this.props.type + '-error-message'} errorFor={this.props.type} message={this.props.validate()} />}
+        {this.props.touched && <ValidationError id={this.props.id + '-error-message'} errorFor={this.props.id} message={this.props.validate()} />}
       </fieldset>
     );
   };
@@ -44,7 +44,10 @@ AccountInput.propTypes = {
   validate: PropTypes.func.isRequired,
   update: PropTypes.func.isRequired,
   inputRef: PropTypes.func,
-  hint: PropTypes.string
+  hint: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
+  ])
 }
 
 export default AccountInput;

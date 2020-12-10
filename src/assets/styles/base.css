@@ -1,16 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Do+Hyeon&family=Abel&display=swap");
 
 :root {
   --color-black: black;
   --color-white: white;
-  --title-font: 'Lora', serif;
-  --timestamp-font:  'Montserrat', sans-s;
+  --title-font: "Lora", serif;
+  --timestamp-font: "Abel", sans-serif;
+  --body-font: "Lora", serif;
+  --action-font: "Abel", sans-serif;
+  --note-font: "Abel", sans-serif;
 }
 
 .lg-title {
   color: rgb(2, 52, 110);
   font-family: var(--title-font);
   font-size: 2rem;
+}
+
+.lg-project-title {
+  color: var(--color-black);
+  font-family: var(--title-font);
+  font-size: 1.5rem;
 }
 
 input {
@@ -26,19 +35,38 @@ input:focus {
   background: var(--color-white);
   border: 1px solid lightgray;
   padding: 2rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
+}
+
+.account-form {
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.account-form h3 {
+  font-size: 1.5rem;
 }
 
 .lg-btn {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 10px;
+  font-family: "Abel", sans-serif;
 }
 
 .lg-btn-light {
+  border: 1px solid black;
   background: var(--color-white);
   color: var(--color-black);
+}
+
+.lg-btn-light:disabled {
+  border-color: gray;
+  color: gray;
 }
 
 .lg-btn-success {
@@ -48,6 +76,26 @@ input:focus {
 
 .lg-btn-success:disabled {
   background: rgb(117, 143, 117);
+}
+
+.lg-btn-reset {
+  background: red;
+}
+
+.lg-btn-reset:disabled {
+  color: white;
+  background: rgb(153, 119, 119);
+}
+
+.form-status,
+.note,
+.hint,
+.validation-error {
+  font-family: var(--note-font);
+}
+
+.hint {
+  color: red;
 }
 
 .lg-text-left {
@@ -68,4 +116,34 @@ input:focus {
 
 .mt-1 {
   margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  border: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: lightgray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
 }

@@ -10,16 +10,16 @@ class LogList extends Component {
   }
 
   render() {
-    const options = this.props.logs.map(log =>
+    const options = this.props.logs.map((log) =>
       <option key={log.id} value={log.id}>
         {formatLog(log.start_time, log.end_time, log.format)}
       </option>
     );
 
     return (
-      <section className='log-list lg-card'>
+      <section className='log-list'>
         <h3 className='lg-title'>Logs</h3>
-        <form action='' id='logs-select-form' className='log-list-form'>
+        <form action='' id='logs-select-form' className='log-list-form mt-1'>
           {/* only accepts option or optgroup */}
           <select
             id='logs-list-select'
@@ -32,7 +32,8 @@ class LogList extends Component {
             {options}
           </select>
         </form>
-        <aside className='note'>Logs are automatically updated to their project.</aside>
+        <aside className='note mt-2'>Select logs to format them. The original time is preserved.</aside>
+        <aside className='note'>Try 01:01 to get the original.</aside>
       </section >
     );
   }

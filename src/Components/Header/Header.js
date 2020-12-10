@@ -1,55 +1,66 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import TokenService from '../../services/token-service';
 import IdleService from '../../services/idle-service';
 import './Header.css';
-import userPic from '../../assets/images/user.png'
 
 class Header extends Component {
   handleLogoutClick = () => {
-    TokenService.clearAuthToken()
+    TokenService.clearAuthToken();
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
-    TokenService.clearCallbackBeforeExpiry()
-    IdleService.unRegisterIdleResets()
+    TokenService.clearCallbackBeforeExpiry();
+    IdleService.unRegisterIdleResets();
+    window.location.reload();
   }
 
-  renderMainHeader = (view) => {
+  renderMainHeader = () => {
     return (
-      <header className='header group-row'>
+      <header>
+        <div className='title-container'>
+          <h1>Logger</h1>
+        </div>
         <nav>
-          <ul className='main-nav'>
-            <li>
-              <NavLink exact={true} to='/' activeClassName='active'>Log</NavLink>
-            </li>
-            <li className='view-page-link'>
-              <NavLink to='/view' activeClassName='active'>View</NavLink>
-            </li>
+          <ul>
+            <div className='main-link-container'>
+              <li className='main-link'>
+                <NavLink exact={true} to='/' activeClassName='active'>Log</NavLink>
+              </li>
+              <li className='main-link'>
+                <NavLink to='/view' activeClassName='active'>View</NavLink>
+              </li>
+            </div>
+            <div className='right-link-container'>
+              <li>
+                <NavLink onClick={this.handleLogoutClick} to='/'>Logout</NavLink>
+              </li>
+              <li>
+                <NavLink to='/settings'>Settings</NavLink>
+              </li>
+            </div>
           </ul>
         </nav>
-        <img className='user-pic' src={userPic} alt="A link to the user's account settings." />
-        <Link onClick={this.handleLogoutClick} to='/'>
-          Logout
-        </Link>
-        <Link to='/settings'>
-          Settings
-        </Link>
       </header>
     );
   }
 
   renderOverviewHeader = () => {
     return (
-      <header className='header group-row'>
-        <Link to='/overview'><h1>Logo</h1></Link>
+      <header>
+        <div className='title-container'>
+          <h1>
+            <Link to='/overview'>Logger</Link>
+          </h1>
+        </div>
         <nav>
           <ul>
-            <li>
-              <Link to='/sign-up'>Sign up</Link>
-            </li>
-            <li>
-              <Link to='/login'>Log in</Link>
-            </li>
+            <div className='right-link-container'>
+              <li>
+                <NavLink to='/sign-up'>Sign up</NavLink>
+              </li>
+              <li>
+                <NavLink to='/login'>Log in</NavLink>
+              </li>
+            </div>
           </ul>
         </nav>
       </header>
@@ -57,17 +68,10 @@ class Header extends Component {
   }
 
   render() {
-    if (TokenService.hasAuthToken()) return this.renderMainHeader();
-    return this.renderOverviewHeader();
+    return TokenService.hasAuthToken()
+      ? this.renderMainHeader()
+      : this.renderOverviewHeader();
   }
 }
-
-Header.defaultProps = {
-  view: false
-};
-
-Header.propTypes = {
-  view: PropTypes.bool
-};
 
 export default Header;

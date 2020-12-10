@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import './Overview.css';
 
 class Overview extends Component {
@@ -23,4 +22,4 @@ class Overview extends Component {
   }
 }
 
-export default withRouter(Overview);
+export default Overview;

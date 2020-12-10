@@ -5,10 +5,12 @@
 .log-button {
   border: none;
   color: white;
+  font-family: var(--body-font);
   font-size: 2rem;
-  border-radius: 15px;
   padding: 2rem 4rem;
-  margin: 12px auto 40px auto;
+  margin: 2.2rem auto 3.2rem auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .log-button-end {
@@ -17,4 +19,8 @@
 
 .log-button-start {
   background-color: green;
+}
+
+input.log-button:active {
+  box-shadow: none;
 }

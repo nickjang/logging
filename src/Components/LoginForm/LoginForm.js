@@ -37,7 +37,7 @@ class LoginForm extends Component {
     if (email.length < 5) return 'Please enter a valid email.';
     return;
   }
-  
+
   validatePassword = () => {
     const password = this.state.password.value.trim();
     if (!password) return 'Password cannot be empty.';
@@ -46,22 +46,25 @@ class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.setState({ error: null })
+    this.setState({ error: '' })
     AuthApiService.postLogin({
       email: this.state.email.value,
       password: this.state.password.value,
     })
       .then(res => {
-        this.setState({
-          email: {
-            value: '',
-            touched: false
+        this.setState(
+          {
+            email: {
+              value: '',
+              touched: false
+            },
+            password: {
+              value: '',
+              touched: false
+            }
           },
-          password: {
-            value: '',
-            touched: false
-          }
-        }, this.props.onSuccess())
+          () => this.props.onSuccess()
+        );
       })
       .catch(res => {
         this.setState({ error: res.message || res.error })
@@ -76,27 +79,29 @@ class LoginForm extends Component {
     const title = 'Log In';
     const form = 'login-form';
     return (
-      <article>
-        <h2>Welcome to the logging app!</h2>
-        <h3>{title}</h3>
+      <article className='account-form'>
+        <h2 className='lg-title'>{title}</h2>
         <output form={form} className='form-status'>{this.state.error || (this.state.loading && 'Loading...')}</output>
         <form action='' id={form}>
           <AccountInput
             form='account-settings-form'
+            id='email'
             type='email'
             inputRef={el => this.emailRef = el}
             touched={this.state.email.touched}
             validate={this.validateEmail}
             update={this.updateEmail}
-            hint='*' />
+            hint={<sup>*</sup>} />
           <AccountInput
             form={form}
+            id='password'
             type='password'
             touched={this.state.password.touched}
             validate={this.validatePassword}
             update={this.updatePassword}
-            hint='*' />
+            hint={<sup>*</sup>} />
           <button
+            className='lg-btn lg-btn-light mt-1'
             type='submit'
             form={form}
             onClick={(e) => { this.handleSubmit(e) }}

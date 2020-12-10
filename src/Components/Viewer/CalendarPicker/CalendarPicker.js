@@ -15,10 +15,10 @@ class CalendarPicker extends Component {
 
       if (result === 0)
         return true;
-      else if (result > 0 ) // search right half
+      else if (result > 0) // search right half
         return this.binarySearch(list, toMatch, compareFunc, mid + 1, r)
       else // search left half
-        return this.binarySearch(list, toMatch, compareFunc, l, mid -1);
+        return this.binarySearch(list, toMatch, compareFunc, l, mid - 1);
     } else { // element is not in array (no more elements to search between)
       return false;
     }
@@ -43,17 +43,11 @@ class CalendarPicker extends Component {
       0,
       this.context.dayRanges[this.props.projectId].length - 1
     );
-    // this.context.dayRanges[this.props.projectId].forEach(range => {
-    //   if (current.isSame(range[0], type) || current.isSame(range[1], type))
-    //     isValid = true;
-    // })
-    // return isValid;
   }
 
   validDay = (current) => {
     // callback function compares date to dates range
     const compareFunc = (current, range) => {
-      console.log(current.format("YYY-MM-DDTHH:mm:ss.SSSSZ"), range[0].format("YYY-MM-DDTHH:mm:ss.SSSSZ"), range[1].format("YYY-MM-DDTHH:mm:ss.SSSSZ"))
       if (current.isBetween(range[0], range[1], undefined, '[]'))
         return 0;
       else if (current.isBefore(range[0], 'day'))
@@ -70,12 +64,26 @@ class CalendarPicker extends Component {
       0,
       this.context.dayRanges[this.props.projectId].length - 1
     );
-    // let isValid = false;
-    // this.context.dayRanges[this.props.projectId].forEach(range => {
-    //   if (current.isBetween(range[0], range[1], undefined, '[)'))
-    //     isValid = true;
-    // })
-    // return isValid;
+  }
+
+  handleChange = (datetime) => {
+    try {
+      if (typeof datetime === 'string' ) {
+        datetime = new Date(datetime);
+        if (isNaN(datetime.getTime())) return;
+      } else {
+        datetime = datetime.toDate();
+      }
+      
+      this.context.updateSelector(
+        this.props.projectId,
+        this.props.selectorId,
+        this.props.isStart,
+        !datetime ? null : datetime
+      );
+    } catch (e) {
+      return;
+    }
   }
 
   render() {
@@ -89,14 +97,7 @@ class CalendarPicker extends Component {
     return (
       <Datetime
         value={this.props.value}
-        onChange={(momentObj) =>
-          this.context.updateSelector(
-            this.props.projectId,
-            this.props.selectorId,
-            this.props.isStart,
-            !momentObj ? null : momentObj.toDate()
-          )
-        }
+        onChange={(datetime) => this.handleChange(datetime)}
         dateFormat={dateFormat}
         timeFormat={false}
         isValidDate={

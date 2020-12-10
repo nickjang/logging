@@ -18,7 +18,12 @@ class Selector extends Component {
   }
 
   renderEntireProject = () => {
-    return (<span>Entire project</span>);
+    return (
+      <span
+        className='selector-project'
+      > All logs
+      </span>
+    );
   };
 
   renderDate = () => {
@@ -31,21 +36,22 @@ class Selector extends Component {
           isStart={true}
           type={this.props.type}
           value={this.props.calendar.value} />
-        <span>to</span>
+        <span className='range-to ml-1 mr-1'>to</span>
         {
           !this.props.endRange.added
             ? <input
-                type='button'
-                value='+'
-                aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
-                onClick={(e) => this.handleAddRange(e)} />
+              className='lg-btn lg-btn-light'
+              type='button'
+              value='+'
+              aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
+              onClick={(e) => this.handleAddRange(e)} />
             : <CalendarPicker
-                key='endRange'
-                projectId={this.props.projectId}
-                selectorId={this.props.id}
-                isStart={false}
-                type={this.props.type}
-                value={this.props.endRange.value} />
+              key='endRange'
+              projectId={this.props.projectId}
+              selectorId={this.props.id}
+              isStart={false}
+              type={this.props.type}
+              value={this.props.endRange.value} />
         }
       </>
     );
@@ -60,6 +66,7 @@ class Selector extends Component {
             : this.renderDate()
         }
         <input
+          className='lg-btn lg-btn-reset ml-1'
           type='button'
           value='x'
           aria-label='Delete this selection'

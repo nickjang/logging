@@ -78,7 +78,7 @@ class Formatter extends Component {
         </output>
         <form action='' id='format-form' className='mt-1'>
           <fieldset form='format-form' name='format-time'>
-            <legend>To the nearest multiple of:</legend>
+            <legend>To the nearest multiple of</legend>
             <time>
               <input
                 type='number'
@@ -90,7 +90,7 @@ class Formatter extends Component {
                 placeholder='05'
                 onChange={(e) => this.updateMinute(e.target.value)} />
               <label htmlFor='format-minute'>(min)</label>
-              <span>:</span>
+              <span> : </span>
               <input
                 type='number'
                 id='format-second'
@@ -102,7 +102,6 @@ class Formatter extends Component {
                 onChange={(e) => this.updateSecond(e.target.value)} />
               <label htmlFor='format-second'>(sec)</label>
             </time>
-            {/* Deleting input applies no format */}
           </fieldset>
           <div className='lg-text-right mt-1'>
             <button

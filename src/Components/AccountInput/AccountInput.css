@@ -1,0 +1,15 @@
+.account-input {
+  font-family: var(--note-font);
+  border: 0;
+  text-align: right;
+}
+
+.account-input .input-label,
+.account-input .hint {
+  margin-right: 4px;
+}
+
+.account-input .validation-error {
+  display: block;
+  margin-left: 1rem;
+}

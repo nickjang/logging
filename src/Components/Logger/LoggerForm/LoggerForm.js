@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ProjectSelect from '../ProjectSelect/ProjectSelect';
 import LogButton from '../LogButton/LogButton';
 import './LoggerForm.css';

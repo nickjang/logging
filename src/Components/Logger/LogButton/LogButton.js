@@ -13,7 +13,7 @@ class LogButton extends Component {
 
   toggleLogButton = (e) => {
     e.preventDefault();
-    const loading = this.context.loggerStartTime ? 'Ending log ...' : 'Starting log ...';
+    const loading = '...';
     this.setState(
       {
         loading,
@@ -34,12 +34,17 @@ class LogButton extends Component {
     return (
       <>
         <output className='form-status log-button-status'>
-          {this.state.fetchError || this.state.loading}
-          </output>
+          {this.state.fetchError}
+        </output>
         <input
-          className={`log-button ${this.context.loggerStartTime ? 'log-button-end' : 'log-button-start'}`}
+          className={`
+            log-button 
+            ${this.context.loggerStartTime
+              ? 'log-button-end'
+              : 'log-button-start'}`}
           type='button'
-          value={this.context.loggerStartTime ? 'End' : 'Start'}
+          value={this.state.loading ||
+            (this.context.loggerStartTime ? 'End' : 'Start')}
           aria-label='Start or end a log.'
           onClick={(e) => this.toggleLogButton(e)}
           disabled={!this.context.currentProjectId} />

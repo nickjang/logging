@@ -61,13 +61,20 @@ const formatTimestamp = (ts, format) => {
 export function formatLog(start, end, format) {
   // adjust start and end to format
   start = formatTimestamp(start, format);
-  // if end is not yet logged, use empty string instead
-  if (!end) end = '';
-  else end = formatTimestamp(end, format);
 
-  start = start.format('MM-DD-YYYY h:mm:ss a');
-  if (end) end = end.format('MM-DD-YYYY h:mm:ss a');
-  // else, end is an empty string
+  // if end is not yet logged, use empty string instead
+  if (!end) {
+    end = '';
+  } else {
+    end = formatTimestamp(end, format);
+
+  //convert start and end to string
+    if (end.isSame(start, 'day'))
+      end = end.format('hh:mm:ss a');
+    else
+      end = end.format('MM/DD/YYYY hh:mm:ss a');
+  }
+  start = start.format('MM/DD/YYYY hh:mm:ss a');
   return `${start} - ${end}`;
 };
 

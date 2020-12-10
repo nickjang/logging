@@ -1,11 +1,31 @@
 .project-select {
   display: flex;
   flex-direction: column;
+  min-width: 20rem;
+  margin-top: 2rem;
 }
 
 .project-select h2,
 .project-select select {
   width: 100%;
+}
+
+.project-select select {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.project-select select,
+.project-select input {
+  font-family: var(--body-font);
+}
+
+.project-select button {
+  min-width: 4.5rem;
+}
+
+.select-default {
+  color: darkgray;
 }
 
 @media all and (min-width: 440px) {

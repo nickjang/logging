@@ -38,8 +38,10 @@ class ProjectPicker extends Component {
         });
 
     return (
-      <li>
-        <h3>{this.props.project.title}</h3>
+      <li className='project-picker'>
+        <h3 className='lg-project-title side-bar-project-title ml-1'>
+          {this.props.project.title}
+        </h3>
         <fieldset className='add-selector-group group-row'>
           {selectorTypes}
         </fieldset>
