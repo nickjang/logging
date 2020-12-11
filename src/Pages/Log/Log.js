@@ -229,7 +229,7 @@ class Log extends Component {
             if (projects[0])
               this.updateCurrentProject(projects[0].id);
           })
-          .catch(e => this.setState({ loading: '', error: e.message || e.error }));
+          .catch(e => this.setState({ loading: '', error: e.error }));
       }
     )
   }

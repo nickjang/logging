@@ -375,7 +375,7 @@ class View extends Component {
               loading: ''
             });
           })
-          .catch(e => this.setState({ loading: '', error: e.message || e.error }));
+          .catch(e => this.setState({ loading: '', error: e.error }));
       }
     )
   }

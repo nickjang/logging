@@ -75,16 +75,17 @@ const AuthApiService = {
         console.error(err)
       })
   },
-  updateUser({ email, password }) {
+  updateUser(email, password) {
     const body = {
       email: email ? email : '',
       password: password ? password : ''
     };
 
-    return fetch(`${config.API_ENDPOINT}/auth/users`, {
+    return fetch(`${config.API_ENDPOINT}/users`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',
+        'authorization': `Bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify(body),
     })
@@ -94,26 +95,28 @@ const AuthApiService = {
           : res.json()
       )
       .then(res => {
+        console.log('reached', res);
         TokenService.saveAuthToken(res.authToken)
         IdleService.regiserIdleTimerResets()
         TokenService.queueCallbackBeforeExpiry(() => {
           AuthApiService.postRefreshToken()
         })
-        console.log(res)
-        return res
+        console.log('res', res)
+        return res.user;
       })
   },
   deleteUser() {
-    return fetch(`${config.API_ENDPOINT}/auth/users`, {
+    return fetch(`${config.API_ENDPOINT}/users`, {
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json',
+      'authorization': `Bearer ${TokenService.getAuthToken()}`
       }
     })
       .then(res => {
         if (!res.ok) {
           return res.json().then(e => Promise.reject(e))
         } else {
+          TokenService.clearAuthToken()
           TokenService.clearCallbackBeforeExpiry()
           IdleService.unRegisterIdleResets()
           window.location.reload()

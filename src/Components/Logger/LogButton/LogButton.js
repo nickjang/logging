@@ -24,7 +24,7 @@ class LogButton extends Component {
           .then(() => this.setState({ loading: '', fetchError: '' }))
           .catch(e => this.setState({
             loading: '',
-            fetchError: e.message || e.error
+            fetchError: e.error
           }));
       }
     );

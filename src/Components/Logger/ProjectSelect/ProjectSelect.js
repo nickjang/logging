@@ -62,7 +62,7 @@ class ProjectSelect extends Component {
           .catch(e => {
             this.setState({
               loading: false,
-              fetchError: e.message || e.error
+              fetchError: e.error
             })
           }
           )

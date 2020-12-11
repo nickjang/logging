@@ -51,7 +51,7 @@ class SideBar extends Component {
       () => {
         fetchLogs()
           .then(() => this.setState({ loading: false }))
-          .catch(e => this.setState({ loading: false, error: e.message || e.error }));
+          .catch(e => this.setState({ loading: false, error: e.error }));
       }
     );
   }

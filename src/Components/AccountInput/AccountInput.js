@@ -10,21 +10,23 @@ class AccountInput extends Component {
 
     return (
       <fieldset className='account-input' form={this.props.form} name={this.props.id}>
-        <label
-          htmlFor={this.props.id}
-          className='input-label'
-        > {inputLabel}
-          <span htmlFor={this.props.id} className='hint'>{this.props.hint}</span>
-        </label>
-        <input
-          type={this.props.type}
-          id={this.props.id}
-          name={this.props.id}
-          ref={this.props.inputRef || null}
-          aria-required='true'
-          aria-describedby={this.props.id + '-error-message'}
-          aria-invalid={!!this.props.validate()}
-          onChange={(e) => this.props.update(e.target.value)} />
+        <div className='main-input'>
+          <label
+            htmlFor={this.props.id}
+            className='input-label'
+          > {inputLabel}
+            <span htmlFor={this.props.id} className='hint'>{this.props.hint}</span>
+          </label>
+          <input
+            type={this.props.type}
+            id={this.props.id}
+            name={this.props.id}
+            ref={this.props.inputRef || null}
+            aria-required='true'
+            aria-describedby={this.props.id + '-error-message'}
+            aria-invalid={!!this.props.validate()}
+            onChange={(e) => this.props.update(e.target.value)} />
+        </div>
         {this.props.touched && <ValidationError id={this.props.id + '-error-message'} errorFor={this.props.id} message={this.props.validate()} />}
       </fieldset>
     );

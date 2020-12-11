@@ -12,7 +12,8 @@ class Settings extends Component {
     },
     password: {
       value: '',
-      touched: false
+      touched: false,
+      updated: false
     },
     newEmail: {
       value: '',
@@ -72,9 +73,15 @@ class Settings extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    
+
     this.setState(
-      { error: '' },
+      {
+        error: '',
+        email: {
+          ...this.state.email,
+          updated: false
+        }
+      },
       () => {
         AuthApiService.updateUser(
           this.state.newEmail.value,
@@ -86,10 +93,13 @@ class Settings extends Component {
                 email: {
                   value: user.email,
                   touched: this.state.email.touched,
-                  updated: true
+                  updated: user.email !== this.state.email.value
+                },
+                password: {
+                  ...this.state.password,
+                  updated: !this.validatePassword(this.state.newPassword)
                 }
-              },
-              () => this.props.onUpdateSuccess()
+              }
             );
           })
           .catch(res => {
@@ -117,16 +127,19 @@ class Settings extends Component {
   }
 
   render() {
+    const updateMessage = (
+      `${this.state.email.updated ? `Updated email to ${this.state.email.value}.` : ''}
+      ${this.state.password.updated ? 'Updated password.' : ''}`
+    );
     return (
       <article className='account-form settings'>
         <h2 className='lg-title'>Settings</h2>
         <section>
           <h3 className='lg-title'>Account Settings</h3>
-          <output 
+          <output
             form='account-settings-form'
-            className={this.state.error ? 'fail-status' : ''}
-          > {this.state.error ||
-              (this.state.email.updated && `Updated email: ${this.state.email.value}`)}
+            className={`form-status ${this.state.error ? 'fail-status' : ''}`}
+          > {this.state.error || updateMessage}
           </output>
           <form id='account-settings-form'>
             <AccountInput

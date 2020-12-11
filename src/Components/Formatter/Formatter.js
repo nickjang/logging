@@ -65,7 +65,7 @@ class Formatter extends Component {
       },
       () => this.props.updateFormats(minutes, seconds)
         .then(this.setState({ loading: '' }))
-        .catch(e => this.setState({ loading: '', error: e.message || e.error }))
+        .catch(e => this.setState({ loading: '', error: e.error }))
     );
   }
 

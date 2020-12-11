@@ -1,13 +1,16 @@
 .account-input {
+  border: 0;
+}
+
+.main-input {
   display: flex;
   flex-direction: column;
   font-family: var(--note-font);
-  border: 0;
   text-align: right;
 }
 
 .account-input .input-label {
-  margin-right: 4px;
+  margin: auto 4px auto 0px;
 }
 
 .account-input .hint {
@@ -21,7 +24,7 @@
 
 
 @media all and (min-width: 345px) {
-  .account-input {
+  .main-input {
     flex-direction: row;
     justify-content: flex-end;
   }
