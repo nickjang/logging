@@ -6,7 +6,7 @@ import './SideBar.css';
 
 class SideBar extends Component {
   state = {
-    open: true,
+    open: false,
     loading: false,
     error: ''
   }
@@ -112,7 +112,7 @@ class SideBar extends Component {
               > {this.state.error || (this.state.loading && 'Getting logs...')}
               </output>
               <form action='' id='sidebar-form'>
-                <ul className='side-bar-projects mt-1'>
+                <ul className='sidebar-projects mt-1'>
                   {projects}
                 </ul>
               </form >

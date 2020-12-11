@@ -7,7 +7,7 @@ exports[`CalendarPicker component renders CalendarPicker by default 1`] = `
     closeOnClickOutside={true}
     closeOnSelect={false}
     closeOnTab={true}
-    dateFormat="YYYY"
+    dateFormat="MM/DD/YYYY"
     input={true}
     inputProps={Object {}}
     isValidDate={[Function]}
@@ -29,6 +29,7 @@ exports[`CalendarPicker component renders CalendarPicker by default 1`] = `
   <span
     className="short calendar-type"
   >
+    D
      :
   </span>
   <n
@@ -36,7 +37,7 @@ exports[`CalendarPicker component renders CalendarPicker by default 1`] = `
     closeOnClickOutside={true}
     closeOnSelect={false}
     closeOnTab={true}
-    dateFormat="YY"
+    dateFormat="DD"
     input={true}
     inputProps={Object {}}
     isValidDate={[Function]}

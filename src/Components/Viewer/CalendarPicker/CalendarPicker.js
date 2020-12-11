@@ -130,10 +130,10 @@ class CalendarPicker extends Component {
 }
 
 CalendarPicker.defaultProps = {
-  projectId: null,
+  projectId: -1,
   selectorId: '',
   isStart: true,
-  type: '',
+  type: 'days',
   value: null,
 }
 

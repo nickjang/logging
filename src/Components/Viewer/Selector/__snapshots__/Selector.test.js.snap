@@ -7,9 +7,9 @@ exports[`Selector component renders Selector by default 1`] = `
   <CalendarPicker
     isStart={true}
     key="calendar"
-    projectId={null}
+    projectId={-1}
     selectorId=""
-    type=""
+    type="days"
     value={null}
   />
   <span
@@ -18,7 +18,7 @@ exports[`Selector component renders Selector by default 1`] = `
     to
   </span>
   <input
-    aria-label="Make the selection a range by adding an ending "
+    aria-label="Make the selection a range by adding an ending days"
     className="lg-btn lg-btn-light"
     onClick={[Function]}
     type="button"

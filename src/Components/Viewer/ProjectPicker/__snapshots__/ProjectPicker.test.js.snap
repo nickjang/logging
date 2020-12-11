@@ -18,14 +18,14 @@ exports[`ProjectPicker component renders ProjectPicker by default 1`] = `
         buttonText="+ All logs"
         key="undefined-project"
         label="All logs from this project"
-        projectId={null}
+        projectId={-1}
         type="project"
       />
       <AddSelector
         buttonText="+ Year(s)"
         key="undefined-years"
         label="Make a selection for a year or year range"
-        projectId={null}
+        projectId={-1}
         type="years"
       />
     </div>
@@ -37,14 +37,14 @@ exports[`ProjectPicker component renders ProjectPicker by default 1`] = `
         buttonText="+ Month(s)"
         key="undefined-months"
         label="Make a selection for a month or month range"
-        projectId={null}
+        projectId={-1}
         type="months"
       />
       <AddSelector
         buttonText="+ Day(s)"
         key="undefined-days"
         label="Make a selection for a day or date range"
-        projectId={null}
+        projectId={-1}
         type="days"
       />
     </div>

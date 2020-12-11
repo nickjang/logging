@@ -17,6 +17,7 @@
 .project-select select,
 .project-select input {
   font-family: var(--body-font);
+  border: 1px solid #d3d3d3;
 }
 
 .project-select button {

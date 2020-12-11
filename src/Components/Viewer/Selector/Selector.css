@@ -19,6 +19,7 @@
 
 .selected .form-control {
   width: 1.25rem;
+  border: 1px solid #d3d3d3;
 }
 
 .full {

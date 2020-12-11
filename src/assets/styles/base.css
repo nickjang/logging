@@ -37,6 +37,19 @@ input {
   padding: 0.5rem;
 }
 
+input,
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select {
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+}
+
+
+
 input:focus {
   border: 1px solid var(--color-black);
 }
@@ -69,7 +82,7 @@ input:focus {
 }
 
 .lg-btn-light {
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
   background: var(--color-white);
   color: var(--color-black);
 }
@@ -93,7 +106,7 @@ input:focus {
 }
 
 .lg-btn-reset:disabled {
-  color: white;
+  color: var(--color-white);
   background: rgb(153, 119, 119);
 }
 

@@ -78,7 +78,7 @@ class Selector extends Component {
 
 Selector.defaultProps = {
   id: '',
-  type: '',
+  type: 'days',
   calendar: {
     value: null,
   },
@@ -86,7 +86,7 @@ Selector.defaultProps = {
     added: false,
     value: null,
   },
-  projectId: null
+  projectId: -1
 }
 
 Selector.propTypes = {

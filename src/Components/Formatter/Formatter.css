@@ -12,6 +12,7 @@
   font-family: var(--body-font);
   margin-right: 2px;
   width: 2.25rem;
+  border: 1px solid #d3d3d3;
 }
 
 .formatter time span {

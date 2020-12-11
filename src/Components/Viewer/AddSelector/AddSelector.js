@@ -27,7 +27,7 @@ AddSelector.defaultProps = {
   type: '',
   label: '',
   buttonText: '',
-  projectId: null,
+  projectId: -1,
 }
 
 AddSelector.propTypes = {

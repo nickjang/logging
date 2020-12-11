@@ -41,7 +41,7 @@ class Log extends Component {
    */
   getRunningLog = (projectId) => {
     const logToEnd = this.state.currentDayLogs.filter(log =>
-      !log.end_time && log.project_id == projectId
+      !log.end_time && String(log.project_id) === String(projectId)
     );
 
     if (logToEnd.length === 1) {
@@ -49,7 +49,9 @@ class Log extends Component {
     } else if (!logToEnd.length) {
       return null;
     } else if (logToEnd.length > 1) {
-      const project = this.state.projects.find(project => project.id == projectId);
+      const project = this.state.projects.find(project =>
+        String(project.id) === String(projectId)
+      );
       throw new Error(`More than one log is running for project, ${project.title}`);
     }
   }
@@ -59,7 +61,7 @@ class Log extends Component {
    */
   getProjectLogsIds = (projectId) => {
     return this.state.currentDayLogs
-      .filter(log => log.project_id == projectId)
+      .filter(log => String(log.project_id) === String(projectId))
       .map(log => log.id);
   }
 
@@ -123,7 +125,7 @@ class Log extends Component {
             }
           });
         });
-    // end a log
+      // end a log
     } else {
       return LoggingApiService.endProjectLog(this.state.logger.logId)
         .then(log => {

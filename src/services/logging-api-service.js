@@ -1,4 +1,3 @@
-import moment from 'moment';
 import TokenService from './token-service';
 import config from '../config';
 
