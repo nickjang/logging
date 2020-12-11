@@ -1,5 +1,15 @@
+.project-titles {
+  font-size: 1.25rem;
+  margin: 1.7rem auto;
+}
+
+.project-titles .project-title {
+  font-family: var(--title-font);
+}
+
 .project-titles .selector-title {
-  padding-left: 33px
+  padding-left: 33px;
+  font-family: var(--timestamp-font);
 }
 
 .project-title-instructions {

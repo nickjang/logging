@@ -10,6 +10,16 @@
   --note-font: "Abel", sans-serif;
 }
 
+.group-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.group-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .lg-title {
   color: rgb(2, 52, 110);
   font-family: var(--title-font);

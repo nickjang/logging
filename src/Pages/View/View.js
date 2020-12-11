@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 import ProjectTitles from '../../Components/Viewer/ProjectTitles/ProjectTitles';
 import Formatter from '../../Components/Formatter/Formatter';
-import Exporter from '../../Components/Viewer/Exporter/Exporter';
 import LogList from '../../Components/LogList/LogList';
 import SideBar from '../../Components/Viewer/SideBar/SideBar';
 import SelectorContext from '../../Context/SelectorContext';
