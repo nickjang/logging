@@ -16,10 +16,7 @@ import AuthApiService from '../services/auth-api-service';
 import IdleService from '../services/idle-service';
 import './App.css';
 import '../assets/styles/base.css'
-// no context or complex functionality because API
-// reuasability
-// add checkpoints
-// prebuilt components: React calendar/datepicker
+
 class App extends Component {
   state = {
     hasError: false
@@ -63,6 +60,7 @@ class App extends Component {
       stop the event listeners that auto logout (clear the token from storage)
     */
     IdleService.unRegisterIdleResets()
+
     /*
       and remove the refresh endpoint request
     */
@@ -88,7 +86,7 @@ class App extends Component {
       <>
         <Header />
         <main className='App' >
-          {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
+          {this.state.hasError && <p className='status'>There was an error! Oh no!</p>}
           <Switch>
             <PrivateRoute exact path='/' component={Log} />
             <PublicOnlyRoute path='/overview' component={Overview} />

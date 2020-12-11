@@ -22,6 +22,9 @@ class Log extends Component {
     error: ''
   }
 
+  /**
+   * Add a new project.
+   */
   addProject = (project) => {
     if (!project) throw new Error('Given invalid project.');
 
@@ -32,6 +35,10 @@ class Log extends Component {
     });
   }
 
+  /**
+   * In the given project, return a
+   * log if it is still running.
+   */
   getRunningLog = (projectId) => {
     const logToEnd = this.state.currentDayLogs.filter(log =>
       !log.end_time && log.project_id == projectId
@@ -47,20 +54,25 @@ class Log extends Component {
     }
   }
 
-  getProjectLogs = (projectId) => {
+  /**
+   * Get the log ids for the given project.
+   */
+  getProjectLogsIds = (projectId) => {
     return this.state.currentDayLogs
       .filter(log => log.project_id == projectId)
       .map(log => log.id);
   }
 
+  /**
+   * Update the project to log from.
+   */
   updateCurrentProject = (projectId) => {
     // check if project exists
     if (!this.state.projects.find(project => String(project.id) === String(projectId)))
       throw new Error('Could not find selected project.');
 
-    const currentProjectLogsIds = this.getProjectLogs(projectId); // ids of logs of newly selected project
+    const currentProjectLogsIds = this.getProjectLogsIds(projectId); // ids of logs of newly selected project
     let logger;
-
 
     // check if there is a log already running
     const runningLog = this.getRunningLog(projectId);
@@ -83,7 +95,11 @@ class Log extends Component {
     });
   }
 
+  /**
+   * Start or end a log.
+   */
   toggleLogger = () => {
+    // start a log
     if (!this.state.logger.start) {
       return LoggingApiService.postProjectLog(this.state.currentProjectId)
         .then(log => {
@@ -107,6 +123,7 @@ class Log extends Component {
             }
           });
         });
+    // end a log
     } else {
       return LoggingApiService.endProjectLog(this.state.logger.logId)
         .then(log => {
@@ -139,6 +156,9 @@ class Log extends Component {
     }
   }
 
+  /**
+   * Get the logs for the current project.
+   */
   getCurrentProjectLogs = () => {
     let logsToReturn = [];
     let idx1 = 0;
@@ -160,10 +180,17 @@ class Log extends Component {
     return logsToReturn;
   }
 
+  /**
+   * Update selected logs from list of logs
+   * displayed.
+   */
   updateLogListSelectedOptions = (ids) => {
     this.setState({ logListSelectedIds: ids });
   }
 
+  /**
+   * Update the formats of the selected logs.
+   */
   updateFormats = (minutes, seconds) => {
     return LoggingApiService.updateLogsWithFormat(
       this.state.logListSelectedIds,
@@ -191,6 +218,10 @@ class Log extends Component {
       });
   }
 
+  /**
+   * Get the user's projects and logs made 
+   * in the user's current day.
+   */
   componentWillMount() {
     this.setState(
       {

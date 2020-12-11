@@ -99,7 +99,7 @@ class CalendarPicker extends Component {
     return (
       <>
         <Datetime
-          className='full'
+          className={`full ${!this.props.isStart ? 'end-range' : ''}`}
           value={this.props.value}
           onChange={(datetime) => this.handleChange(datetime)}
           dateFormat={fullDateFormat}
@@ -114,7 +114,7 @@ class CalendarPicker extends Component {
             {this.props.type[0].toUpperCase()} : 
           </span>}
         <Datetime
-          className='short'
+          className={`short ${!this.props.isStart ? 'end-range' : ''}`}
           value={this.props.value}
           onChange={(datetime) => this.handleChange(datetime)}
           dateFormat={shortDateFormat}

@@ -74,6 +74,9 @@ class Settings extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
+    if (this.state.email.value === 'demo@demo.com')
+      return this.setState({ error: 'Cannot update demo account' });
+
     this.setState(
       {
         error: '',
@@ -111,6 +114,10 @@ class Settings extends Component {
 
   handleDeleteAccount = (e) => {
     e.preventDefault();
+
+    if (this.state.email.value === 'demo@demo.com')
+      return this.setState({ error: 'Cannot delete demo account' });
+
     this.setState(
       { error: '' },
       () => {

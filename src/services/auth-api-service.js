@@ -42,7 +42,6 @@ const AuthApiService = {
         TokenService.queueCallbackBeforeExpiry(() => {
           AuthApiService.postRefreshToken()
         })
-        window.location.reload()
         return res
       })
   },
@@ -95,13 +94,11 @@ const AuthApiService = {
           : res.json()
       )
       .then(res => {
-        console.log('reached', res);
         TokenService.saveAuthToken(res.authToken)
         IdleService.regiserIdleTimerResets()
         TokenService.queueCallbackBeforeExpiry(() => {
           AuthApiService.postRefreshToken()
         })
-        console.log('res', res)
         return res.user;
       })
   },

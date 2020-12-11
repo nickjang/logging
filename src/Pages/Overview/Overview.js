@@ -7,17 +7,21 @@ class Overview extends Component {
     this.props.history.push('/getting-started');
   }
 
-  render() {    
+  render() {
     return (
-      <div>
-        <article>
-          <h2>Welcome to the logging app!</h2>
-          <p>You can create logs by starting and stopping the clock.</p>
-          <p>View your logs by clicking on the View page at the top.</p>
-          <p>Highlight logs you want to adjust or export, also from the View page.</p>
-          <button onClick={(e) => { this.handleNext(e) }}>Next</button>
-        </article>
-      </div>
+      <article className='overview'>
+        <h2 className='lg-title'>Welcome to the logging app!</h2>
+        <div>
+          <p>You can create logs by pressing start or stop,</p>
+          <p>view your logs by clicking on the View tab at the top,</p>
+          <p>and highlight logs you want to adjust.</p>
+        </div>
+        <button
+          className='lg-btn lg-btn-light mt-2'
+          onClick={(e) => { this.handleNext(e) }}
+        > Next
+        </button>
+      </article>
     );
   }
 }

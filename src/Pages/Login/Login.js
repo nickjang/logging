@@ -7,7 +7,7 @@ class Login extends Component {
     const { location, history } = this.props;
     const destination = (location.state || {}).from || '/';
     history.push(destination);
-    this.forceUpdate()
+    window.location.reload();
   }
 
   render() {

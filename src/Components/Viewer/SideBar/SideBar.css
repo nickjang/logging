@@ -15,8 +15,8 @@
 
 .sidebar-main {
   width: fit-content;
-  margin: 1rem auto;
-  overflow: auto;
+  height: 100%;
+  padding-bottom: 300px;
 }
 
 .sidebar button.open-sidebar {

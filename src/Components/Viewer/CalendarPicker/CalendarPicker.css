@@ -1,0 +1,17 @@
+.rdtPicker {
+  left: -4rem;
+}
+
+.end-range .rdtPicker {
+  left: -9.7rem;
+}
+
+@media all and (min-width: 440px) {
+  .rdtPicker {
+    left: 0;
+  }
+
+  .end-range .rdtPicker {
+    left: -3rem;
+  }
+}

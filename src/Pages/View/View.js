@@ -149,9 +149,11 @@ class View extends Component {
    * ranges in MM-DD-YYYY format. 
    */
   formatSelector = (selector) => {
-    let start = selector.calendar.value;
-    let end = selector.endRange.value || new Date(selector.calendar.value);
+    let start = new Date(selector.calendar.value);
+    let end = selector.endRange.value || selector.calendar.value;
+    end = new Date(end);
 
+    // adjust to start and end of year/month/day
     if (selector.type === 'years') {
       start.setMonth('00');
       start.setDate('01');
@@ -164,7 +166,7 @@ class View extends Component {
       end.setDate('01')
     } else {
       end.setDate(end.getDate() + 1);
-    }
+    }  
     return [start, end];
   }
 
@@ -398,7 +400,7 @@ class View extends Component {
           <SideBar fetchLogs={this.fetchLogs} />
           <div className='view-wrapper'>
             <article className='view-main'>
-              <span 
+              <span
                 className={`status ${this.state.error ? 'fail-status' : ''}`}
               > {this.state.error || this.state.loading}
               </span>
