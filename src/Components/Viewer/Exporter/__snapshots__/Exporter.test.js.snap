@@ -5,14 +5,13 @@ exports[`Exporter component renders Exporter by default 1`] = `
   className="exporter lg-card"
 >
   <output
-    className="form-status"
+    className="form-status "
     form="export-form"
   />
   <div
     className="group-row"
     role="presentation"
   >
-     
     <h3
       className="lg-title"
       id="export-heading"

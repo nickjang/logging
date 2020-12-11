@@ -1,24 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Start component renders Start by default 1`] = `
-<div>
-  <section>
-    <p>
-      Create an account, or use the demo account.
-    </p>
-    <p>
-      With the demo account, you’ll be able to use the app’s features; however, logs made with the demo account won’t be saved to the server. You’ll also see demo logs already in your view page.
-    </p>
+<section
+  className="start"
+>
+  <h2
+    className="lg-title"
+  >
+    Create an account, or use the demo account.
+  </h2>
+  <p>
+    With the demo account, you’ll be able to use all the apps features using a shared public account.
+  </p>
+  <span
+    className="status "
+  />
+  <div>
     <button
+      className="lg-btn lg-btn-light mt-2 mr-1"
       onClick={[Function]}
     >
-      Sign Up
+       Sign Up
     </button>
     <button
+      className="lg-btn lg-btn-light mt-2"
       onClick={[Function]}
     >
-      Demo
+       Demo
     </button>
-  </section>
-</div>
+  </div>
+</section>
 `;

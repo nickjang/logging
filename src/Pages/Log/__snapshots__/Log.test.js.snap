@@ -17,8 +17,10 @@ exports[`Log component renders Log by default 1`] = `
     className="log-page"
   >
     <output
-      className="form-status"
+      className="form-status log-page-status 
+              "
     >
+       
       Loading projects...
     </output>
     <LoggerForm />

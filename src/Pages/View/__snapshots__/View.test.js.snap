@@ -28,8 +28,9 @@ exports[`View component renders View by default 1`] = `
         className="view-main"
       >
         <span
-          className="status"
+          className="status "
         >
+           
           Loading projects...
         </span>
         <ProjectTitles

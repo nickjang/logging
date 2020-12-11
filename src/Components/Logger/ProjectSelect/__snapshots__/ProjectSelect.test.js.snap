@@ -7,7 +7,7 @@ exports[`ProjectSelect component renders ProjectSelect by default 1`] = `
   name="project"
 >
   <output
-    className="form-status"
+    className="form-status "
   />
   <input
     aria-label="Enter a new project title:"

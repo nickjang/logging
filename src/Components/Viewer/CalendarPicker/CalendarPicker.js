@@ -111,7 +111,7 @@ class CalendarPicker extends Component {
         />
         {this.props.isStart &&
           <span className='short calendar-type'>
-            {this.props.type[0].toUpperCase()} : 
+            {this.props.type.charAt(0).toUpperCase()} : 
           </span>}
         <Datetime
           className={`short ${!this.props.isStart ? 'end-range' : ''}`}

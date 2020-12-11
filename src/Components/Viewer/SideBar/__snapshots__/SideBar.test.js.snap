@@ -38,16 +38,24 @@ exports[`SideBar component renders SideBar by default 1`] = `
          Clear selections
       </button>
       <output
-        className="form-status"
+        className="form-status "
         form="sidebar-form"
-      />
+      >
+         
+      </output>
       <form
         action=""
         id="sidebar-form"
       >
         <ul
           className="side-bar-projects mt-1"
-        />
+        >
+          <li
+            className="note"
+          >
+            No projects to make selections from
+          </li>
+        </ul>
       </form>
     </div>
   </div>

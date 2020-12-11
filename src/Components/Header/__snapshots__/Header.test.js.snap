@@ -2,17 +2,13 @@
 
 exports[`Header component renders Header by default 1`] = `
 <header>
-  <div
-    className="title-container"
-  >
-    <h1>
-      <Link
-        to="/overview"
-      >
-        Logger
-      </Link>
-    </h1>
-  </div>
+  <h1>
+    <Link
+      to="/overview"
+    >
+      Logger
+    </Link>
+  </h1>
   <nav>
     <ul>
       <div

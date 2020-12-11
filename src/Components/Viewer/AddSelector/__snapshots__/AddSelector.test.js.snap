@@ -3,7 +3,7 @@
 exports[`AddSelector component renders AddSelector by default 1`] = `
 <input
   aria-label=""
-  className="lg-btn lg-btn-light add-selector"
+  className="lg-btn lg-btn-light add-selector undefined"
   onClick={[Function]}
   type="button"
   value=""

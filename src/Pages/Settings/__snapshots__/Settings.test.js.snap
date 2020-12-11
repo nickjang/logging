@@ -16,8 +16,13 @@ exports[`Settings component renders Settings by default 1`] = `
       Account Settings
     </h3>
     <output
+      className="form-status "
       form="account-settings-form"
-    />
+    >
+       
+      
+      
+    </output>
     <form
       id="account-settings-form"
     >

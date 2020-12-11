@@ -10,9 +10,11 @@ exports[`Formatter component renders Formatter by default 1`] = `
     Format Logs
   </h3>
   <output
-    className="form-status"
+    className="form-status "
     form="format-form"
-  />
+  >
+     
+  </output>
   <form
     action=""
     className="mt-1"

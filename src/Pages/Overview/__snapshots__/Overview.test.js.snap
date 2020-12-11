@@ -1,25 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Overview component renders Overview by default 1`] = `
-<div>
-  <article>
-    <h2>
-      Welcome to the logging app!
-    </h2>
+<article
+  className="overview"
+>
+  <h2
+    className="lg-title"
+  >
+    Welcome to the logging app!
+  </h2>
+  <div>
     <p>
-      You can create logs by starting and stopping the clock.
+      You can create logs by pressing start or stop,
     </p>
     <p>
-      View your logs by clicking on the View page at the top.
+      view your logs by clicking on the View tab at the top,
     </p>
     <p>
-      Highlight logs you want to adjust or export, also from the View page.
+      and highlight logs you want to adjust.
     </p>
-    <button
-      onClick={[Function]}
-    >
-      Next
-    </button>
-  </article>
-</div>
+  </div>
+  <button
+    className="lg-btn lg-btn-light mt-2"
+    onClick={[Function]}
+  >
+     Next
+  </button>
+</article>
 `;

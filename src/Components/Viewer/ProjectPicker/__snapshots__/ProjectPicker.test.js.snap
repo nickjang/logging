@@ -8,36 +8,46 @@ exports[`ProjectPicker component renders ProjectPicker by default 1`] = `
     className="lg-project-title side-bar-project-title ml-1"
   />
   <fieldset
-    className="add-selector-group group-row"
+    className="add-selector-group"
   >
-    <AddSelector
-      buttonText="+ Entire project"
-      key="undefined-project"
-      label="Select the entire project"
-      projectId={null}
-      type="project"
-    />
-    <AddSelector
-      buttonText="+ Year(s)"
-      key="undefined-years"
-      label="Make a selection for a year or year range"
-      projectId={null}
-      type="years"
-    />
-    <AddSelector
-      buttonText="+ Month(s)"
-      key="undefined-months"
-      label="Make a selection for a month or month range"
-      projectId={null}
-      type="months"
-    />
-    <AddSelector
-      buttonText="+ Day(s)"
-      key="undefined-days"
-      label="Make a selection for a day or date range"
-      projectId={null}
-      type="days"
-    />
+    <div
+      className="selector-type-group"
+      key="0"
+    >
+      <AddSelector
+        buttonText="+ All logs"
+        key="undefined-project"
+        label="All logs from this project"
+        projectId={null}
+        type="project"
+      />
+      <AddSelector
+        buttonText="+ Year(s)"
+        key="undefined-years"
+        label="Make a selection for a year or year range"
+        projectId={null}
+        type="years"
+      />
+    </div>
+    <div
+      className="selector-type-group"
+      key="2"
+    >
+      <AddSelector
+        buttonText="+ Month(s)"
+        key="undefined-months"
+        label="Make a selection for a month or month range"
+        projectId={null}
+        type="months"
+      />
+      <AddSelector
+        buttonText="+ Day(s)"
+        key="undefined-days"
+        label="Make a selection for a day or date range"
+        projectId={null}
+        type="days"
+      />
+    </div>
   </fieldset>
   <ul
     className="selected"
