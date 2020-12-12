@@ -25,14 +25,12 @@ class Log extends Component {
   /**
    * Add a new project.
    */
-  addProject = (project) => {
+  addProject = async (project) => {
     if (!project) throw new Error('Given invalid project.');
 
     const projects = [...this.state.projects, project];
-    this.setState({
-      projects,
-      currentProjectId: project.id
-    });
+    await this.setState({ projects });
+    this.updateCurrentProject(project.id);
   }
 
   /**

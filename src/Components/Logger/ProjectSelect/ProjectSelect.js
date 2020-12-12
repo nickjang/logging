@@ -52,12 +52,14 @@ class ProjectSelect extends Component {
                 newProject: { new: false, value: '', touched: false },
                 loading: false
               },
-              this.context.addProject({
-                id: project.id,
-                title: project.title,
-                date_created: project.date_created
-              })
-            )
+              () => {
+                this.context.addProject({
+                  id: project.id,
+                  title: project.title,
+                  date_created: project.date_created
+                });
+              }
+            );
           })
           .catch(e => {
             this.setState({
