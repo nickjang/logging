@@ -19,13 +19,13 @@ This application was written using React, Node.js, and PostgreSQL.
 
 <img src="./src/assets/images/logger.gif" align="middle" alt="A live demo of using the logging application from creating a project, to logging, formatting, and viewing logs." width="575">
 
-A demo using the demo account → creating a project → using the logger → formatting -> viewing logs.
+A demo using the demo account → logger → formatting → viewing logs.
 
 ## Log
 
 You can create logs and projects, or view them with the [logger][site]! You'll need to create an account or use the demo account (a shared account) to start making logs. With your own account you can create projects to store logs in. With the demo account, you won't be able to make new projects or update account settings, but you can use the rest of the features.
 
-Try making your first log! Feel free to close the window while a log is running. It will keep running until you want to end it. You'll be able to make one log in a project at a time, but you can run logs in multiple projects simultaneously. When you've created some logs, the logs you've made for the current day will be shown below. You can format your logs by selecting them and entering a format. They are adjusted to the closest multiple of the minutes/seconds you enter (start of the hour, every 30 seconds, every 5 minutes...). View previous logs by clicking the view tab, opening the sidebar, and selecting which projects you want to view logs from or specific years, months, or days. The calendar will gray out areas you don't have logs.
+Try making your first log! Feel free to close the window while a log is running. It will keep running until you end it. You'll be able to make one log in a project at a time, but you can run logs in multiple projects simultaneously. When you've created some logs, the logs you've made for the current day will be shown below. You can format your logs by selecting them and entering a format. They adjust to the closest multiple of the minutes/seconds you enter (5 minutes → 0|5|10|15|20|25...minutes, 50 seconds → 0|50 seconds). View previous logs by clicking the view tab, opening the sidebar, and selecting which projects you want to view logs from or specific years, months, or days. The calendar will gray out areas you don't have logs.
 
 ## API
 
