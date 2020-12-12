@@ -17,7 +17,7 @@ This application was written using React, Node.js, and PostgreSQL.
 
 ## Demo
 
-<img src="./images/state-dinosaur-demo.gif" align="middle" alt="A live demo of using the logging application from creating a project, to logging, formatting, and viewing logs." width="575">
+<img src="./src/assets/images/logger.gif" align="middle" alt="A live demo of using the logging application from creating a project, to logging, formatting, and viewing logs." width="575">
 
 A demo using the demo account → creating a project → using the logger → formatting -> viewing logs.
 

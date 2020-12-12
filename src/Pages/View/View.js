@@ -325,7 +325,7 @@ class View extends Component {
         let selectedLogs = [...this.state.selectedLogs];
 
         selectedLogs = updateListWithUpdatedLogs(
-          selectedLogs, updatedLogs
+          selectedLogs, updatedLogs, false
         );
 
         this.setState({ selectedLogs });

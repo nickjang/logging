@@ -211,7 +211,7 @@ class Log extends Component {
         let currentDayLogs = [...this.state.currentDayLogs];
 
         currentDayLogs = updateListWithUpdatedLogs(
-          currentDayLogs, updatedLogs
+          currentDayLogs, updatedLogs, true
         );
 
         this.setState({ currentDayLogs });

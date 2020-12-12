@@ -78,7 +78,7 @@ export function formatLog(start, end, format) {
   return `${start} - ${end}`;
 };
 
-export function updateListWithUpdatedLogs(logList, updatedLogs) {
+export function updateListWithUpdatedLogs(logList, updatedLogs, isDescending) {
   let idx1 = 0;
   let idx2 = 0;
 
@@ -95,5 +95,6 @@ export function updateListWithUpdatedLogs(logList, updatedLogs) {
       idx2++;
     }
   }
+  if (!isDescending) logList.reverse();
   return logList;
 }
