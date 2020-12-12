@@ -9,6 +9,10 @@
   text-align: right;
 }
 
+.main-input input {
+  border: 1px solid var(--color-black);
+}
+
 .account-input .input-label {
   margin: auto 4px auto 0px;
 }
@@ -19,9 +23,9 @@
 
 .account-input .validation-error {
   display: block;
-  margin-left: 1rem;
+  margin: auto;
+  max-width: fit-content;
 }
-
 
 @media all and (min-width: 345px) {
   .main-input {

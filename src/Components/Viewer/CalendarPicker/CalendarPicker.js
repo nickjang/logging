@@ -91,6 +91,13 @@ class CalendarPicker extends Component {
     // remove the 's' because moment uses 'month' and 'year'
     type = type.substring(0, type.length - 1);
 
+    // give the input a label
+    const inputProps = {
+      'aria-label': `Select a ${type}${!this.props.isStart
+        ? ' to give an end range'
+        : ''}.`
+    };
+
     const fullDateFormat = (type === 'day') ? 'MM/DD/YYYY'
       : (type === 'month') ? 'MM/YYYY' : 'YYYY';
     const shortDateFormat = (type === 'day') ? 'DD'
@@ -99,6 +106,7 @@ class CalendarPicker extends Component {
     return (
       <>
         <Datetime
+          inputProps={inputProps}
           className={`full ${!this.props.isStart ? 'end-range' : ''}`}
           value={this.props.value}
           onChange={(datetime) => this.handleChange(datetime)}
@@ -109,11 +117,14 @@ class CalendarPicker extends Component {
               ? this.validDay
               : (current) => this.validMonthOrYear(current, type)}
         />
-        {this.props.isStart &&
+        {
+          this.props.isStart &&
           <span className='short calendar-type'>
-            {this.props.type.charAt(0).toUpperCase()} : 
-          </span>}
+            {this.props.type.charAt(0).toUpperCase()} :
+          </span>
+        }
         <Datetime
+          inputProps={inputProps}
           className={`short ${!this.props.isStart ? 'end-range' : ''}`}
           value={this.props.value}
           onChange={(datetime) => this.handleChange(datetime)}

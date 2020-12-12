@@ -8,6 +8,8 @@
   --body-font: "Lora", serif;
   --action-font: "Abel", sans-serif;
   --note-font: "Abel", sans-serif;
+  --button-drop-shadow: 4px 4px 8px -3px rgba(0, 0, 0, 0.2),
+    3px 3px 2px -2px rgba(0, 0, 0, 0.15);
 }
 
 .group-row {
@@ -47,8 +49,6 @@ select {
   -webkit-appearance: menulist;
   -moz-appearance: menulist;
 }
-
-
 
 input:focus {
   border: 1px solid var(--color-black);
@@ -92,6 +92,10 @@ input:focus {
   color: gray;
 }
 
+.lg-btn-light:hover:enabled {
+  box-shadow: var(--button-drop-shadow);
+}
+
 .lg-btn-success {
   background: green;
   color: var(--color-white);
@@ -101,6 +105,10 @@ input:focus {
   background: rgb(117, 143, 117);
 }
 
+.lg-btn-success:hover:enabled {
+  box-shadow: var(--button-drop-shadow);
+}
+
 .lg-btn-reset {
   background: red;
 }
@@ -108,6 +116,10 @@ input:focus {
 .lg-btn-reset:disabled {
   color: var(--color-white);
   background: rgb(153, 119, 119);
+}
+
+.lg-btn-reset:hover:enabled {
+  box-shadow: var(--button-drop-shadow);
 }
 
 .form-status,

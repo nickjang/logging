@@ -5,6 +5,7 @@ exports[`SideBar component renders SideBar by default 1`] = `
   className="sidebar false"
 >
   <button
+    aria-label="Close the sidebar"
     className="open-sidebar"
     onClick={[Function]}
   >

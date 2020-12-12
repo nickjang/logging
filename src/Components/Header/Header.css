@@ -11,7 +11,7 @@ header .right-link-container {
 header {
   flex-direction: column;
   height: fit-content;
-  background-color: black;
+  background-color: var(--color-black);
 }
 
 header h1 {

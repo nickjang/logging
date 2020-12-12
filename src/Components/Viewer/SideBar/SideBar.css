@@ -29,8 +29,8 @@
   font-size: 14px;
   min-width: 30px;
   border: 0;
-  color: darkgray;
-  background-color: white;
+  color: var(--color-black);
+  background-color: rgb(110, 170, 255);
 }
 
 .sidebar .form-status {

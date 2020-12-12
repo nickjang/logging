@@ -43,7 +43,7 @@ class Selector extends Component {
               className='lg-btn lg-btn-light'
               type='button'
               value='+'
-              aria-label={`Make the selection a range by adding an ending ${this.props.type}`}
+              aria-label={`Make the selection a range by adding an end range.`}
               onClick={(e) => this.handleAddRange(e)} />
             : <CalendarPicker
               key='endRange'

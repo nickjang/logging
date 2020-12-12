@@ -18,7 +18,7 @@ exports[`Selector component renders Selector by default 1`] = `
     to
   </span>
   <input
-    aria-label="Make the selection a range by adding an ending days"
+    aria-label="Make the selection a range by adding an end range."
     className="lg-btn lg-btn-light"
     onClick={[Function]}
     type="button"

@@ -100,7 +100,7 @@ class SideBar extends Component {
               > View logs
               </button>
               <button
-                className='sidebar-top-btn lg-btn'
+                className='sidebar-top-btn lg-btn lg-btn-light'
                 type='reset'
                 form='sidebar-form'
                 onClick={(e) => { this.handleReset(e) }}
@@ -120,6 +120,7 @@ class SideBar extends Component {
           </div>}
         <button
           className='open-sidebar'
+          aria-label={this.state.open ? 'Open the sidebar' : 'Close the sidebar'}
           onClick={(e) => this.handleToggleOpen(e, this.state.open)}
         > {this.state.open ? '<' : '>'}
         </button>

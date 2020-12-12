@@ -29,6 +29,7 @@ exports[`Formatter component renders Formatter by default 1`] = `
       </legend>
       <time>
         <input
+          aria-label="Enter minutes to format by"
           id="format-minute"
           max={59}
           min={0}
@@ -47,6 +48,7 @@ exports[`Formatter component renders Formatter by default 1`] = `
            : 
         </span>
         <input
+          aria-label="Enter seconds to format by"
           id="format-second"
           max={59}
           min={0}

@@ -28,7 +28,7 @@
 
 .formatter fieldset {
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
   padding: 12px 20px 20px 20px;
 }
 
@@ -50,6 +50,6 @@
 @media all and (min-width: 325px) {
   .formatter time span {
     display: inline;
-    color: black;
+    color: var(--color-black);
   }
 }

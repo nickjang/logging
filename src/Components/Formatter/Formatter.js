@@ -90,6 +90,7 @@ class Formatter extends Component {
                 min={0}
                 max={59}
                 placeholder='05'
+                aria-label='Enter minutes to format by'
                 onChange={(e) => this.updateMinute(e.target.value)} />
               <label htmlFor='format-minute'>(min)</label>
               <span> : </span>
@@ -101,6 +102,7 @@ class Formatter extends Component {
                 min={0}
                 max={59}
                 placeholder='00'
+                aria-label='Enter seconds to format by'
                 onChange={(e) => this.updateSecond(e.target.value)} />
               <label htmlFor='format-second'>(sec)</label>
             </time>

@@ -9,7 +9,11 @@ exports[`CalendarPicker component renders CalendarPicker by default 1`] = `
     closeOnTab={true}
     dateFormat="MM/DD/YYYY"
     input={true}
-    inputProps={Object {}}
+    inputProps={
+      Object {
+        "aria-label": "Select a day.",
+      }
+    }
     isValidDate={[Function]}
     onBeforeNavigate={[Function]}
     onCalendarClose={[Function]}
@@ -39,7 +43,11 @@ exports[`CalendarPicker component renders CalendarPicker by default 1`] = `
     closeOnTab={true}
     dateFormat="DD"
     input={true}
-    inputProps={Object {}}
+    inputProps={
+      Object {
+        "aria-label": "Select a day.",
+      }
+    }
     isValidDate={[Function]}
     onBeforeNavigate={[Function]}
     onCalendarClose={[Function]}
