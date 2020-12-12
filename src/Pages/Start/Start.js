@@ -42,8 +42,8 @@ class Start extends Component {
     return (
       <section className='start'>
         <h2 className='lg-title'>Create an account, or use the demo account.</h2>
-        <p>You'll need to create an account or use the demo account (a shared account) to start making logs. 
-          With your own account you can create projects to store logs in. With the demo account, you won't be 
+        <p>You'll need to create an account or use the demo account (a shared account) to start making logs.</p>
+        <p>With your own account you can create projects to store logs in. With the demo account, you won't be 
           able to make new projects or update account settings, but you can use the rest of the features.</p>
         <span className={`status ${this.state.error ? 'fail-status' : ''}`}>
           {this.state.error || (this.state.loading && 'Loading...')}

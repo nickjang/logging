@@ -10,7 +10,10 @@ exports[`Start component renders Start by default 1`] = `
     Create an account, or use the demo account.
   </h2>
   <p>
-    With the demo account, you’ll be able to use all the apps features using a shared public account.
+    You'll need to create an account or use the demo account (a shared account) to start making logs.
+  </p>
+  <p>
+    With your own account you can create projects to store logs in. With the demo account, you won't be able to make new projects or update account settings, but you can use the rest of the features.
   </p>
   <span
     className="status "
