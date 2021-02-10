@@ -1,6 +1,6 @@
 # Logger
 
-An application for logging start and stop times. Organize logs into projects and view past logs. Logs are shown in you're time zone (but they are stored in UTC).
+An application for logging start and stop times. Organize logs into projects and view past logs. Logs are shown in your time zone (but they are stored in UTC).
 
 This application was written using React, Node.js, and PostgreSQL.
 

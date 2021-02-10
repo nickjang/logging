@@ -1,15 +1,19 @@
 .log-list {
   background-color: white;
   width: fit-content;
-  margin: 60px auto 40px auto;
+  margin: 2rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .log-list h3 {
-  margin: 0px;
+  margin: 2rem 0px;
   text-align: center;
+}
+
+.log-list p {
+  margin: 0;
 }
 
 .log-list .log-list-form select {

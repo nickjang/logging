@@ -18,6 +18,8 @@ class LogList extends Component {
 
     return (
       <section className='log-list'>
+        <p className='note'>Select logs to format them. The original time is preserved.</p>
+        <p className='note'>Try 01:01 to get the original.</p>
         <h3 className='lg-title'>Logs</h3>
         <form action='' id='logs-select-form' className='log-list-form mt-1'>
           <select
@@ -31,8 +33,6 @@ class LogList extends Component {
             {options}
           </select>
         </form>
-        <aside className='note mt-2'>Select logs to format them. The original time is preserved.</aside>
-        <aside className='note'>Try 01:01 to get the original.</aside>
       </section >
     );
   }
