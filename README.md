@@ -45,7 +45,6 @@ Base URL: `https://tranquil-chamber-25203.herokuapp.com/api`
 			- Update log formats, given log ids and the format.
 		- `/logs/:log_id?part=end-time`
 			- End a log, given an end time.
-
 - `/projects` Endpoint
 	- GET
 		- `/projects`
@@ -90,5 +89,5 @@ Thank you to [Thinkful](https://thinkful.com/), where this capstone was complete
 
 ## Links
 
-* [The logging application][site]
+* [The Logger application][site]
 * [Logger's server GitHub page](https://github.com/nickjang/logging-api)
